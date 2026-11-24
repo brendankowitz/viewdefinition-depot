@@ -10,6 +10,8 @@ SQL on FHIR ViewDefinition samples for exporting selected FHIR data to target-sp
 
 The pack uses synthetic [fixtures](examples/r4/fabric-silver/input/) and selected-field [contracts](contracts/fabric-hds/1.4.0/).
 
+Separate [Fabric Silver parity pilot](docs/packs/fabric-silver-parity.md): **0/146 verified**.
+
 ## Quick start
 
 From the repository root, install .NET 10 SDK and Python with pip. The local tool manifest pins Ignixa SQL on FHIR CLI 0.6.82; the requirements file pins DuckDB 2.0.1.

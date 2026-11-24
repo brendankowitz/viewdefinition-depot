@@ -1,23 +1,57 @@
-# Capturing an independent Fabric Silver reference
+# Fabric Silver R4 parity pilot
 
 **FHIR R4 4.0.1 · HDS v1.4.0 · 0/146 resources verified.** Patient and
-Observation have deployment schemas, not verified Silver rows. No designated
-disposable synthetic Fabric target or independent row capture is available;
-the local runtime lacks PySpark, Delta and Fabric `notebookutils`. This pack
-contains a local pilot writer and an independent offline comparator. The
+Observation are `implemented-unverified`: the recursive schema digests of
+the writer's published Parquet match the deployed Delta schemas (51 Patient
+fields and 89 Observation fields). The shaping and merge rules are
+source-derived and unverified against a capture. The other 144 resources
+are `not-implemented`. The [catalog](../../contracts/fabric-hds/1.4.0/parity/catalog.json)
+maps all concrete R4 resources to deployed Silver tables. The
 [flat starter](fabric-silver.md) and its Ignixa pin are unchanged.
+
+A resource counts as `verified` only when its contract and matching
+generated view exist, the released CLI exports the pinned synthetic inputs
+losslessly, and the writer's complete recursive schema and keyed rows match
+the independent HDS reference after **every** manifest event, including
+clock relationships. The test derives the count from those gates; a status
+label, a schema match alone, or a development CLI run is not verification.
+
+### Blockers and pending decisions
+
+- **Independent HDS capture:** No disposable synthetic Fabric/HDS runtime is
+  available. The local environment lacks PySpark, Delta and Fabric
+  `notebookutils`; the release artifacts provide schemas, not observed rows.
+- **Released extraction:** The latest released Ignixa CLI, `0.6.82`, drops
+  complex collection values. [Ignixa PR #549](https://github.com/brendankowitz/ignixa-fhir/pull/549)
+  was merged on 2026-11-24 (`400845482a83f35c77fa7c644bced4f68125f080`),
+  but is unreleased. The pin stays unchanged.
+- **Licensing:** Redistribution terms for HDS-derived contracts are
+  unresolved; resolve them before expanding or distributing derived material.
+- **Runtime assumptions:** Confirm exact Spark/Jackson JSON text and UTC
+  session behavior against the stock runtime, including `_string` columns
+  and timestamp handling.
+- **File lineage:** The writer records the manifest's logical path as
+  `msftFilePath`. Confirm whether HDS emits that path or a OneLake URI before
+  selecting the contract; don't normalize the discrepancy away.
+
+Track evidence and rollout in [viewdefinition-depot#2](https://github.com/brendankowitz/viewdefinition-depot/issues/2).
+[ignixa-fhir#550](https://github.com/brendankowitz/ignixa-fhir/issues/550) is
+the native Ignixa follow-on.
 
 ## Run the offline checks
 
 From the repository root, in a venv:
 
 ```sh
-python -m pip install -r requirements-parity.txt
-python -m unittest discover -s tests -p test_fabric_reference.py -v
+python -m pip install -r requirements-test.txt -r requirements-parity.txt
+python -m fabric_silver.views --check
+python -m unittest discover -s tests -p "test_fabric_*.py" -v
 ```
 
-These tests create temporary, deliberately small Parquet tables and corrupt
-them. They do not use HDS and do not establish parity. The checked-in
+The hermetic checks validate catalog invariants, publish snapshots from
+hand-built extraction Parquet, and exercise the comparator using temporary
+writer-derived expectations and four deliberate corruptions. These are
+**harness mechanics only, not HDS evidence**. The checked-in
 [deployment fingerprints](../../examples/r4/fabric-silver-parity/reference/deployment.json)
 were computed from the release artifacts; none are hashes inferred from
 populated rows. There are deliberately no expectation NDJSON files yet.
@@ -31,10 +65,14 @@ type from `parity/types.json`). Date, dateTime and instant fields are
 extracted as source strings (lossless) and parsed by the shaping step below.
 
 They need a CLI that writes complex `collection: true` columns as JSON text
-(Ignixa PR #549). Extraction tests use the development build when it exists at
-the default path (otherwise they skip, saying so). `IGNIXA_PARITY_CLI` selects
-`pinned` or a DLL path; a path that is not a file fails the run rather than
-skipping.
+(Ignixa PR #549). Extraction and writer tests use the development build
+when it exists at the default path. If none exists and no selection is made,
+they skip with an explicit reason visible in verbose CI output. This skip
+is permitted only because no released CLI can export these views yet; it
+does not count toward verification. Set `IGNIXA_PARITY_CLI` to the DLL path
+to run both suites. An invalid explicit path or failed export fails the run
+rather than skipping. The extraction suite alone also accepts `pinned` to
+demonstrate the loss with `0.6.82`.
 
 **Upstream blocker, pinned 0.6.82.** Complex `collection: true` columns come
 back as one `null` per element, so content is lost (count is kept). Observed
@@ -51,6 +89,12 @@ The supported command therefore needs a released CLI containing PR #549; the
 extraction was verified only with a development build at revision
 `40851de69a4f4cac84703050e87baa50221c4efc`. Neither Patient nor Observation is
 covered or verified.
+
+For development, build `tools/Ignixa.SqlOnFhir.Cli/Ignixa.SqlOnFhir.Cli.csproj`
+from that revision in a separate Ignixa checkout with the .NET 10 SDK.
+Use the resulting `bin/Debug/net10.0/ignixa-sqlonfhir.dll`. The tests also
+discover it automatically if the checkout is at
+`.superpowers/sdd/2026-11-24-fabric-silver-r4-parity/ignixa-549`.
 
 ```sh
 python -m fabric_silver.views --check
@@ -103,13 +147,42 @@ its listed files, in order; files listed elsewhere in the manifest may be
 present or absent. Unknown files are rejected. The writer never reads the raw
 NDJSON: the manifest provides the resource, source system and logical path.
 
-```sh
-python -m fabric_silver --manifest examples/r4/fabric-silver-parity/batches.json --event initial --extracted extracted --state silver-state --ingest-time 2026-02-01T10:00:00Z
+From the repository root, using a new extraction directory and new state
+directory (PowerShell example; set the DLL path first):
+
+```powershell
+$env:IGNIXA_PARITY_CLI = '<absolute path to ignixa-sqlonfhir.dll>'
+$pack = 'examples/r4/fabric-silver-parity'
+$manifest = "$pack/batches.json"
+$inputs = (Get-Content $manifest -Raw | ConvertFrom-Json).inputs
+New-Item -ItemType Directory extracted -ErrorAction Stop | Out-Null
+foreach ($inputFile in $inputs.PSObject.Properties) {
+    $item = $inputFile.Value
+    $source = "$pack/$($item.path)"
+    if ((Get-FileHash $source -Algorithm SHA256).Hash -ne $item.sha256) {
+        throw "Fixture hash differs: $($inputFile.Name)"
+    }
+    $view = "views/r4/fabric-silver-parity/$($item.resource).json"
+    $out = "extracted/$($inputFile.Name).parquet"
+    dotnet $env:IGNIXA_PARITY_CLI r4 run --views $view --input $source --out $out --format parquet
+    if ($LASTEXITCODE -ne 0 -or -not (Test-Path $out -PathType Leaf)) {
+        throw "Extraction failed: $($inputFile.Name)"
+    }
+}
+
+python -m fabric_silver --manifest $manifest --event initial --extracted extracted --state silver-state --ingest-time 2026-02-01T10:00:00Z
+if ($LASTEXITCODE -ne 0) { throw 'Initial ingest failed' }
+python -m fabric_silver --manifest $manifest --event replay --extracted extracted --state silver-state --ingest-time 2026-02-01T11:00:00Z
+if ($LASTEXITCODE -ne 0) { throw 'Replay failed' }
+python -m fabric_silver --manifest $manifest --event update --extracted extracted --state silver-state --ingest-time 2026-02-01T12:00:00Z
+if ($LASTEXITCODE -ne 0) { throw 'Update failed' }
 ```
 
-Repeat with `--event replay` and `--event update`, the same state directory,
-and explicit UTC instants (`Z` or `+00:00`, up to six fractional digits).
-Output is the published directory. Resolve `silver-state/CURRENT` once per
+File existence does not prove lossless extraction; run the read-back tests
+with that DLL first. Replay reuses the initial east extraction files. The
+three writer invocations share one state directory and take explicit UTC
+instants (`Z` or `+00:00`, up to six fractional digits). Each prints the
+published directory. Resolve `silver-state/CURRENT` once per
 read: it names a directory under `silver-state/snapshots/`, such as
 `00000001-initial`, containing both `Patient.parquet` and
 `Observation.parquet`, even when one table is empty. The writer sorts rows
@@ -131,8 +204,7 @@ ID/timestamp pair in the same batch instead of choosing an unspecified winner.
 deployed schema digests after publication, exercises the source-derived event
 rules across process restarts, and tests lossless Ignixa input if the
 development DLL is available (`IGNIXA_PARITY_CLI` may name that DLL). These
-checks do not compare row values against a Fabric capture. Verified parity
-remains **0/146**.
+checks do not compare row values against a Fabric capture.
 
 ## Inputs shared by the two runs
 
@@ -214,6 +286,11 @@ consumes only extracted data plus ingress context, never raw FHIR.
 
 ## Make and check the six expectations
 
+To refresh the reference, rerun the preceding operator recipe on a fresh
+target with the pinned release and all three events; replace the six
+expectations and their safe run provenance together. Never refresh
+expectations from local writer output.
+
 1. For each resource, read `metaData.schemaString` from **its** deployment
    log `<deltaLogRoot>/<table>/_delta_log/00000000000000000000.json`.
    `schema_digest(deployed_schema(Path(log)))` must equal the corresponding
@@ -267,6 +344,13 @@ consumes only extracted data plus ingress context, never raw FHIR.
                 for event in ("initial", "replay", "update")]
        compare_events(pairs, identity["schemaSha256"])
    ```
+
+       Finally compare the **local writer's** three published directories against
+       those same NDJSON files. Use the released CLI containing #549, not the
+       development route. For each writer event use the recorded controllable
+       clock or a deterministic UTC instant inside the capture bounds. Update
+       the parity gate's event clocks with the chosen instants when checking in
+       the capture; the example clocks above are for the local pilot only.
 
    Then on a **private copy**, duplicate one Observation row without
    changing its schema (e.g. `pa.concat_tables([t, t.slice(0, 1)])` and
