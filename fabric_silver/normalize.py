@@ -54,6 +54,7 @@ class _Invalid(Exception):
 
 
 UTC = timezone.utc
+_SURROGATE = re.compile("[\ud800-\udfff]")
 _SCALE = Decimal(1).scaleb(-18)
 _MAX_DIGITS = 36
 _INT32 = (-(2 ** 31), 2 ** 31 - 1)
@@ -159,19 +160,12 @@ def target_schema(resource: str) -> pa.Schema:
 
 
 _SHORT_ESCAPES = {'"': '\\"', "\\": "\\\\", "\b": "\\b", "\t": "\\t", "\n": "\\n", "\f": "\\f", "\r": "\\r"}
+_NEEDS_ESCAPE = re.compile('["\\\\\x00-\x1f]')
 
 
 def _quote(text: str) -> str:
     """Jackson's default string escaping: quote, backslash and C0 controls only."""
-    out = []
-    for ch in text:
-        if ch in _SHORT_ESCAPES:
-            out.append(_SHORT_ESCAPES[ch])
-        elif ord(ch) < 0x20:
-            out.append(f"\\u{ord(ch):04X}")
-        else:
-            out.append(ch)
-    return '"' + "".join(out) + '"'
+    return '"' + _NEEDS_ESCAPE.sub(lambda m: _SHORT_ESCAPES.get(m.group(), f"\\u{ord(m.group()):04X}"), text) + '"'
 
 
 def _java_double(value: Decimal, path: str) -> str:
@@ -205,10 +199,35 @@ def _jackson(value, path: str) -> str:
     if isinstance(value, Decimal):
         return _java_double(value, path)
     if isinstance(value, str):
-        return _quote(value)
+        return _quote(_text(value, path))
     if isinstance(value, list):
         return "[" + ",".join(_jackson(v, path) for v in value) + "]"
-    return "{" + ",".join(_quote(k) + ":" + _jackson(v, path) for k, v in value.items()) + "}"
+    return "{" + ",".join(_quote(_text(k, path)) + ":" + _jackson(v, path) for k, v in value.items()) + "}"
+
+
+def _text(value: str, path: str) -> str:
+    """Silver strings are UTF-8 (hashed, written to Parquet); a lone surrogate (e.g. JSON "\\ud800") cannot be."""
+    if _SURROGATE.search(value):
+        raise _Invalid(path, "is not encodable as UTF-8")
+    return value
+
+
+def _check_texts(value, path: str) -> None:
+    """_text for every key and string in a JSON value parsed by HDS's own json.loads (iterative: no depth limit)."""
+    pending = [value]
+    while pending:
+        item = pending.pop()
+        if isinstance(item, str):
+            _text(item, path)
+        elif isinstance(item, list):
+            pending.extend(item)
+        elif isinstance(item, dict):
+            pending.extend(item.keys())
+            pending.extend(item.values())
+
+
+def _reject_constant(name: str):
+    raise ValueError("non-finite numbers are not JSON")  # never surfaces: callers map it to a fixed reason
 
 
 def _to_json(value, node) -> str:
@@ -303,7 +322,13 @@ def _parse(value, node, path: str):
             raise _Invalid(path, "expected a JSON array")
         return [_parse_element(v, node.element, f"{path}[{i}]") for i, v in enumerate(value)]
     if node == "string":
-        return value if isinstance(value, str) else _jackson(value, path)
+        if isinstance(value, str):
+            return _text(value, path)
+        try:
+            return _jackson(value, path)
+        except RecursionError:
+            pass
+        raise _Invalid(path, "is nested too deeply")
     if node == "bool":
         if not isinstance(value, bool):
             raise _Invalid(path, "expected a boolean")
@@ -335,12 +360,16 @@ def _parse_column(spec: _Resource, column: str, value):
     if column in _collection_columns(spec.name):
         if not isinstance(value, str):
             raise _Invalid(column, "expected JSON array text")
-        try:
-            items = json.loads(value, parse_float=Decimal)
-        except ValueError:  # JSONDecodeError, or an integer beyond Python's digit limit
+        try:  # NaN/Infinity are not JSON (FHIR forbids them); rejecting keeps floats out of the parsed tree
+            items = json.loads(value, parse_float=Decimal, parse_constant=_reject_constant)
+        except ValueError:  # JSONDecodeError, a non-finite constant, or an integer beyond Python's digit limit
             items = _NOT_JSON
+        except RecursionError:
+            items = _TOO_DEEP
         if items is _NOT_JSON:
             raise _Invalid(column, "is not valid JSON")
+        if items is _TOO_DEEP:
+            raise _Invalid(column, "is nested too deeply")
         if not isinstance(items, list):
             raise _Invalid(column, "expected a JSON array")
         if not items:
@@ -357,6 +386,7 @@ def _parse_column(spec: _Resource, column: str, value):
 
 
 _NOT_JSON = object()
+_TOO_DEEP = object()
 
 
 @lru_cache(maxsize=None)
@@ -452,21 +482,31 @@ def _row_from_string(text: str, names, path: str) -> dict:
         data = json.loads(text) if text else {}
     except ValueError:
         data = None
+    except RecursionError:
+        data = _TOO_DEEP
+    if data is _TOO_DEEP:
+        raise _Invalid(path, "is nested too deeply")
     if not isinstance(data, dict):
         raise _Invalid(path, "is not JSON object text")
+    _check_texts(data, path)  # JSON escapes can decode to lone surrogates the source string did not contain
     return {name: data.get(name) for name in names}
 
 
-def _parse_assigner(value):
-    """NormalizationUtils.parse_assigner_json_safely."""
+def _parse_assigner(value, path: str):
+    """NormalizationUtils.parse_assigner_json_safely (it catches decode errors only; deeper failures fail HDS)."""
     if not (value and isinstance(value, str)):
         return value
     try:
         parsed = json.loads(value)
     except (json.JSONDecodeError, TypeError, ValueError):
         return value
+    except RecursionError:
+        parsed = _TOO_DEEP
+    if parsed is _TOO_DEEP:
+        raise _Invalid(path, "is nested too deeply")
     if not isinstance(parsed, dict):
         return value
+    _check_texts(parsed, path)
     nested = parsed.get("identifier")
     if nested and isinstance(nested, dict):
         nested = {name: nested.get(name) for name in ("extension", "use", "value", "system", "type", "period", "assigner")}
@@ -475,16 +515,42 @@ def _parse_assigner(value):
 
 
 def _conform_identifier_row(row, path: str) -> dict:
-    """IdentifierNormalization.conform_to_row_identifier_schema."""
+    """IdentifierNormalization.conform_to_row_identifier_schema.
+
+    Its str() casts recurse through whatever JSON HDS reparsed; too deep a value fails HDS and is rejected here.
+    """
+    try:
+        return _conform_identifier_members(row, path)
+    except RecursionError:
+        pass
+    raise _Invalid(path, "is nested too deeply")
+
+
+def _period_time(period, name: str, path: str):
+    """A Period member cast with TimestampType().fromInternal; overflow is not caught by get_row_field."""
+    try:
+        return _field(period, name, cast=_from_internal)
+    except OverflowError:
+        pass
+    raise _Invalid(f"{path}.period.{name}", "is out of timestamp range")
+
+
+def _conform_identifier_members(row, path: str) -> dict:
     type_ = _field(row, "type")
     if isinstance(type_, str):
         type_ = _row_from_string(type_, _CODEABLE_CONCEPT_FIELDS, f"{path}.type")
     if type_:
+        try:  # HDS iterates coding: text and objects iterate (characters, keys); a number or boolean fails the job
+            codings = list(_field(type_, "coding", []))
+        except TypeError:
+            codings = None
+        if codings is None:
+            raise _Invalid(f"{path}.type.coding", "expected a JSON array")
         coding = [{"extension": _field(c, "extension", cast=str), "id": _field(c, "id", cast=str),
                    "system": _field(c, "system", cast=str), "version": _field(c, "version", cast=str),
                    "code": _field(c, "code", cast=str), "display": _field(c, "display", cast=str),
                    "userSelected": _field(c, "userSelected", cast=bool)}
-                  for c in _field(type_, "coding", [])]
+                  for c in codings]
         type_ = {"extension": _field(type_, "extension", cast=str), "id": _field(type_, "id", cast=str),
                  "coding": coding, "text": _field(type_, "text", cast=str)}
     else:
@@ -492,7 +558,7 @@ def _conform_identifier_row(row, path: str) -> dict:
     period = _field(row, "period")
     if period:
         period = {"extension": _field(period, "extension", cast=str), "id": _field(period, "id", cast=str),
-                  "start": _field(period, "start", cast=_from_internal), "end": _field(period, "end", cast=_from_internal)}
+                  "start": _period_time(period, "start", path), "end": _period_time(period, "end", path)}
     else:
         period = {}
     assigner = _field(row, "assigner")
@@ -567,7 +633,7 @@ def _normalize_reference(row, source: str, path: str) -> dict:
         if previous:
             if isinstance(previous, dict):
                 identifier = {name: previous.get(name) for name in ("extension", "use", "value", "system", "type", "period")}
-                identifier["assigner"] = _parse_assigner(previous.get("assigner"))
+                identifier["assigner"] = _parse_assigner(previous.get("assigner"), f"{identifier_path}.assigner")
             elif isinstance(previous, str):
                 identifier = _row_from_string(previous, tuple(identifier), identifier_path)
         identifier = _conform_identifier_row(identifier, identifier_path)
@@ -741,8 +807,17 @@ def shape_row(resource: str, extracted: dict, *, source_system: str, logical_pat
         raise ShapeError(resource, "msftSourceSystem", "source_system must be a non-empty string")
     if not isinstance(logical_path, str) or not logical_path:
         raise ShapeError(resource, "msftFilePath", "logical_path must be a non-empty string")
+    for path, text in (("msftSourceSystem", source_system), ("msftFilePath", logical_path)):
+        if _SURROGATE.search(text):
+            raise ShapeError(resource, path, "is not encodable as UTF-8")
     if not isinstance(ingest_time, datetime) or ingest_time.utcoffset() is None:
         raise ShapeError(resource, "msftModifiedDatetime", "ingest_time must be a timezone-aware datetime")
+    try:
+        ingest_time = ingest_time.astimezone(UTC)
+    except OverflowError:  # e.g. 0001-01-01 at a positive offset
+        ingest_time = None
+    if ingest_time is None:
+        raise ShapeError(resource, "msftModifiedDatetime", "is out of timestamp range")
     if not isinstance(extracted, dict) or set(extracted) != set(spec.extraction):
         given = set(extracted) if isinstance(extracted, dict) else set()
         # Unexpected names are counted, not listed: they come from the caller and may carry source text.

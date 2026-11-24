@@ -78,7 +78,11 @@ null. Only two such conditions exist. First, a normalized Reference's
 `.reference` is always moved to `msftSourceReference`. Second, its
 `.identifier.period` members stay null because HDS stores that period as a
 string. Shaping errors name the resource, the mapping path and a fixed
-reason. They never include source values.
+reason. They never include source values. A mutation test replaces each
+witness leaf and container with wrong-typed, non-finite, deeply nested and
+unencodable values. Each result must be a valid row or such an error.
+Inputs that would fail an HDS job are rejected rather than guessed. Examples
+are NaN, lone surrogates and out-of-range identifier periods.
 
 These rules were written from reading the HDS normalization source. No HDS
 run has been captured, so every expected value in

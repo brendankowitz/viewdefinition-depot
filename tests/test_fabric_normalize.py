@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import traceback
 import unittest
 from dataclasses import dataclass
@@ -542,6 +543,14 @@ class ErrorRedactionTests(unittest.TestCase):
             ("Patient", {"identifier": f'[{{"value":"v","assigner":{{"identifier":{{"type":"{SENTINEL}"}}}}}}]'},
              "identifier[0].assigner.identifier.type", "identifier[0].assigner.identifier.type", "is not JSON object text"),
             ("Patient", {"id": None, "gender": SENTINEL}, "id", "id", "is required"),
+            # A lone surrogate cannot be UTF-8 encoded (hashing, Parquet); previously a UnicodeEncodeError carried the id.
+            ("Patient", {"id": SENTINEL + "\ud800"}, "id", "id", "is not encodable as UTF-8"),
+            ("Patient", {"name": f'[{{"family":"{SENTINEL}\\udc00"}}]'}, "name[0].family", "name[0].family",
+             "is not encodable as UTF-8"),
+            # identifier_normalization.conform_to_row_identifier_schema iterates coding; HDS fails on a non-iterable.
+            ("Observation", {"subject": f'[{{"reference":"Patient/p1","identifier":{{"type":{{"coding":42,'
+                                        f'"text":"{SENTINEL}"}}}}}}]'},
+             "subject.identifier.type.coding", "subject.identifier.type.coding", "expected a JSON array"),
         ]
         for resource, columns, path, fhir_path, reason in cases:
             with self.subTest(path=path, reason=reason):
@@ -1052,6 +1061,150 @@ class FieldPathEvidenceTests(unittest.TestCase):
                 self.assertEqual(sorted(leaves - evidenced - set(conditions)), [])
             with self.subTest(resource=resource, check="always-null leaves stay null"):
                 self.assertEqual(sorted(seen & set(conditions)), [])
+
+
+# Every reason shape_row may report; each is fixed text that never carries source data.
+SHAPE_REASONS = frozenset({
+    "is required", "unsupported resource", "is not a FHIR date, dateTime or instant", "is not a FHIR date",
+    "is not a valid date or time", "expected a JSON number", "does not fit decimal(36,18)", "expected a JSON object",
+    "has a field that is not in the HDS Silver schema", "expected a JSON array", "null array elements are not FHIR",
+    "expected a boolean", "expected a 32-bit integer", "expected a date/time string", "expected JSON array text",
+    "is not valid JSON", "expected at most one value", "expected a string", "is out of double range",
+    "is not JSON object text", "is not encodable as UTF-8", "is nested too deeply", "is out of timestamp range",
+    "source_system must be a non-empty string", "logical_path must be a non-empty string",
+    "ingest_time must be a timezone-aware datetime",
+})
+PLACEHOLDER = "__MUTATION_SITE__"
+SCHEMAS = {resource: target_schema(resource) for resource in DIGESTS}
+SURROGATE_SENTINEL = SENTINEL + "\ud800"
+# JSON text substituted for one node of a populated witness. Wrong types, unencodable text, huge, non-finite and
+# deeply nested values, each carrying the sentinel where it can.
+JSON_MUTATIONS = (
+    json.dumps(SENTINEL), json.dumps(SURROGATE_SENTINEL), json.dumps("\udc00" + SENTINEL), "42", "-0.0", "true", "false",
+    "null", "1e400", "-1e400", "NaN", "Infinity", "9" * 5000, "1" + "0" * 40, "1e-400", "2147483648",
+    f"[{json.dumps(SENTINEL)}]", "[null]", "[42]", "[[]]", f"{{{json.dumps(SENTINEL)}:1}}",
+    f"{{{json.dumps(SURROGATE_SENTINEL)}:1}}", f'{{"text":{json.dumps(SURROGATE_SENTINEL)}}}',
+    f'{{"coding":42,"text":{json.dumps(SENTINEL)}}}', f'{{"coding":[42,{json.dumps(SENTINEL)}]}}',
+    f'{{"start":99999999999999999999,"end":{json.dumps(SENTINEL)}}}',
+    "[" * 3000 + json.dumps(SENTINEL) + "]" * 3000,
+    # JSON text inside a string (HDS reparses Reference.identifier members held as strings).
+    json.dumps(f'{{"coding":42,"text":{json.dumps(SENTINEL)}}}'), json.dumps(f'{{"value":"{SENTINEL}\\ud800"}}'),
+    json.dumps("[" * 3000 + "]" * 3000), json.dumps(f'{{"identifier":{{"value":"{SENTINEL}\\ud800"}}}}'),
+    json.dumps(f'{{"start":99999999999999999999,"text":{json.dumps(SENTINEL)}}}'),
+)
+# Python values substituted for a whole extraction column.
+COLUMN_MUTATIONS = (SENTINEL, SURROGATE_SENTINEL, 42, True, 1.5, float("nan"), 10 ** 40, [SENTINEL], {SENTINEL: SENTINEL},
+                    f"[{json.dumps(SENTINEL)}", f"{{{json.dumps(SENTINEL)}:1}}", f"[{json.dumps(SURROGATE_SENTINEL)}]",
+                    "[" * 3000 + "]" * 3000)
+
+
+def mutation_sites(value, path: str, keys: tuple = ()):
+    """(site path, key chain) for every node below a JSON value, containers included."""
+    items = value.items() if isinstance(value, dict) else enumerate(value) if isinstance(value, list) else ()
+    for key, child in items:
+        child_path = f"{path}.{key}" if isinstance(value, dict) else f"{path}[]"
+        yield child_path, keys + (key,)
+        yield from mutation_sites(child, child_path, keys + (key,))
+
+
+def substitute(value, keys: tuple, replacement):
+    """value with the node at keys replaced; each array on the way keeps only the element holding that node."""
+    if not keys:
+        return replacement
+    if isinstance(value, list):
+        return [substitute(value[keys[0]], keys[1:], replacement)]
+    return {**value, keys[0]: substitute(value[keys[0]], keys[1:], replacement)}
+
+
+def mutated_rows():
+    """(resource, column, site, extracted row) for each mutation of each distinct site across the witnesses.
+
+    Normalization is per column (only id feeds the identifier rules, and blank_row supplies it), so the mutated
+    column is shaped in an otherwise blank row.
+    """
+    seen = set()
+    for w in witnesses():
+        for column in extracted_from_resource(w.resource, w.fhir):
+            if (w.resource, column, "(column)") not in seen:
+                seen.add((w.resource, column, "(column)"))
+                for value in COLUMN_MUTATIONS:
+                    yield w.resource, column, "(column)", blank_row(w.resource, **{column: value})
+            if column not in COLLECTION_COLUMNS[w.resource] or w.fhir.get(column) is None:
+                continue
+            for site, keys in mutation_sites(w.fhir[column], column):
+                if (w.resource, site) in seen:
+                    continue
+                seen.add((w.resource, site))
+                fhir = {**w.fhir, column: substitute(w.fhir[column], keys, PLACEHOLDER)}
+                template = extracted_from_resource(w.resource, fhir)[column]
+                for text in JSON_MUTATIONS:
+                    yield w.resource, column, site, blank_row(
+                        w.resource, **{column: template.replace(json.dumps(PLACEHOLDER), text, 1)})
+
+
+def mutation_problem(resource: str, column: str | None, call: dict):
+    """None when shape_row gives a row or an identified, redacted ShapeError; else what is wrong.
+
+    Returns the row (or None for an error) as the second item so callers can check rows are writable.
+    """
+    try:
+        return None, shape_row(resource, **call)
+    except ShapeError as error:
+        failure = error
+    except Exception as other:  # anything else may leak its message and lacks resource and path
+        return f"{type(other).__name__} escaped shape_row", None
+    logged = "".join(traceback.format_exception(failure)) + repr(failure.args) + str(failure)
+    checks = (
+        (failure.resource == resource, "wrong resource"),
+        (failure.reason in SHAPE_REASONS, "reason is not a fixed reason"),
+        (column is None or re.match(rf"{column}(?:[.\[]|$)", failure.path), "path is not rooted at the column"),
+        (failure.__cause__ is None and failure.__context__ is None, "error is chained"),
+        (SENTINEL not in logged, "sentinel is logged"),
+    )
+    return next((f"{problem}: {failure.path}: {failure.reason}" for ok, problem in checks if not ok), None), None
+
+
+class MutationRedactionTests(unittest.TestCase):
+    """Every input-triggered outcome is a valid Silver row or an identified, redacted ShapeError.
+
+    Mutates each distinct node of the populated witnesses (leaves and containers) and each extraction column with
+    wrong-typed, unencodable, huge, non-finite and deeply nested sentinel-bearing values.
+    """
+
+    def test_mutated_witnesses_give_rows_or_redacted_errors(self):
+        problems, rows, errors = [], {resource: [] for resource in DIGESTS}, 0
+        for resource, column, site, extracted in mutated_rows():
+            problem, row = mutation_problem(resource, column, dict(
+                extracted=extracted, source_system=EAST, logical_path="Files/m.ndjson", ingest_time=INGEST))
+            if problem:
+                problems.append(f"{resource} {site}: {problem}")
+            elif row is None:
+                errors += 1
+            else:
+                rows[resource].append((site, row))
+        self.assertEqual(problems[:20], [], f"{len(problems)} mutations escaped redaction")
+        for resource, shaped in rows.items():
+            try:  # a valid row must be writable as Silver (UTF-8 strings, typed values)
+                pa.Table.from_pylist([row for _, row in shaped], schema=SCHEMAS[resource])
+            except (pa.ArrowException, UnicodeError):
+                unwritable = []
+                for site, row in shaped:
+                    try:
+                        pa.Table.from_pylist([row], schema=SCHEMAS[resource])
+                    except (pa.ArrowException, UnicodeError) as error:
+                        unwritable.append(f"{site}: {type(error).__name__}")
+                self.fail(f"{resource}: {len(unwritable)} shaped rows are not writable: {unwritable[:20]}")
+        self.assertGreater(sum(map(len, rows.values())), 0)
+        self.assertGreater(errors, 0)
+
+    def test_unencodable_or_out_of_range_arguments_are_identified(self):
+        base = dict(extracted=blank_row("Patient"), source_system=EAST, logical_path="Files/m.ndjson", ingest_time=INGEST)
+        for name, value in (("source_system", SURROGATE_SENTINEL), ("logical_path", SURROGATE_SENTINEL),
+                            ("ingest_time", datetime(1, 1, 1, tzinfo=timezone(timedelta(hours=5))))):
+            with self.subTest(argument=name):
+                problem, row = mutation_problem("Patient", None, {**base, name: value})
+                self.assertIsNone(problem)
+                self.assertIsNone(row, "expected a ShapeError")
 
 
 class FixtureTests(unittest.TestCase):
