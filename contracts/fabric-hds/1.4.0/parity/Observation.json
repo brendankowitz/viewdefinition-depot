@@ -4,7 +4,7 @@
   "hdsVersion": "1.4.0",
   "schemaSha256": "cedf46756c6c3360cc93716222c8ff40fa218ab465011c7132943a5e8bd0e82f",
   "evidence": "Lossless-extraction evidence only. Not HDS parity.",
-  "limitations": "Every derived, constant and fabric-assigned classification is the author's reading of the Silver column names and is UNVERIFIED against HDS behavior until the reference capture exists. Date, dateTime and instant columns are extracted as source strings (lossless); parsing and normalization are owned by the later normalization task.",
+  "limitations": "Silver shaping and normalization rules (fabric_silver/normalize.py) are re-implemented from reading the HDS v1.4.0 normalization source and are source-derived, UNVERIFIED against a captured HDS run; no captured reference data exists, so this is not verified parity. Columns carrying the pre-normalization value: idOrig, identifierOrig, meta_lastUpdatedOrig, meta.lastUpdatedOrig, effectiveDateTimeOrig, effectiveInstantOrig, issuedOrig, valueDateTimeOrig, effectivePeriod.startOrig/endOrig, valuePeriod.startOrig/endOrig. Other date/dateTime/instant values are parsed to UTC without an Orig copy. Known divergences: unknown JSON fields (including primitive extensions such as _birthDate) are rejected instead of dropped; msftFilePath is the logical path, not the OneLake URI; Spark from_json/to_json text formatting is emulated, not executed.",
   "extraction": [
     {
       "column": "id",
@@ -262,9 +262,9 @@
   "silverColumns": [
     {
       "name": "msftModifiedDatetime",
-      "silverType": "timestamp[us, tz=UTC]",
+      "silverType": "timestamp",
       "sourcing": "fabric-assigned",
-      "note": "Assigned by the ingestion/writer; not read from FHIR JSON."
+      "note": "shape_row ingest_time (UTC). HDS sets it and msftCreatedDatetime together (dataframe_utils.add_normalized_current_timestamp_column); later-update handling belongs to the writer."
     },
     {
       "name": "id",
@@ -272,7 +272,8 @@
       "sourcing": "derived",
       "from": [
         "id"
-      ]
+      ],
+      "note": "sha256 hex of '<source system without scheme>/<resourceType>/<id>' (identifier_normalization.normalize_resource_id)."
     },
     {
       "name": "resourceType",
@@ -284,13 +285,13 @@
       "name": "msftSourceSystem",
       "silverType": "string",
       "sourcing": "fabric-assigned",
-      "note": "Assigned by the ingestion/writer; not read from FHIR JSON."
+      "note": "shape_row source_system (the batch's source system)."
     },
     {
       "name": "msftFilePath",
       "silverType": "string",
       "sourcing": "fabric-assigned",
-      "note": "Assigned by the ingestion/writer; not read from FHIR JSON."
+      "note": "shape_row logical_path. Divergence: HDS records input_file_name(), the OneLake file URI."
     },
     {
       "name": "extension",
@@ -302,11 +303,12 @@
     },
     {
       "name": "meta",
-      "silverType": "struct",
-      "sourcing": "extracted",
+      "silverType": "Meta",
+      "sourcing": "derived",
       "from": [
         "meta"
-      ]
+      ],
+      "note": "Parsed; meta.lastUpdated date-normalized with meta.lastUpdatedOrig appended."
     },
     {
       "name": "implicitRules",
@@ -326,7 +328,7 @@
     },
     {
       "name": "text",
-      "silverType": "struct",
+      "silverType": "Narrative",
       "sourcing": "extracted",
       "from": [
         "text"
@@ -342,27 +344,30 @@
     },
     {
       "name": "identifier",
-      "silverType": "list<struct>",
-      "sourcing": "extracted",
+      "silverType": "list<Identifier>",
+      "sourcing": "derived",
       "from": [
         "identifier"
-      ]
+      ],
+      "note": "Conformed, deduplicated and given a fhirId element when none exists; each assigner is reference-normalized (identifier_normalization.normalize_resource_identifier)."
     },
     {
       "name": "basedOn",
-      "silverType": "list<struct>",
-      "sourcing": "extracted",
+      "silverType": "list<Reference>",
+      "sourcing": "derived",
       "from": [
         "basedOn"
-      ]
+      ],
+      "note": "Reference normalization (reference_normalization.normalize_ref_struct): literal/logical references resolved against msftSourceSystem; original moved to msftSourceReference."
     },
     {
       "name": "partOf",
-      "silverType": "list<struct>",
-      "sourcing": "extracted",
+      "silverType": "list<Reference>",
+      "sourcing": "derived",
       "from": [
         "partOf"
-      ]
+      ],
+      "note": "Reference normalization (reference_normalization.normalize_ref_struct): literal/logical references resolved against msftSourceSystem; original moved to msftSourceReference."
     },
     {
       "name": "status",
@@ -374,7 +379,7 @@
     },
     {
       "name": "category",
-      "silverType": "list<struct>",
+      "silverType": "list<CodeableConcept>",
       "sourcing": "extracted",
       "from": [
         "category"
@@ -382,7 +387,7 @@
     },
     {
       "name": "code",
-      "silverType": "struct",
+      "silverType": "CodeableConcept",
       "sourcing": "extracted",
       "from": [
         "code"
@@ -390,47 +395,52 @@
     },
     {
       "name": "subject",
-      "silverType": "struct",
-      "sourcing": "extracted",
+      "silverType": "Reference",
+      "sourcing": "derived",
       "from": [
         "subject"
-      ]
+      ],
+      "note": "Reference normalization (reference_normalization.normalize_ref_struct): literal/logical references resolved against msftSourceSystem; original moved to msftSourceReference."
     },
     {
       "name": "focus",
-      "silverType": "list<struct>",
-      "sourcing": "extracted",
+      "silverType": "list<Reference>",
+      "sourcing": "derived",
       "from": [
         "focus"
-      ]
+      ],
+      "note": "Reference normalization (reference_normalization.normalize_ref_struct): literal/logical references resolved against msftSourceSystem; original moved to msftSourceReference."
     },
     {
       "name": "encounter",
-      "silverType": "struct",
-      "sourcing": "extracted",
+      "silverType": "Reference",
+      "sourcing": "derived",
       "from": [
         "encounter"
-      ]
+      ],
+      "note": "Reference normalization (reference_normalization.normalize_ref_struct): literal/logical references resolved against msftSourceSystem; original moved to msftSourceReference."
     },
     {
       "name": "effectiveDateTime",
-      "silverType": "timestamp[us, tz=UTC]",
+      "silverType": "timestamp",
       "sourcing": "derived",
       "from": [
         "effectiveDateTime"
-      ]
+      ],
+      "note": "Source string parsed to a UTC timestamp; normalize_date leaves timestamps unchanged."
     },
     {
       "name": "effectivePeriod",
-      "silverType": "struct",
-      "sourcing": "extracted",
+      "silverType": "NormalizedPeriod",
+      "sourcing": "derived",
       "from": [
         "effectivePeriod"
-      ]
+      ],
+      "note": "start/end date-normalized with startOrig/endOrig appended."
     },
     {
       "name": "effectiveTiming",
-      "silverType": "struct",
+      "silverType": "Timing",
       "sourcing": "extracted",
       "from": [
         "effectiveTiming"
@@ -438,31 +448,34 @@
     },
     {
       "name": "effectiveInstant",
-      "silverType": "timestamp[us, tz=UTC]",
+      "silverType": "timestamp",
       "sourcing": "derived",
       "from": [
         "effectiveInstant"
-      ]
+      ],
+      "note": "Source string parsed to a UTC timestamp; normalize_date leaves timestamps unchanged."
     },
     {
       "name": "issued",
-      "silverType": "timestamp[us, tz=UTC]",
+      "silverType": "timestamp",
       "sourcing": "derived",
       "from": [
         "issued"
-      ]
+      ],
+      "note": "Source string parsed to a UTC timestamp; normalize_date leaves timestamps unchanged."
     },
     {
       "name": "performer",
-      "silverType": "list<struct>",
-      "sourcing": "extracted",
+      "silverType": "list<Reference>",
+      "sourcing": "derived",
       "from": [
         "performer"
-      ]
+      ],
+      "note": "Reference normalization (reference_normalization.normalize_ref_struct): literal/logical references resolved against msftSourceSystem; original moved to msftSourceReference."
     },
     {
       "name": "valueQuantity",
-      "silverType": "struct",
+      "silverType": "Quantity",
       "sourcing": "extracted",
       "from": [
         "valueQuantity"
@@ -470,7 +483,7 @@
     },
     {
       "name": "valueCodeableConcept",
-      "silverType": "struct",
+      "silverType": "CodeableConcept",
       "sourcing": "extracted",
       "from": [
         "valueCodeableConcept"
@@ -502,7 +515,7 @@
     },
     {
       "name": "valueRange",
-      "silverType": "struct",
+      "silverType": "Range",
       "sourcing": "extracted",
       "from": [
         "valueRange"
@@ -510,7 +523,7 @@
     },
     {
       "name": "valueRatio",
-      "silverType": "struct",
+      "silverType": "Ratio",
       "sourcing": "extracted",
       "from": [
         "valueRatio"
@@ -518,7 +531,7 @@
     },
     {
       "name": "valueSampledData",
-      "silverType": "struct",
+      "silverType": "SampledData",
       "sourcing": "extracted",
       "from": [
         "valueSampledData"
@@ -534,23 +547,25 @@
     },
     {
       "name": "valueDateTime",
-      "silverType": "timestamp[us, tz=UTC]",
+      "silverType": "timestamp",
       "sourcing": "derived",
       "from": [
         "valueDateTime"
-      ]
+      ],
+      "note": "Source string parsed to a UTC timestamp; normalize_date leaves timestamps unchanged."
     },
     {
       "name": "valuePeriod",
-      "silverType": "struct",
-      "sourcing": "extracted",
+      "silverType": "NormalizedPeriod",
+      "sourcing": "derived",
       "from": [
         "valuePeriod"
-      ]
+      ],
+      "note": "start/end date-normalized with startOrig/endOrig appended."
     },
     {
       "name": "dataAbsentReason",
-      "silverType": "struct",
+      "silverType": "CodeableConcept",
       "sourcing": "extracted",
       "from": [
         "dataAbsentReason"
@@ -558,7 +573,7 @@
     },
     {
       "name": "interpretation",
-      "silverType": "list<struct>",
+      "silverType": "list<CodeableConcept>",
       "sourcing": "extracted",
       "from": [
         "interpretation"
@@ -566,15 +581,16 @@
     },
     {
       "name": "note",
-      "silverType": "list<struct>",
-      "sourcing": "extracted",
+      "silverType": "list<Annotation>",
+      "sourcing": "derived",
       "from": [
         "note"
-      ]
+      ],
+      "note": "note[].authorReference reference-normalized."
     },
     {
       "name": "bodySite",
-      "silverType": "struct",
+      "silverType": "CodeableConcept",
       "sourcing": "extracted",
       "from": [
         "bodySite"
@@ -582,7 +598,7 @@
     },
     {
       "name": "method",
-      "silverType": "struct",
+      "silverType": "CodeableConcept",
       "sourcing": "extracted",
       "from": [
         "method"
@@ -590,23 +606,25 @@
     },
     {
       "name": "specimen",
-      "silverType": "struct",
-      "sourcing": "extracted",
+      "silverType": "Reference",
+      "sourcing": "derived",
       "from": [
         "specimen"
-      ]
+      ],
+      "note": "Reference normalization (reference_normalization.normalize_ref_struct): literal/logical references resolved against msftSourceSystem; original moved to msftSourceReference."
     },
     {
       "name": "device",
-      "silverType": "struct",
-      "sourcing": "extracted",
+      "silverType": "Reference",
+      "sourcing": "derived",
       "from": [
         "device"
-      ]
+      ],
+      "note": "Reference normalization (reference_normalization.normalize_ref_struct): literal/logical references resolved against msftSourceSystem; original moved to msftSourceReference."
     },
     {
       "name": "referenceRange",
-      "silverType": "list<struct>",
+      "silverType": "list<ObservationReferenceRange>",
       "sourcing": "extracted",
       "from": [
         "referenceRange"
@@ -614,23 +632,25 @@
     },
     {
       "name": "hasMember",
-      "silverType": "list<struct>",
-      "sourcing": "extracted",
+      "silverType": "list<Reference>",
+      "sourcing": "derived",
       "from": [
         "hasMember"
-      ]
+      ],
+      "note": "Reference normalization (reference_normalization.normalize_ref_struct): literal/logical references resolved against msftSourceSystem; original moved to msftSourceReference."
     },
     {
       "name": "derivedFrom",
-      "silverType": "list<struct>",
-      "sourcing": "extracted",
+      "silverType": "list<Reference>",
+      "sourcing": "derived",
       "from": [
         "derivedFrom"
-      ]
+      ],
+      "note": "Reference normalization (reference_normalization.normalize_ref_struct): literal/logical references resolved against msftSourceSystem; original moved to msftSourceReference."
     },
     {
       "name": "component",
-      "silverType": "list<struct>",
+      "silverType": "list<ObservationComponent>",
       "sourcing": "extracted",
       "from": [
         "component"
@@ -638,27 +658,30 @@
     },
     {
       "name": "meta_lastUpdated",
-      "silverType": "timestamp[us, tz=UTC]",
+      "silverType": "timestamp",
       "sourcing": "derived",
       "from": [
         "meta"
-      ]
+      ],
+      "note": "Copy of meta.lastUpdated, date-normalized."
     },
     {
       "name": "meta_lastUpdatedOrig",
-      "silverType": "timestamp[us, tz=UTC]",
+      "silverType": "timestamp",
       "sourcing": "derived",
       "from": [
         "meta"
-      ]
+      ],
+      "note": "meta_lastUpdated before date normalization."
     },
     {
       "name": "identifierOrig",
-      "silverType": "list<struct>",
+      "silverType": "list<RawIdentifier>",
       "sourcing": "derived",
       "from": [
         "identifier"
-      ]
+      ],
+      "note": "Identifier array as parsed, before normalization."
     },
     {
       "name": "idOrig",
@@ -666,39 +689,44 @@
       "sourcing": "derived",
       "from": [
         "id"
-      ]
+      ],
+      "note": "Original FHIR id."
     },
     {
       "name": "effectiveDateTimeOrig",
-      "silverType": "timestamp[us, tz=UTC]",
+      "silverType": "timestamp",
       "sourcing": "derived",
       "from": [
         "effectiveDateTime"
-      ]
+      ],
+      "note": "effectiveDateTime before date normalization (equal for timestamps)."
     },
     {
       "name": "effectiveInstantOrig",
-      "silverType": "timestamp[us, tz=UTC]",
+      "silverType": "timestamp",
       "sourcing": "derived",
       "from": [
         "effectiveInstant"
-      ]
+      ],
+      "note": "effectiveInstant before date normalization (equal for timestamps)."
     },
     {
       "name": "issuedOrig",
-      "silverType": "timestamp[us, tz=UTC]",
+      "silverType": "timestamp",
       "sourcing": "derived",
       "from": [
         "issued"
-      ]
+      ],
+      "note": "issued before date normalization (equal for timestamps)."
     },
     {
       "name": "valueDateTimeOrig",
-      "silverType": "timestamp[us, tz=UTC]",
+      "silverType": "timestamp",
       "sourcing": "derived",
       "from": [
         "valueDateTime"
-      ]
+      ],
+      "note": "valueDateTime before date normalization (equal for timestamps)."
     },
     {
       "name": "meta_string",
@@ -706,7 +734,8 @@
       "sourcing": "derived",
       "from": [
         "meta"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "text_string",
@@ -714,7 +743,8 @@
       "sourcing": "derived",
       "from": [
         "text"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "contained_string",
@@ -722,7 +752,8 @@
       "sourcing": "derived",
       "from": [
         "contained"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "identifier_string",
@@ -730,7 +761,8 @@
       "sourcing": "derived",
       "from": [
         "identifier"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "basedOn_string",
@@ -738,7 +770,8 @@
       "sourcing": "derived",
       "from": [
         "basedOn"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "partOf_string",
@@ -746,7 +779,8 @@
       "sourcing": "derived",
       "from": [
         "partOf"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "category_string",
@@ -754,7 +788,8 @@
       "sourcing": "derived",
       "from": [
         "category"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "code_string",
@@ -762,7 +797,8 @@
       "sourcing": "derived",
       "from": [
         "code"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "subject_string",
@@ -770,7 +806,8 @@
       "sourcing": "derived",
       "from": [
         "subject"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "focus_string",
@@ -778,7 +815,8 @@
       "sourcing": "derived",
       "from": [
         "focus"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "encounter_string",
@@ -786,7 +824,8 @@
       "sourcing": "derived",
       "from": [
         "encounter"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "effectivePeriod_string",
@@ -794,7 +833,8 @@
       "sourcing": "derived",
       "from": [
         "effectivePeriod"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "effectiveTiming_string",
@@ -802,7 +842,8 @@
       "sourcing": "derived",
       "from": [
         "effectiveTiming"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "performer_string",
@@ -810,7 +851,8 @@
       "sourcing": "derived",
       "from": [
         "performer"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "valueQuantity_string",
@@ -818,7 +860,8 @@
       "sourcing": "derived",
       "from": [
         "valueQuantity"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "valueCodeableConcept_string",
@@ -826,7 +869,8 @@
       "sourcing": "derived",
       "from": [
         "valueCodeableConcept"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "valueRange_string",
@@ -834,7 +878,8 @@
       "sourcing": "derived",
       "from": [
         "valueRange"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "valueRatio_string",
@@ -842,7 +887,8 @@
       "sourcing": "derived",
       "from": [
         "valueRatio"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "valueSampledData_string",
@@ -850,7 +896,8 @@
       "sourcing": "derived",
       "from": [
         "valueSampledData"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "valuePeriod_string",
@@ -858,7 +905,8 @@
       "sourcing": "derived",
       "from": [
         "valuePeriod"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "dataAbsentReason_string",
@@ -866,7 +914,8 @@
       "sourcing": "derived",
       "from": [
         "dataAbsentReason"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "interpretation_string",
@@ -874,7 +923,8 @@
       "sourcing": "derived",
       "from": [
         "interpretation"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "note_string",
@@ -882,7 +932,8 @@
       "sourcing": "derived",
       "from": [
         "note"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "bodySite_string",
@@ -890,7 +941,8 @@
       "sourcing": "derived",
       "from": [
         "bodySite"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "method_string",
@@ -898,7 +950,8 @@
       "sourcing": "derived",
       "from": [
         "method"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "specimen_string",
@@ -906,7 +959,8 @@
       "sourcing": "derived",
       "from": [
         "specimen"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "device_string",
@@ -914,7 +968,8 @@
       "sourcing": "derived",
       "from": [
         "device"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "referenceRange_string",
@@ -922,7 +977,8 @@
       "sourcing": "derived",
       "from": [
         "referenceRange"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "hasMember_string",
@@ -930,7 +986,8 @@
       "sourcing": "derived",
       "from": [
         "hasMember"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "derivedFrom_string",
@@ -938,7 +995,8 @@
       "sourcing": "derived",
       "from": [
         "derivedFrom"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "component_string",
@@ -946,7 +1004,8 @@
       "sourcing": "derived",
       "from": [
         "component"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "identifierOrig_string",
@@ -954,13 +1013,14 @@
       "sourcing": "derived",
       "from": [
         "identifier"
-      ]
+      ],
+      "note": "to_json(column, ignoreNullFields=false) of the normalized column (dataframe_utils.stringify_complex_types)."
     },
     {
       "name": "msftCreatedDatetime",
-      "silverType": "timestamp[us, tz=UTC]",
+      "silverType": "timestamp",
       "sourcing": "fabric-assigned",
-      "note": "Assigned by the ingestion/writer; not read from FHIR JSON."
+      "note": "shape_row ingest_time (UTC). HDS sets it and msftModifiedDatetime together (dataframe_utils.add_normalized_current_timestamp_column); later-update handling belongs to the writer."
     }
   ],
   "unsupported": []

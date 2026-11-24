@@ -1,0 +1,42 @@
+{
+  "hdsVersion": "1.4.0",
+  "description": "Logical Silver types shared by the parity contracts. A type expression is a primitive name, a struct name, or list<expression>. Every field and list element is nullable and list elements are named 'element', matching the deployed HDS Silver Delta schemas. 'parsedAs' names the pre-normalization (Avro-derived) shape that from_json produces before HDS normalization rewrites it into the Silver shape; normalize.py parses source JSON against it.",
+  "primitives": {
+    "string": "string",
+    "bool": "bool",
+    "int32": "int32",
+    "decimal": "decimal128(36, 18)",
+    "timestamp": "timestamp[us, tz=UTC]",
+    "date": "date32[day]"
+  },
+  "structs": {
+    "Coding": [["extension", "string"], ["id", "string"], ["system", "string"], ["version", "string"], ["code", "string"], ["display", "string"], ["userSelected", "bool"]],
+    "RawMeta": [["extension", "string"], ["id", "string"], ["versionId", "string"], ["lastUpdated", "timestamp"], ["source", "string"], ["profile", "list<string>"], ["security", "list<Coding>"], ["tag", "list<Coding>"]],
+    "Meta": {"parsedAs": "RawMeta", "fields": [["extension", "string"], ["id", "string"], ["versionId", "string"], ["lastUpdated", "timestamp"], ["source", "string"], ["profile", "list<string>"], ["security", "list<Coding>"], ["tag", "list<Coding>"], ["lastUpdatedOrig", "timestamp"]]},
+    "Narrative": [["extension", "string"], ["id", "string"], ["status", "string"], ["div", "string"]],
+    "CodeableConcept": [["extension", "string"], ["id", "string"], ["coding", "list<Coding>"], ["text", "string"]],
+    "Period": [["extension", "string"], ["id", "string"], ["start", "timestamp"], ["end", "timestamp"]],
+    "NormalizedPeriod": {"parsedAs": "Period", "fields": [["extension", "string"], ["id", "string"], ["start", "timestamp"], ["end", "timestamp"], ["startOrig", "timestamp"], ["endOrig", "timestamp"]]},
+    "ReferenceIdentifier": [["extension", "string"], ["use", "string"], ["type", "string"], ["value", "string"], ["system", "string"], ["period", "string"], ["assigner", "string"]],
+    "RawReference": [["extension", "string"], ["id", "string"], ["reference", "string"], ["type", "string"], ["identifier", "ReferenceIdentifier"], ["display", "string"]],
+    "RawIdentifier": [["extension", "string"], ["use", "string"], ["value", "string"], ["system", "string"], ["type", "CodeableConcept"], ["period", "Period"], ["assigner", "RawReference"]],
+    "Reference": {"parsedAs": "RawReference", "fields": [["reference", "string"], ["type", "string"], ["identifier", "RawIdentifier"], ["display", "string"], ["extension", "string"], ["id", "string"], ["idOrig", "string"], ["msftSourceReference", "string"]]},
+    "Identifier": {"parsedAs": "RawIdentifier", "fields": [["extension", "string"], ["use", "string"], ["value", "string"], ["system", "string"], ["type", "CodeableConcept"], ["period", "Period"], ["assigner", "Reference"]]},
+    "HumanName": [["extension", "string"], ["id", "string"], ["use", "string"], ["text", "string"], ["family", "string"], ["given", "list<string>"], ["prefix", "list<string>"], ["suffix", "list<string>"], ["period", "Period"]],
+    "ContactPoint": [["extension", "string"], ["id", "string"], ["system", "string"], ["value", "string"], ["use", "string"], ["rank", "int32"], ["period", "Period"]],
+    "Address": [["extension", "string"], ["id", "string"], ["use", "string"], ["type", "string"], ["text", "string"], ["line", "list<string>"], ["city", "string"], ["district", "string"], ["state", "string"], ["postalCode", "string"], ["country", "string"], ["period", "Period"]],
+    "Attachment": [["extension", "string"], ["id", "string"], ["contentType", "string"], ["language", "string"], ["data", "string"], ["url", "string"], ["size", "int32"], ["hash", "string"], ["title", "string"], ["creation", "timestamp"]],
+    "PatientContact": [["extension", "string"], ["id", "string"], ["relationship", "list<CodeableConcept>"], ["name", "HumanName"], ["telecom", "list<ContactPoint>"], ["address", "Address"], ["gender", "string"], ["organization", "Reference"], ["period", "Period"]],
+    "PatientCommunication": [["extension", "string"], ["id", "string"], ["language", "CodeableConcept"], ["preferred", "bool"]],
+    "PatientLink": [["extension", "string"], ["id", "string"], ["other", "Reference"], ["type", "string"]],
+    "Quantity": [["extension", "string"], ["id", "string"], ["value", "decimal"], ["comparator", "string"], ["unit", "string"], ["system", "string"], ["code", "string"]],
+    "Range": [["extension", "string"], ["id", "string"], ["low", "Quantity"], ["high", "Quantity"]],
+    "TimingRepeat": [["extension", "string"], ["id", "string"], ["boundsDuration", "Quantity"], ["boundsRange", "Range"], ["boundsPeriod", "Period"], ["count", "int32"], ["countMax", "int32"], ["duration", "decimal"], ["durationMax", "decimal"], ["durationUnit", "string"], ["frequency", "int32"], ["frequencyMax", "int32"], ["period", "decimal"], ["periodMax", "decimal"], ["periodUnit", "string"], ["dayOfWeek", "list<string>"], ["timeOfDay", "list<string>"], ["when", "list<string>"], ["offset", "int32"]],
+    "Timing": [["extension", "string"], ["id", "string"], ["event", "list<timestamp>"], ["repeat", "TimingRepeat"], ["code", "CodeableConcept"]],
+    "Ratio": [["extension", "string"], ["id", "string"], ["numerator", "Quantity"], ["denominator", "Quantity"]],
+    "SampledData": [["extension", "string"], ["id", "string"], ["origin", "Quantity"], ["period", "decimal"], ["factor", "decimal"], ["lowerLimit", "decimal"], ["upperLimit", "decimal"], ["dimensions", "int32"], ["data", "string"]],
+    "Annotation": [["extension", "string"], ["id", "string"], ["authorReference", "Reference"], ["authorString", "string"], ["time", "timestamp"], ["text", "string"]],
+    "ObservationReferenceRange": [["extension", "string"], ["id", "string"], ["low", "Quantity"], ["high", "Quantity"], ["type", "CodeableConcept"], ["appliesTo", "list<CodeableConcept>"], ["age", "Range"], ["text", "string"]],
+    "ObservationComponent": [["extension", "string"], ["id", "string"], ["code", "CodeableConcept"], ["valueQuantity", "Quantity"], ["valueCodeableConcept", "CodeableConcept"], ["valueString", "string"], ["valueBoolean", "bool"], ["valueInteger", "int32"], ["valueRange", "Range"], ["valueRatio", "Ratio"], ["valueSampledData", "SampledData"], ["valueTime", "string"], ["valueDateTime", "timestamp"], ["valuePeriod", "Period"], ["dataAbsentReason", "CodeableConcept"], ["interpretation", "list<CodeableConcept>"], ["referenceRange", "list<ObservationReferenceRange>"]]
+  }
+}
