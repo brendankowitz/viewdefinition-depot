@@ -26,11 +26,9 @@ populated rows. There are deliberately no expectation NDJSON files yet.
 
 The views in `views/r4/fabric-silver-parity/` are generated from
 `contracts/fabric-hds/1.4.0/parity/` (which also maps every deployed Silver
-column to extracted, derived or Fabric-assigned). Those classifications are the
-author's reading of the Silver column names and are **unverified** against HDS
-behavior until the reference capture exists. Date, dateTime and instant fields
-are extracted as source strings (lossless); parsing and normalization belong to
-the later normalization task.
+column to extracted, derived, constant or Fabric-assigned, with its logical
+type from `parity/types.json`). Date, dateTime and instant fields are
+extracted as source strings (lossless) and parsed by the shaping step below.
 
 They need a CLI that writes complex `collection: true` columns as JSON text
 (Ignixa PR #549). Extraction tests use the development build when it exists at
@@ -60,6 +58,28 @@ python -m unittest discover -s tests -p test_fabric_views.py -v
 ```
 
 This is extraction evidence only. It does not verify either resource.
+
+## Shape extracted rows (source-derived, unverified)
+
+`fabric_silver.normalize.target_schema(resource)` builds the Silver schema
+from the contracts; a test requires it to equal the deployed Delta schema
+digest. `shape_row(resource, extracted, source_system=..., logical_path=...,
+ingest_time=...)` turns one extraction row into a Silver row: it parses the
+JSON columns and date strings (partial dates become midnight UTC, offsets
+become UTC), hashes the resource ID, adds the `fhirId` identifier, normalizes
+references without dereferencing them, adds the `*Orig` columns and builds the
+`_string` companions. The `limitations` text in each contract lists which
+columns keep pre-normalization values and the known divergences. For example,
+unknown JSON fields are rejected rather than dropped.
+
+These rules were written from reading the HDS normalization source. No HDS
+run has been captured, so every expected value in
+`tests/test_fabric_normalize.py` is a hand-derived example, not observed
+output. **Neither resource is verified.** This step needs only PyArrow:
+
+```sh
+python -m unittest discover -s tests -p test_fabric_normalize.py -v
+```
 
 ## Inputs shared by the two runs
 
