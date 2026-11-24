@@ -276,8 +276,10 @@ class CliSelectionTests(unittest.TestCase):
                 selected_cli()
 
     def test_empty_or_blank_explicit_selection_fails_instead_of_falling_back(self):
+        # Pretend every file exists so a fallback to the default build cannot skip the test.
         for value in ("", "   "):
-            with self.subTest(value=value), mock.patch.dict(os.environ, {"IGNIXA_PARITY_CLI": value}):
+            with self.subTest(value=value), mock.patch.object(Path, "is_file", return_value=True), \
+                    mock.patch.dict(os.environ, {"IGNIXA_PARITY_CLI": value}):
                 with self.assertRaises(AssertionError):
                     selected_cli()
 
