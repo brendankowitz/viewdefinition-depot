@@ -1,6 +1,6 @@
 # Fabric Silver R4 sample views
 
-**Status:** Proposed; awaiting specification review
+**Status:** Approved for implementation planning
 **Scope:** Initial Patient and Observation examples for Fabric healthcare data solutions v1.4.0
 
 ## Context
