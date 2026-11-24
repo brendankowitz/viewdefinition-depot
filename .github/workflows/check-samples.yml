@@ -23,5 +23,7 @@ jobs:
         run: dotnet tool restore
       - name: Install Parquet checker
         run: python -m pip install -r requirements-test.txt
+      - name: Check mismatched contract identities
+        run: python scripts/test_check_samples.py
       - name: Validate and inspect sample exports
         run: python scripts/check-samples.py

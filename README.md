@@ -20,7 +20,7 @@ python -m pip install -r requirements-test.txt
 python scripts/check-samples.py
 ```
 
-The checker validates the views, exports the fixtures to a temporary directory, and checks Parquet schemas and representative rows against the contracts. CI runs the same check.
+The checker verifies that contract filenames, contract resources, and view resources agree, then validates the views, exports the fixtures to a temporary directory, and checks Parquet schemas and representative rows against the contracts. CI runs the same check and the focused identity regressions (`python scripts/test_check_samples.py`).
 
 ## Manual export
 

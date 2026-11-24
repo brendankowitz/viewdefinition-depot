@@ -39,7 +39,7 @@
   "projections": [
     { "column": "msftSourceSystem", "source": "%sourceSystem", "target": "msftSourceSystem", "targetType": "string", "classification": "direct", "parquetType": "VARCHAR" },
     { "column": "idOrig", "source": "id", "target": "idOrig", "targetType": "string", "classification": "direct", "parquetType": "VARCHAR" },
-    { "column": "meta_lastUpdatedOrig", "source": "meta.lastUpdated", "target": "meta_lastUpdatedOrig", "targetType": "timestamp", "classification": "direct", "parquetType": "TIMESTAMP" },
+    { "column": "meta_lastUpdatedOrig", "source": "meta.lastUpdated.toDateTime()", "target": "meta_lastUpdatedOrig", "targetType": "timestamp", "classification": "direct", "parquetType": "TIMESTAMP" },
     { "column": "active", "source": "active", "target": "active", "targetType": "boolean", "classification": "direct", "parquetType": "BOOLEAN" },
     { "column": "gender", "source": "gender", "target": "gender", "targetType": "string", "classification": "direct", "parquetType": "VARCHAR" },
     { "column": "birthDateOrig", "source": "birthDate", "target": "birthDateOrig", "targetType": "date", "classification": "loader-owned", "parquetType": "TIMESTAMP" }

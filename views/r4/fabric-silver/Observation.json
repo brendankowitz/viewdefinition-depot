@@ -1,14 +1,15 @@
 {
   "resourceType": "ViewDefinition",
   "name": "observation_silver_projection",
+  "status": "draft",
   "resource": "Observation",
   "fhirVersion": ["4.0.1"],
-  "constant": [{ "name": "sourceSystem", "valueString": "example-east" }],
+  "constant": [{ "name": "sourceSystem", "valueString": "example-default" }],
   "select": [{
     "column": [
       { "name": "msftSourceSystem", "path": "%sourceSystem", "type": "string" },
       { "name": "idOrig", "path": "id", "type": "string" },
-      { "name": "meta_lastUpdatedOrig", "path": "meta.lastUpdated", "type": "datetime" },
+      { "name": "meta_lastUpdatedOrig", "path": "meta.lastUpdated.toDateTime()", "type": "dateTime" },
       { "name": "status", "path": "status", "type": "string" },
       { "name": "code_text", "path": "code.text", "type": "string" },
       { "name": "code_coding_loinc_system", "path": "code.coding.where(system = 'http://loinc.org').first().system", "type": "string" },

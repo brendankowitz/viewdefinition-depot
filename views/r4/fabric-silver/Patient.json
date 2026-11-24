@@ -1,14 +1,15 @@
 {
   "resourceType": "ViewDefinition",
   "name": "patient_silver_projection",
+  "status": "draft",
   "resource": "Patient",
   "fhirVersion": ["4.0.1"],
-  "constant": [{ "name": "sourceSystem", "valueString": "example-east" }],
+  "constant": [{ "name": "sourceSystem", "valueString": "example-default" }],
   "select": [{
     "column": [
       { "name": "msftSourceSystem", "path": "%sourceSystem", "type": "string" },
       { "name": "idOrig", "path": "id", "type": "string" },
-      { "name": "meta_lastUpdatedOrig", "path": "meta.lastUpdated", "type": "datetime" },
+      { "name": "meta_lastUpdatedOrig", "path": "meta.lastUpdated.toDateTime()", "type": "dateTime" },
       { "name": "active", "path": "active", "type": "boolean" },
       { "name": "gender", "path": "gender", "type": "string" },
       { "name": "birthDateOrig", "path": "birthDate", "type": "date" }

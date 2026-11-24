@@ -187,16 +187,28 @@ def main():
     contracts = []
     for path in contract_paths:
         contract = json.loads(path.read_text(encoding="utf-8"))
-        fixture = INPUT_DIR / f"{contract['resource']}.ndjson"
+        resource = contract.get("resource")
+        if resource != path.stem:
+            fail(
+                f"{path.name}: contract resource {resource!r} "
+                f"does not match filename stem {path.stem!r}"
+            )
+        fixture = INPUT_DIR / f"{resource}.ndjson"
         if not fixture.is_file():
             fail(f"missing fixture: {fixture}")
-        view = VIEW_DIR / f"{contract['resource']}.json"
-        if not view.is_file():
-            fail(f"missing ViewDefinition: {view}")
-        view_name = json.loads(view.read_text(encoding="utf-8"))["name"]
+        view_path = VIEW_DIR / path.name
+        if not view_path.is_file():
+            fail(f"missing ViewDefinition: {view_path}")
+        view = json.loads(view_path.read_text(encoding="utf-8"))
+        if view.get("resource") != resource:
+            fail(
+                f"{view_path.name}: ViewDefinition resource {view.get('resource')!r} "
+                f"does not match contract resource {resource!r}"
+            )
+        view_name = view["name"]
         if view_name != contract["view"]:
             fail(
-                f"{contract['resource']}: expected view name {contract['view']!r}, "
+                f"{resource}: expected view name {contract['view']!r}, "
                 f"got {view_name!r}"
             )
         contracts.append(contract)
