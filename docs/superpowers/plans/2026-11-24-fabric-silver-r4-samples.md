@@ -10,6 +10,8 @@
 
 **Spec:** `docs/superpowers/specs/2026-11-24-fabric-silver-r4-samples-design.md`
 
+**Evidence-based amendment:** CLI 0.6.82 names batch outputs by ViewDefinition file stem. The Patient date exports as `TIMESTAMP` and requires loader conversion to Fabric `date`. Repeating complex Patient fields are not losslessly serialized and remain loader-owned; the Observation fixture has one LOINC coding, projected as three flattened fields. The original intent to serialize the full collections is retained below as historical context, not a supported claim. The historical checker listing in Step 3 is superseded by `scripts/check-samples.py`, including its explicit conversion invariants and diagnostics.
+
 ## Global Constraints
 
 - The first Fabric target is v1.4.0.
@@ -35,7 +37,7 @@
 - Create: `scripts/check-samples.py` — validate and run the views, then check their Parquet output.
 
 **Interfaces:**
-- The batch view name is the expected output basename: `patient_silver_projection` writes `patient_silver_projection.parquet`; `observation_silver_projection` writes `observation_silver_projection.parquet`.
+- The batch output basename is the resource-named ViewDefinition file stem: `Patient.json` writes `Patient.parquet`; `Observation.json` writes `Observation.parquet`. Contract `view` is the ViewDefinition name.
 - The definitions declare the string constant `sourceSystem`; the runner uses `--var sourceSystem=example-east`.
 - Each resource contract declares its `resource`, `view`, `targetVersion`, `schemaSource`, `keyColumn`, `targetFields`, `loaderOwnedFields`, `outputSchema`, `expectedRowCount`, `projections`, and `expectedRows`. Each projection records `column`, FHIRPath `source`, Fabric `target`, Fabric `targetType`, `classification`, and expected Ignixa `parquetType`.
 - The checker entry point is `python scripts/check-samples.py`. It runs the CLI using `subprocess.run(..., check=True)`, writes outputs into a `tempfile.TemporaryDirectory`, reads schema and rows with DuckDB, and fails with a nonzero exit code for command errors or contract mismatches.
@@ -115,9 +117,9 @@ Create `contracts/fabric-hds/1.4.0/Patient.json` and `Observation.json`. Each fi
 }
 ```
 
-For Patient, include these target paths and Fabric types: `idOrig` string; loader-owned `id` string; `msftSourceSystem` string; `msftCreatedDatetime` and `msftModifiedDatetime` timestamps; `msftFilePath` string; `meta_lastUpdatedOrig` timestamp; `active` boolean; `gender` string; `birthDateOrig` date; and `identifierOrig_string` and `name_string` strings. Mark `id`, both Fabric timestamps, and `msftFilePath` as loader-owned. Map `identifier` and `name` to the `_string` columns as `serialized`. Record the observed Ignixa Parquet types separately: the source update time is `TIMESTAMP`, birth date is `DATE`, booleans are `BOOLEAN`, and strings and serialized collections are `VARCHAR`.
+For Patient, include these target paths and Fabric types: `idOrig` string; loader-owned `id` string; `msftSourceSystem` string; `msftCreatedDatetime` and `msftModifiedDatetime` timestamps; `msftFilePath` string; `meta_lastUpdatedOrig` timestamp; `active` boolean; `gender` string; `birthDateOrig` date; and `identifierOrig_string` and `name_string` strings. Mark `id`, both Fabric timestamps, and `msftFilePath` as loader-owned. The original plan mapped `identifier` and `name` as serialized collections; because CLI 0.6.82 produces nulls for complex values, those fields are loader-owned instead. Record the observed Ignixa Parquet types separately: source update time and birth date are `TIMESTAMP`, booleans are `BOOLEAN`, and strings are `VARCHAR`. Birth date's conversion from Parquet `TIMESTAMP` to Fabric `date` is loader-owned.
 
-For Observation, include these target paths and Fabric types: `idOrig` string; loader-owned `id` string; `msftSourceSystem` string; `msftCreatedDatetime` and `msftModifiedDatetime` timestamps; `msftFilePath` string; `meta_lastUpdatedOrig` timestamp; `status` string; `code.text` string; `code.coding` an array of coding structs; `subject.msftSourceReference` string; `valueQuantity.value` decimal(36,18); `valueQuantity.system`, `valueQuantity.code`, and `valueQuantity.unit` strings; and `valueString` string. Mark `id`, both Fabric timestamps, and `msftFilePath` as loader-owned. Map the source `id` to silver `idOrig` and the supplied namespace to `msftSourceSystem` as `direct`; map the original subject reference to `subject.msftSourceReference` and the flattened Quantity components to their respective nested paths as `flattened`; map the `code.coding` collection to `code.coding` as `serialized`. Record observed Ignixa Parquet types separately, including `DECIMAL(38,18)` for the Quantity value and `VARCHAR` for serialized collections. Store only selected target fields, not complete upstream schema files.
+For Observation, include these target paths and Fabric types: `idOrig` string; loader-owned `id` string; `msftSourceSystem` string; `msftCreatedDatetime` and `msftModifiedDatetime` timestamps; `msftFilePath` string; `meta_lastUpdatedOrig` timestamp; `status` string; `code.text` string; `code.coding` an array of coding structs; `subject.msftSourceReference` string; `valueQuantity.value` decimal(36,18); `valueQuantity.system`, `valueQuantity.code`, and `valueQuantity.unit` strings; and `valueString` string. Mark `id`, both Fabric timestamps, and `msftFilePath` as loader-owned. Map the source `id` to silver `idOrig` and the supplied namespace to `msftSourceSystem` as `direct`; map the original subject reference to `subject.msftSourceReference` and the flattened Quantity components to their respective nested paths as `flattened`. The original full-collection serialization intent is replaced by three flattened fields for the first LOINC coding; this is complete for the one-coding fixture, not arbitrary resources. Record observed Ignixa Parquet types separately, including `DECIMAL(38,18)` for the Quantity value. Store only selected target fields, not complete upstream schema files.
 
 Run a standard-library JSON parse before adding views:
 
@@ -136,11 +138,11 @@ dotnet tool run ignixa-sqlonfhir -- r4 validate --views <ROOT/views/r4/fabric-si
 dotnet tool run ignixa-sqlonfhir -- r4 run --views <ROOT/views/r4/fabric-silver> --input <ROOT/examples/r4/fabric-silver/input> --out <temporary output directory> --format parquet --var sourceSystem=example-east
 ```
 
-Inspect each view-named Parquet file with DuckDB. Use `DESCRIBE SELECT * FROM read_parquet(?)` with the Parquet path as a bound parameter and a `SELECT * FROM read_parquet(?)` query to read the rows. Assert that column names and DuckDB types equal the contract's `outputSchema`, that the row count equals `expectedRowCount`, and that keyed representative values equal `expectedRows`. Compare only generated output fields present in each expected row. Check every projection's `target` and every `loaderOwnedFields` path exists in the contract's selected `targetFields`; require each projection to have a recognized `classification` and each loader-owned path to have a reason. Fail rather than skip an unknown mapping. Print the failing contract, output column or target path, expected value/type, and observed value/type to stderr.
+Inspect each resource-named Parquet file with DuckDB. Use `DESCRIBE SELECT * FROM read_parquet(?)` with the Parquet path as a bound parameter and a `SELECT * FROM read_parquet(?)` query to read the rows. Assert that column names and DuckDB types equal the contract's `outputSchema`, that the row count equals `expectedRowCount`, and that keyed representative values equal `expectedRows`. Compare only generated output fields present in each expected row. Check every projection's `target` and every `loaderOwnedFields` path exists in the contract's selected `targetFields`; require each projection to have a recognized `classification` and each loader-owned path to have a reason. Fail rather than skip an unknown mapping. Print the failing contract, output column or target path, expected value/type, and observed value/type to stderr.
 
 Do not catch and suppress subprocess errors, invalid Parquet, or failed assertions. Let `subprocess.run(check=True)` surface the command and exit status; when DuckDB cannot be imported, print the `python -m pip install -r requirements-test.txt` hint and exit nonzero.
 
-Use this checker implementation; its paths are repository-relative so it also runs from CI:
+The following is the historical checker implementation, retained for context. It is superseded by the checked-in checker, which handles resource-named files, projected loader-owned conversion, and detailed diagnostics:
 
 ```python
 #!/usr/bin/env python3
@@ -330,7 +332,7 @@ def main():
             check=True,
         )
         for contract in contracts:
-            parquet_path = Path(directory) / f"{contract['view']}.parquet"
+            parquet_path = Path(directory) / f"{contract['resource']}.parquet"
             if not parquet_path.is_file():
                 fail(f"missing Parquet output: {parquet_path.name}")
             check_contract(contract, parquet_path)
@@ -356,7 +358,7 @@ Create `Patient.ndjson` with a single R4 Patient (`id` `p1`), `meta.lastUpdated`
 
 - [ ] **Step 5: Add the Patient ViewDefinition**
 
-Create `views/r4/fabric-silver/Patient.json` as an R4 ViewDefinition named `patient_silver_projection`. Declare `fhirVersion: ["4.0.1"]`, the resource `Patient`, and the `sourceSystem` string constant. Emit these columns:
+Create `views/r4/fabric-silver/Patient.json` as an R4 ViewDefinition named `patient_silver_projection`. Declare `fhirVersion: ["4.0.1"]`, the resource `Patient`, and the `sourceSystem` string constant. Emit these columns (the original complex collection columns are loader-owned, as amended above):
 
 ```json
 [
@@ -365,9 +367,7 @@ Create `views/r4/fabric-silver/Patient.json` as an R4 ViewDefinition named `pati
   { "name": "meta_lastUpdatedOrig", "path": "meta.lastUpdated", "type": "datetime" },
   { "name": "active", "path": "active", "type": "boolean" },
   { "name": "gender", "path": "gender", "type": "string" },
-  { "name": "birthDateOrig", "path": "birthDate", "type": "date" },
-  { "name": "identifierOrig_string", "path": "identifier", "type": "string" },
-  { "name": "name_string", "path": "name", "type": "string" }
+  { "name": "birthDateOrig", "path": "birthDate", "type": "date" }
 ]
 ```
 
@@ -382,7 +382,9 @@ Create `views/r4/fabric-silver/Observation.json` as an R4 ViewDefinition named `
   { "name": "meta_lastUpdatedOrig", "path": "meta.lastUpdated", "type": "datetime" },
   { "name": "status", "path": "status", "type": "string" },
   { "name": "code_text", "path": "code.text", "type": "string" },
-  { "name": "code_coding_string", "path": "code.coding", "type": "string" },
+  { "name": "code_coding_loinc_system", "path": "code.coding.where(system = 'http://loinc.org').first().system", "type": "string" },
+  { "name": "code_coding_loinc_code", "path": "code.coding.where(system = 'http://loinc.org').first().code", "type": "string" },
+  { "name": "code_coding_loinc_display", "path": "code.coding.where(system = 'http://loinc.org').first().display", "type": "string" },
   { "name": "subject_reference", "path": "subject.reference", "type": "string" },
   { "name": "valueQuantity_value", "path": "value.ofType(Quantity).value", "type": "decimal" },
   { "name": "valueQuantity_system", "path": "value.ofType(Quantity).system", "type": "string" },
@@ -400,7 +402,7 @@ Run:
 python scripts/check-samples.py
 ```
 
-Expected: Ignixa validates both views and emits both Parquet files. Update the contracts only to document observed exporter types and the selected HDS target-field paths/types; do not weaken checks for missing rows, bad values, or unknown compatibility classifications. In particular verify Patient collection columns are Parquet strings, `meta_lastUpdatedOrig` is a timestamp, `birthDateOrig` is a date, and Ignixa's decimal field is explicitly compared with the Fabric nested `decimal(36,18)` target. Confirm the Observation rows contain the expected coding, reference, Quantity, and `valueString` values.
+Expected: Ignixa validates both views and emits both Parquet files. Update the contracts only to document observed exporter types and the selected HDS target-field paths/types; do not weaken checks for missing rows, bad values, or unknown compatibility classifications. Verify `meta_lastUpdatedOrig` and `birthDateOrig` are timestamps, the latter requires conversion to Fabric `date`, and Ignixa's decimal field is explicitly compared with the Fabric nested `decimal(36,18)` target. Confirm the Observation rows contain the expected coding components, reference, Quantity, and `valueString` values.
 
 - [ ] **Step 8: Commit the runnable sample pack**
 

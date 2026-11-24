@@ -9,7 +9,7 @@ This repository currently contains only its license and Git ignore configuration
 
 The initial target is the **silver healthcare data model** in Microsoft Fabric healthcare data solutions, not the bronze `ClinicalFhir` staging table. [The official Microsoft download](https://www.microsoft.com/en-us/download/details.aspx?id=108754) contains the v1.4.0 R4 resource schemas in `HDS.SourceCode/src/config/fhir4/schema/silver/` and the deployed Delta schemas in `HDS.SourceCode/hds-build-artifacts/healthcare-tables/1.4.0/Silver/{Patient,Observation}/_delta_log/00000000000000000000.json`. The broader architecture and the Fabric-owned transformation behavior are described in [Data foundations in healthcare data solutions](https://learn.microsoft.com/en-us/industry/healthcare/healthcare-data-solutions/data-architecture-and-management) and [Ingest clinical data using healthcare data foundations](https://learn.microsoft.com/en-us/industry/healthcare/healthcare-data-solutions/healthcare-data-foundations).
 
-Ignixa's ViewDefinition Parquet export uses scalar columns. Collection results can be serialized as JSON strings, but a scalar projection is not itself a nested Delta table. Fabric adds behavior outside a ViewDefinition, including resource and reference ID normalization, nested schema construction, ingestion timestamps and file lineage, and Delta update handling. Samples must distinguish projections that can load directly from mappings that need further transformation or a loader.
+Ignixa's ViewDefinition Parquet export uses scalar columns. Primitive collections can be serialized as JSON strings; with CLI 0.6.82, complex collection values tested for these samples become nulls rather than lossless JSON. A scalar projection is not itself a nested Delta table. Fabric adds behavior outside a ViewDefinition, including resource and reference ID normalization, nested schema construction, ingestion timestamps and file lineage, and Delta update handling. Samples must distinguish projections that can load directly from mappings that need further transformation or a loader.
 
 ## Goals
 
@@ -66,15 +66,19 @@ The view directory contains only definitions, so it can be passed directly to Ig
 
 Each ViewDefinition is resource-grained and emits no more than one row per Patient or Observation. `msftSourceSystem` is supplied by a typed ViewDefinition constant that can be overridden using Ignixa's `--var sourceSystem=<namespace>` argument.
 
+**Evidence-based implementation amendment:** CLI 0.6.82 batch output uses each ViewDefinition's file stem, so `Patient.json` and `Observation.json` produce `Patient.parquet` and `Observation.parquet`. The contract `view` remains the ViewDefinition name.
+
 ### Patient
 
-The sample projects `id` to `idOrig`; `meta.lastUpdated` to `meta_lastUpdatedOrig`; and includes `msftSourceSystem`, `active`, `gender`, and `birthDate` as `birthDateOrig`. It also demonstrates preserving the repeating `identifier` and `name` values in the Fabric-style `_string` columns where supported by Ignixa's collection serialization.
+The sample projects `id` to `idOrig`; `meta.lastUpdated` to `meta_lastUpdatedOrig`; and includes `msftSourceSystem`, `active`, `gender`, and `birthDate` as `birthDateOrig`. The original intent was also to preserve repeating `identifier` and `name` values in Fabric-style `_string` columns. CLI 0.6.82 instead emits nulls for these complex values, so those fields are loader-owned and must be obtained from the source rather than this projection. Birth date is emitted as `TIMESTAMP`; conversion to Fabric `date` is loader-owned, explicitly recorded with both types and checked against the Parquet output.
 
 The fixture has one Patient with multiple identifiers. The view retains one Patient-grained row; it does not unroll identifiers into duplicate Patient rows.
 
 ### Observation
 
 The sample includes `idOrig`, `msftSourceSystem`, `meta_lastUpdatedOrig`, `status`, a LOINC coding example and `code.text`, the original literal `subject.reference`, typed Quantity components, and `valueString`.
+
+The original intent was to serialize the full `code.coding` collection. The pinned CLI cannot losslessly serialize complex values, so the example instead flattens system, code, and display of the first LOINC coding. Each fixture has one coding with exactly those fields, but other codings or coding fields are not preserved in general.
 
 The two Observations exercise different R4 `value[x]` branches: a Quantity and a string. Quantity components map from flat columns to fields of a nested Fabric struct and require assembly. The CLI's decimal schema may have a different precision from the HDS `decimal(36,18)` field and must be explicitly classified and checked. A literal subject reference is source data, not a harmonized Fabric reference ID; the mapping identifies the source-reference destination and marks the normalization boundary.
 
@@ -85,7 +89,7 @@ Each contract entry uses one of these categories:
 - **direct**: projected output name and Parquet type match the selected Fabric target field.
 - **serialized**: a repeating FHIR value is emitted as a JSON string for a compatible Fabric `_string` target; it is not a Parquet array.
 - **flattened**: scalar columns represent components of a nested Fabric target and require reconstruction.
-- **loader-owned**: Fabric must derive the value or apply ingestion semantics that are not available in a ViewDefinition.
+- **loader-owned**: a loader must derive or obtain the value, or convert a projected value, before loading Fabric. Projected conversions record the source Parquet type and target type.
 
 The documentation identifies the limits of each sample: selected fields are not a complete FHIR resource export, and omitted fields are not implicitly claimed to be preserved. In particular, generating Fabric resource IDs and normalized references, setting Fabric-managed created/modified timestamps and source file paths, and applying upserts remain outside the ViewDefinitions.
 
@@ -98,7 +102,7 @@ The check performs these steps and exits nonzero on any failure:
 1. Run Ignixa R4 ViewDefinition validation.
 2. Run the ViewDefinitions against both NDJSON fixtures to a temporary output directory.
 3. Use DuckDB to inspect the generated Parquet fields, types, and representative values.
-4. Compare each actual output field and Parquet type with the expected Ignixa output recorded in the contract. For each mapped Fabric path, verify its name, type, and nested structure against the checked-in field-level snapshot sourced from the HDS Delta schema. Require every projection mapping to be classified; verify sample values, including preserved repeating JSON strings and the two Observation choice branches.
+4. Compare each actual output field and Parquet type with the expected Ignixa output recorded in the contract. For each mapped Fabric path, verify its name, type, and nested structure against the checked-in field-level snapshot sourced from the HDS Delta schema. Require every projection mapping to be classified; verify the projected birth date, LOINC components, and two Observation choice branches. Repeating Patient complex values are not exported by these views.
 
 GitHub Actions runs the same check. Generated Parquet and temporary files are not tracked. The README documents both the single validation command and the equivalent Ignixa commands for users who wish to export the samples themselves.
 

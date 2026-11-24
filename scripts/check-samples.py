@@ -67,6 +67,7 @@ def check_contract(contract, parquet_path):
     output_names = [field["name"] for field in output_schema]
     target_types = {field["path"]: field["type"] for field in contract["targetFields"]}
     projection_columns = {item["column"] for item in contract["projections"]}
+    loader_fields = {field["path"]: field for field in contract["loaderOwnedFields"]}
 
     if projection_columns != set(output_names):
         fail(f"{resource}: projection columns do not match outputSchema")
@@ -76,26 +77,59 @@ def check_contract(contract, parquet_path):
         if target not in target_types:
             fail(f"{resource}: unknown Fabric target path {target}")
         if mapping["targetType"] != target_types[target]:
-            fail(f"{resource}: target type mismatch at {target}")
+            fail(
+                f"{resource}: target type mismatch at {target}; "
+                f"expected {target_types[target]!r}, got {mapping['targetType']!r}"
+            )
         if mapping["classification"] not in CLASSIFICATIONS:
             fail(f"{resource}: unknown classification at {target}")
         if mapping["classification"] == "direct" and (
             mapping["column"] != target
             or DIRECT_TYPES.get(mapping["parquetType"]) != mapping["targetType"]
         ):
-            fail(f"{resource}: direct projection does not match {target}")
-        if mapping["parquetType"] != next(
+            fail(
+                f"{resource}: direct projection does not match {target}; "
+                f"expected column {target!r} with Fabric type {mapping['targetType']!r}, "
+                f"got column {mapping['column']!r} with Parquet type {mapping['parquetType']!r}"
+            )
+        if mapping["classification"] == "loader-owned" and target not in loader_fields:
+            fail(f"{resource}: loader-owned projection lacks a loader-owned field: {target}")
+        expected_parquet_type = next(
             field["duckdbType"]
             for field in output_schema
             if field["name"] == mapping["column"]
-        ):
-            fail(f"{resource}: Parquet type mismatch for {mapping['column']}")
+        )
+        if mapping["parquetType"] != expected_parquet_type:
+            fail(
+                f"{resource}: Parquet type mismatch for {mapping['column']}; "
+                f"expected {expected_parquet_type!r}, got {mapping['parquetType']!r}"
+            )
 
     for field in contract["loaderOwnedFields"]:
         if field["path"] not in target_types or not field["reason"]:
             fail(f"{resource}: invalid loader-owned field {field['path']}")
-        if field["path"] in projection_columns:
-            fail(f"{resource}: loader-owned field is also projected: {field['path']}")
+        if field["type"] != target_types[field["path"]]:
+            fail(
+                f"{resource}: loader-owned type mismatch at {field['path']}; "
+                f"expected {target_types[field['path']]!r}, got {field['type']!r}"
+            )
+        projected = [m for m in contract["projections"] if m["target"] == field["path"]]
+        if field["path"] in projection_columns and not any(
+            mapping["column"] == field["path"] for mapping in projected
+        ):
+            fail(f"{resource}: loader-owned column targets another field: {field['path']}")
+        if projected:
+            if len(projected) != 1 or projected[0]["classification"] != "loader-owned":
+                fail(f"{resource}: invalid projected loader-owned field: {field['path']}")
+            observed = projected[0]["parquetType"]
+            expected = field.get("sourceParquetType")
+            if expected != observed:
+                fail(
+                    f"{resource}: loader-owned source type mismatch at {field['path']}; "
+                    f"expected {expected!r}, got {observed!r}"
+                )
+        elif "sourceParquetType" in field:
+            fail(f"{resource}: loader-owned conversion is not projected: {field['path']}")
 
     with duckdb.connect() as connection:
         actual_schema = [

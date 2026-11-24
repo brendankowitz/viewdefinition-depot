@@ -10,7 +10,8 @@
       { "name": "idOrig", "path": "id", "type": "string" },
       { "name": "meta_lastUpdatedOrig", "path": "meta.lastUpdated", "type": "datetime" },
       { "name": "active", "path": "active", "type": "boolean" },
-      { "name": "gender", "path": "gender", "type": "string" }
+      { "name": "gender", "path": "gender", "type": "string" },
+      { "name": "birthDateOrig", "path": "birthDate", "type": "date" }
     ]
   }]
 }

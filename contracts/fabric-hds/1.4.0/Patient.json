@@ -23,7 +23,7 @@
     { "path": "msftCreatedDatetime", "type": "timestamp", "reason": "Fabric ingestion creation timestamp" },
     { "path": "msftModifiedDatetime", "type": "timestamp", "reason": "Fabric ingestion modification timestamp" },
     { "path": "msftFilePath", "type": "string", "reason": "Fabric ingestion source file lineage" },
-    { "path": "birthDateOrig", "type": "date", "reason": "CLI date output requires conversion from TIMESTAMP to Fabric DATE" },
+    { "path": "birthDateOrig", "type": "date", "sourceParquetType": "TIMESTAMP", "reason": "CLI date output requires conversion from TIMESTAMP to Fabric DATE" },
     { "path": "identifierOrig_string", "type": "string", "reason": "CLI does not losslessly serialize complex repeating identifiers" },
     { "path": "name_string", "type": "string", "reason": "CLI does not losslessly serialize complex repeating names" }
   ],
@@ -33,14 +33,16 @@
     { "name": "idOrig", "duckdbType": "VARCHAR" },
     { "name": "meta_lastUpdatedOrig", "duckdbType": "TIMESTAMP" },
     { "name": "active", "duckdbType": "BOOLEAN" },
-    { "name": "gender", "duckdbType": "VARCHAR" }
+    { "name": "gender", "duckdbType": "VARCHAR" },
+    { "name": "birthDateOrig", "duckdbType": "TIMESTAMP" }
   ],
   "projections": [
     { "column": "msftSourceSystem", "source": "%sourceSystem", "target": "msftSourceSystem", "targetType": "string", "classification": "direct", "parquetType": "VARCHAR" },
     { "column": "idOrig", "source": "id", "target": "idOrig", "targetType": "string", "classification": "direct", "parquetType": "VARCHAR" },
     { "column": "meta_lastUpdatedOrig", "source": "meta.lastUpdated", "target": "meta_lastUpdatedOrig", "targetType": "timestamp", "classification": "direct", "parquetType": "TIMESTAMP" },
     { "column": "active", "source": "active", "target": "active", "targetType": "boolean", "classification": "direct", "parquetType": "BOOLEAN" },
-    { "column": "gender", "source": "gender", "target": "gender", "targetType": "string", "classification": "direct", "parquetType": "VARCHAR" }
+    { "column": "gender", "source": "gender", "target": "gender", "targetType": "string", "classification": "direct", "parquetType": "VARCHAR" },
+    { "column": "birthDateOrig", "source": "birthDate", "target": "birthDateOrig", "targetType": "date", "classification": "loader-owned", "parquetType": "TIMESTAMP" }
   ],
   "expectedRows": [
     {
@@ -48,7 +50,8 @@
       "msftSourceSystem": "example-east",
       "meta_lastUpdatedOrig": "2024-01-15T12:00:00Z",
       "active": true,
-      "gender": "female"
+      "gender": "female",
+      "birthDateOrig": "1980-04-12T00:00:00Z"
     }
   ]
 }
