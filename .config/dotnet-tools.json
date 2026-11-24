@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "ignixa.sqlonfhir.cli": {
+      "version": "0.6.82",
+      "commands": ["ignixa-sqlonfhir"]
+    }
+  }
+}
