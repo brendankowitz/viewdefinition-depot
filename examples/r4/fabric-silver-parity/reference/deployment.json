@@ -1,0 +1,34 @@
+{
+  "status": "awaiting-hds-capture",
+  "verifiedResources": [],
+  "fhirVersion": "4.0.1",
+  "hdsVersion": "1.4.0",
+  "release": "https://www.microsoft.com/en-us/download/details.aspx?id=108754",
+  "artifactRoot": "HDS.SourceCode/hds-build-artifacts/healthcare-artifacts/1.4.0/relational-fhir-data-foundations",
+  "artifactSha256": {
+    "DataPipelines/msft_clinical_data_foundation_ingestion.json": "ef068347f5419e21851640992b85f7562ecdb28ad29b5fd60c4571c5784414f7",
+    "Notebooks/msft_config_notebook.ipynb": "d736a496422a22af6275ce03358574aa8a93867628435ef3f71a5ab70b505e16",
+    "Notebooks/msft_fhir_ndjson_bronze_ingestion.ipynb": "2d8f0eb554f6053353b3534c69e39bc0b8ae51299417a4ad476874edf7db167f",
+    "Notebooks/msft_bronze_silver_flatten.ipynb": "a8be23d561d4afdf3c410fed58d87b489e9aa7cd823c6db22d9633113e68067d"
+  },
+  "packageConfigSha256": {
+    "src/system_configurations/deploymentParametersConfiguration.template.json": "c283a1b6c52659b643aba1f5d6088fdf4d5c7fac608185e567e91bfeeb9115ed",
+    "src/config/fhir4/transformation/flatten/flatten_config.json": "227c94913727b7e5042897d0c7ba08d8c985df89787df3819e520e6eaf1511df",
+    "src/config/fhir4/schema/bronze/ClinicalFhir.avsc": "68709b99e222da7882dd0f8cbc3cda78af273872283371fabc5c4d5d6e067eb1",
+    "src/config/fhir4/schema/silver/patient.avsc": "0b10f5e1ddcae28591880c1aed8f645c6dfab708fdd31296aeffec9302cb0438",
+    "src/config/fhir4/schema/silver/observation.avsc": "656d6440050c6ed133ab0ac664e77aa8c50f985e4f617109b934ccfcf2a05870"
+  },
+  "deltaLogRoot": "HDS.SourceCode/hds-build-artifacts/healthcare-tables/1.4.0/Silver",
+  "tables": {
+    "Patient": {
+      "fields": 51,
+      "creationLogSha256": "e6ec935809b51789e55ea0754ce6b9ca00094220e1d99e5fb59d7fdd08ad89ed",
+      "schemaSha256": "b9c4bc459f85b485bf2570526969125e823801700ab1d42d022f69cb69c0c582"
+    },
+    "Observation": {
+      "fields": 89,
+      "creationLogSha256": "27ab57103211c4730de7f6cf5fc42a3fe80a80cc957d469592fb418c03889053",
+      "schemaSha256": "cedf46756c6c3360cc93716222c8ff40fa218ab465011c7132943a5e8bd0e82f"
+    }
+  }
+}

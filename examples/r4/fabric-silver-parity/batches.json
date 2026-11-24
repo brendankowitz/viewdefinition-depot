@@ -1,0 +1,46 @@
+{
+  "fhirVersion": "4.0.1",
+  "hdsVersion": "1.4.0",
+  "inputs": {
+    "east-patient-1": {
+      "resource": "Patient",
+      "sourceSystem": "https://east.example.test/fhir",
+      "path": "input/east/initial/Patient.ndjson",
+      "logicalPath": "Files/Process/Clinical/FHIR-NDJSON/east/initial/Patient.ndjson",
+      "sha256": "5811acc3caad319d901c01f75276d7ca401967b3a7c81d80989b444d670aad79"
+    },
+    "west-patient-1": {
+      "resource": "Patient",
+      "sourceSystem": "https://west.example.test/fhir",
+      "path": "input/west/initial/Patient.ndjson",
+      "logicalPath": "Files/Process/Clinical/FHIR-NDJSON/west/initial/Patient.ndjson",
+      "sha256": "00b345495f5b4786a269572dbde1b8f70cab5893a441c54b1d152eda5dbd47b0"
+    },
+    "east-observation-1": {
+      "resource": "Observation",
+      "sourceSystem": "https://east.example.test/fhir",
+      "path": "input/east/initial/Observation.ndjson",
+      "logicalPath": "Files/Process/Clinical/FHIR-NDJSON/east/initial/Observation.ndjson",
+      "sha256": "a6019df6c08575a2b6e4c61998c1559356252437aec7ef5b44837bc3479e5348"
+    },
+    "west-observation-1": {
+      "resource": "Observation",
+      "sourceSystem": "https://west.example.test/fhir",
+      "path": "input/west/initial/Observation.ndjson",
+      "logicalPath": "Files/Process/Clinical/FHIR-NDJSON/west/initial/Observation.ndjson",
+      "sha256": "e5ec6d5c5b9afb581a0a14df7ccff764ca4f7b89091c55f109ba0c6ad0e54be0"
+    },
+    "east-patient-2": {
+      "resource": "Patient",
+      "sourceSystem": "https://east.example.test/fhir",
+      "path": "input/east/update/Patient.ndjson",
+      "logicalPath": "Files/Process/Clinical/FHIR-NDJSON/east/update/Patient.ndjson",
+      "sha256": "4935687bdd9e3a3131cee7df0162e6c19e924a5c3a7c11964308dbb783244a54"
+    }
+  },
+  "events": [
+    {"name": "initial", "inputs": ["east-patient-1", "west-patient-1", "east-observation-1", "west-observation-1"]},
+    {"name": "replay", "inputs": ["east-patient-1", "east-observation-1"]},
+    {"name": "update", "inputs": ["east-patient-2"]}
+  ]
+}

@@ -1,0 +1,1 @@
+{"resourceType":"Patient","id":"p-shared","meta":{"versionId":"1","lastUpdated":"2025-01-10T11:00:00Z","source":"https://west.example.test/fhir"},"birthDate":"1999-04","multipleBirthBoolean":false}
