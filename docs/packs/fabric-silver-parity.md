@@ -26,10 +26,33 @@ populated rows. There are deliberately no expectation NDJSON files yet.
 
 The views in `views/r4/fabric-silver-parity/` are generated from
 `contracts/fabric-hds/1.4.0/parity/` (which also maps every deployed Silver
-column to extracted, derived or Fabric-assigned). They need a CLI that writes
-complex `collection: true` columns as JSON text (Ignixa PR #549); the pinned
-0.6.82 emits `null` elements instead. Extraction tests are skipped, saying so,
-unless a development build exists or `IGNIXA_PARITY_CLI` names one.
+column to extracted, derived or Fabric-assigned). Those classifications are the
+author's reading of the Silver column names and are **unverified** against HDS
+behavior until the reference capture exists. Date, dateTime and instant fields
+are extracted as source strings (lossless); parsing and normalization belong to
+the later normalization task.
+
+They need a CLI that writes complex `collection: true` columns as JSON text
+(Ignixa PR #549). Extraction tests use the development build when it exists at
+the default path (otherwise they skip, saying so). `IGNIXA_PARITY_CLI` selects
+`pinned` or a DLL path; a path that is not a file fails the run rather than
+skipping.
+
+**Upstream blocker, pinned 0.6.82.** Complex `collection: true` columns come
+back as one `null` per element, so content is lost (count is kept). Observed
+by reading Parquet back against the source:
+
+| Input | Lost columns |
+| --- | --- |
+| `input/east/initial/Observation.ndjson` (`o-quantity`) | `code` (incl. `Observation.code.coding` = `[null, null]` for its two codings), `meta`, `subject`, `valueQuantity` |
+| `input/west/initial/Observation.ndjson` | `code`, `effectivePeriod`, `meta`, `subject` |
+| `input/east/initial/Patient.ndjson`, `input/east/update/Patient.ndjson` | `extension`, `identifier`, `meta`, `name` |
+| `input/west/initial/Patient.ndjson` | `meta` |
+
+The supported command therefore needs a released CLI containing PR #549; the
+extraction was verified only with a development build at revision
+`40851de69a4f4cac84703050e87baa50221c4efc`. Neither Patient nor Observation is
+covered or verified.
 
 ```sh
 python -m fabric_silver.views --check

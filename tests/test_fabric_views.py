@@ -14,6 +14,7 @@ import tempfile
 import unittest
 from decimal import Decimal
 from pathlib import Path
+from unittest import mock
 
 import pyarrow.parquet as pq
 
@@ -31,10 +32,14 @@ def selected_cli():
     choice = os.environ.get("IGNIXA_PARITY_CLI")
     if choice == "pinned":
         return PINNED
-    path = Path(choice) if choice else DEV_DLL
-    if not path.is_file():
-        raise unittest.SkipTest(f"development CLI not built at {path}")
-    return ["dotnet", str(path)]
+    if choice:
+        # A mistyped explicit selection must never turn into a green run without extraction tests.
+        if not Path(choice).is_file():
+            raise AssertionError(f"IGNIXA_PARITY_CLI is not 'pinned' or an existing file: {choice}")
+        return ["dotnet", choice]
+    if not DEV_DLL.is_file():
+        raise unittest.SkipTest(f"default development CLI not built at {DEV_DLL}")
+    return ["dotnet", str(DEV_DLL)]
 
 
 def run_cli(cli, *args):
@@ -260,6 +265,26 @@ class ContractTests(unittest.TestCase):
             for column in views.load_contract(resource)["extraction"]:
                 populated = [r for r in COVERAGE[resource] if source_key(column["path"]) in r]
                 self.assertTrue(populated, f"{resource}.{column['column']} is never populated")
+
+
+class CliSelectionTests(unittest.TestCase):
+    """Offline: no .NET needed."""
+
+    def test_invalid_explicit_selection_fails_instead_of_skipping(self):
+        with mock.patch.dict(os.environ, {"IGNIXA_PARITY_CLI": str(ROOT / "no-such-cli.dll")}):
+            with self.assertRaises(AssertionError):
+                selected_cli()
+
+    def test_pinned_selection_needs_no_file(self):
+        with mock.patch.dict(os.environ, {"IGNIXA_PARITY_CLI": "pinned"}):
+            self.assertEqual(selected_cli(), PINNED)
+
+    def test_absent_default_build_skips_with_a_reason(self):
+        env = {k: v for k, v in os.environ.items() if k != "IGNIXA_PARITY_CLI"}
+        with mock.patch.dict(os.environ, env, clear=True), \
+                mock.patch.object(Path, "is_file", return_value=False):
+            with self.assertRaisesRegex(unittest.SkipTest, "default development CLI not built"):
+                selected_cli()
 
 
 class PinnedCliBlockerTests(unittest.TestCase):

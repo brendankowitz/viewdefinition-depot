@@ -4,6 +4,7 @@
   "hdsVersion": "1.4.0",
   "schemaSha256": "b9c4bc459f85b485bf2570526969125e823801700ab1d42d022f69cb69c0c582",
   "evidence": "Lossless-extraction evidence only. Not HDS parity.",
+  "limitations": "Every derived, constant and fabric-assigned classification is the author's reading of the Silver column names and is UNVERIFIED against HDS behavior until the reference capture exists. Date, dateTime and instant columns are extracted as source strings (lossless); parsing and normalization are owned by the later normalization task.",
   "extraction": [
     {
       "column": "id",
