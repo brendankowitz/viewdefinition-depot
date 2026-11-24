@@ -4,7 +4,7 @@
 Observation have deployment schemas, not verified Silver rows. No designated
 disposable synthetic Fabric target or independent row capture is available;
 the local runtime lacks PySpark, Delta and Fabric `notebookutils`. This pack
-contains inputs and an offline comparator, **not a Silver writer**. The
+contains a local pilot writer and an independent offline comparator. The
 [flat starter](fabric-silver.md) and its Ignixa pin are unchanged.
 
 ## Run the offline checks
@@ -93,6 +93,47 @@ output. **Neither resource is verified.** This step needs only PyArrow:
 python -m unittest discover -s tests -p test_fabric_normalize.py -v
 ```
 
+## Publish a local pilot snapshot
+
+Use a lossless Ignixa development build (see above) to run the matching
+parity view separately on each manifest input. Put each output in a dedicated
+directory as `<inputId>.parquet`, where `inputId` is the key under `inputs`
+in `batches.json` (for example, `east-patient-1.parquet`). An event reads only
+its listed files, in order; files listed elsewhere in the manifest may be
+present or absent. Unknown files are rejected. The writer never reads the raw
+NDJSON: the manifest provides the resource, source system and logical path.
+
+```sh
+python -m fabric_silver --manifest examples/r4/fabric-silver-parity/batches.json --event initial --extracted extracted --state silver-state --ingest-time 2026-02-01T10:00:00Z
+```
+
+Repeat with `--event replay` and `--event update`, the same state directory,
+and explicit UTC instants (`Z` or `+00:00`, up to six fractional digits).
+Output is the published directory. Resolve `silver-state/CURRENT` once per
+read: it names a directory under `silver-state/snapshots/`, such as
+`00000001-initial`, containing both `Patient.parquet` and
+`Observation.parquet`, even when one table is empty. The writer sorts rows
+by normalized ID, validates both staged files by reading them back, then
+atomically replaces `CURRENT`. It retains old snapshots. This is for one
+writer on a local filesystem, not a Delta/cloud transaction, multiwriter
+protocol or power-loss durability guarantee.
+
+The merge is **source-derived, unverified against a captured run**
+(`utils/dataframe_utils.py`, `prepare_source_data` and
+`upsert_unique_to_delta_managed`). The newest version per normalized ID is
+eligible; an equal or older version leaves the stored row untouched. A newer
+version preserves the created time and replaces the other values, including
+modified time and file lineage. The pilot deliberately fails the whole batch
+on a null `meta.lastUpdated` instead of silently skipping it, or on a duplicate
+ID/timestamp pair in the same batch instead of choosing an unspecified winner.
+
+`python -m unittest discover -s tests -p test_fabric_writer.py -v` checks both
+deployed schema digests after publication, exercises the source-derived event
+rules across process restarts, and tests lossless Ignixa input if the
+development DLL is available (`IGNIXA_PARITY_CLI` may name that DLL). These
+checks do not compare row values against a Fabric capture. Verified parity
+remains **0/146**.
+
 ## Inputs shared by the two runs
 
 [`batches.json`](../../examples/r4/fabric-silver-parity/batches.json) is the
@@ -101,8 +142,8 @@ over the file bytes **before staging and after copying**; don't reserialize
 NDJSON or change line endings. Use the input key, not the basename or FHIR
 ID, to associate per-file extraction with `sourceSystem` and `logicalPath`.
 The logical path names the staged file, not the developer's checkout. The
-clinical notebooks ingest the raw synthetic files; the future writer must
-consume only extracted data plus ingress context, never reread raw FHIR.
+clinical notebooks ingest the raw synthetic files; the local writer
+consumes only extracted data plus ingress context, never raw FHIR.
 
 | Event | Stage before running the notebooks | What this distinguishes |
 | --- | --- | --- |
