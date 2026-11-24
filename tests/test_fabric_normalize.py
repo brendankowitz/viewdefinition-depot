@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import traceback
 import unittest
 from datetime import date, datetime, timedelta, timezone
 from decimal import Decimal
@@ -422,6 +423,31 @@ class ValueTypeTests(unittest.TestCase):
         with self.assertRaises(ShapeError):
             shape("Observation", valueQuantity='[{"value":1234567890123456789.5}]')
 
+    def test_decimal_precision_boundaries(self):
+        """source-derived, unverified against a captured run: decimal(36,18) (Silver Delta schema / R4 Avro) holds 18 integer and
+        18 fractional digits; Spark's Decimal.changePrecision rounds HALF_UP (away from zero) to scale 18, and a value whose
+        rounded precision exceeds 36 does not fit."""
+        fits = {
+            "123456789012345678.123456789012345678": "123456789012345678.123456789012345678",
+            "999999999999999999.999999999999999999": "999999999999999999.999999999999999999",
+            "-999999999999999999.999999999999999999": "-999999999999999999.999999999999999999",
+            "999999999999999999.9999999999999999994": "999999999999999999.999999999999999999",
+            "999999999999999999": "999999999999999999.000000000000000000",
+            "0.0000000000000000015": "0.000000000000000002",
+            "-0.0000000000000000015": "-0.000000000000000002",
+        }
+        for text, expected in fits.items():
+            with self.subTest(text=text):
+                row = shape("Observation", valueQuantity=f'[{{"value":{text}}}]')
+                self.assertEqual(row["valueQuantity"]["value"], Decimal(expected))
+                self.assertEqual(row["valueQuantity"]["value"].as_tuple().exponent, -18)
+                pa.Table.from_pylist([row], schema=target_schema("Observation"))
+        overflow = ("999999999999999999.9999999999999999995", "-999999999999999999.9999999999999999995",
+                    "1000000000000000000", "1E+400")
+        for text in overflow:
+            with self.subTest(text=text), self.assertRaises(ShapeError):
+                shape("Observation", valueQuantity=f'[{{"value":{text}}}]')
+
     def test_string_fields_given_json_keep_compact_jackson_text(self):
         """source-derived, unverified against a captured run: Spark JacksonParser copies non-string tokens into StringType fields as compact JSON;
         doubles print as Java Double.toString."""
@@ -458,6 +484,80 @@ class ValueTypeTests(unittest.TestCase):
             shape_row("Patient", blank_row("Patient"), source_system=EAST, logical_path="p", ingest_time=datetime(2025, 1, 1))
         with self.assertRaises(ShapeError):
             shape_row("Patient", blank_row("Patient"), source_system="", logical_path="p", ingest_time=INGEST)
+
+
+SENTINEL = "SENSITIVE_SENTINEL"
+
+
+class ErrorRedactionTests(unittest.TestCase):
+    """Design spec: identify errors by resource, mapping path and failure reason without logging source values."""
+
+    def assert_redacted(self, resource, columns, path, fhir_path, reason, secret=SENTINEL):
+        with self.assertRaises(ShapeError) as caught:
+            shape_row(resource, columns, source_system=EAST, logical_path="Files/p.ndjson", ingest_time=INGEST)
+        error = caught.exception
+        self.assertEqual((error.resource, error.path, error.fhir_path, error.reason), (resource, path, fhir_path, reason))
+        self.assertEqual(str(error), f"{resource} {path} (FHIRPath {fhir_path}): {reason}")
+        self.assertIsNone(error.__cause__)
+        self.assertIsNone(error.__context__)
+        logged = "".join(traceback.format_exception(error)) + repr(error.args)
+        self.assertNotIn(secret, logged)
+
+    def test_errors_name_resource_and_path_without_source_values(self):
+        cases = [
+            ("Observation", {"effectiveDateTime": SENTINEL}, "effectiveDateTime", "effective.ofType(dateTime)",
+             "is not a FHIR date, dateTime or instant"),
+            ("Observation", {"effectiveDateTime": f"2025-02-30T00:00:00Z"}, "effectiveDateTime", "effective.ofType(dateTime)",
+             "is not a valid date or time"),
+            ("Patient", {"birthDate": SENTINEL}, "birthDate", "birthDate", "is not a FHIR date"),
+            ("Patient", {"birthDate": "1999-02-30"}, "birthDate", "birthDate", "is not a valid date or time"),
+            ("Patient", {"active": SENTINEL}, "active", "active", "expected a boolean"),
+            ("Patient", {"multipleBirthInteger": SENTINEL}, "multipleBirthInteger", "multipleBirth.ofType(integer)",
+             "expected a 32-bit integer"),
+            ("Patient", {"maritalStatus": f'[{{"coding":[{{"code":"a"}},{{"userSelected":"{SENTINEL}"}}]}}]'},
+             "maritalStatus.coding[1].userSelected", "maritalStatus.coding[1].userSelected", "expected a boolean"),
+            ("Patient", {"name": f'[{{"family":"x"}},{{"{SENTINEL}":1}}]'}, "name[1]", "name[1]",
+             "has a field that is not in the HDS Silver schema"),
+            ("Patient", {"name": f'[{{"family":"{SENTINEL}"'}, "name", "name", "is not valid JSON"),
+            ("Patient", {"name": f'{{"family":"{SENTINEL}"}}'}, "name", "name", "expected a JSON array"),
+            ("Patient", {"name": f'[{{"given":["{SENTINEL}",null]}}]'}, "name[0].given[1]", "name[0].given[1]",
+             "null array elements are not FHIR"),
+            ("Patient", {"name": f'[{{"family":"{SENTINEL}"}},null]'}, "name[1]", "name[1]", "null array elements are not FHIR"),
+            ("Patient", {"maritalStatus": f'[{{"text":"{SENTINEL}"}},{{"text":"b"}}]'}, "maritalStatus", "maritalStatus",
+             "expected at most one value"),
+            ("Patient", {"telecom": f'[{{"value":"{SENTINEL}","rank":99999999999}}]'}, "telecom[0].rank", "telecom[0].rank",
+             "expected a 32-bit integer"),
+            ("Observation", {"valueQuantity": '[{"value":9876543210987654321.5}]'}, "valueQuantity.value",
+             "value.ofType(Quantity).value", "does not fit decimal(36,18)"),
+            ("Patient", {"extension": f'[{{"url":"{SENTINEL}","valueDecimal":1e999}}]'},
+             "extension", "extension", "is out of double range"),
+            ("Observation", {"subject": f'[{{"reference":"Patient/p1","identifier":{{"type":"{SENTINEL}"}}}}]'},
+             "subject.identifier.type", "subject.identifier.type", "is not JSON object text"),
+            ("Observation", {"performer": f'[{{"display":"a"}},{{"identifier":{{"type":"[\\"{SENTINEL}\\"]"}}}}]'},
+             "performer[1].identifier.type", "performer[1].identifier.type", "is not JSON object text"),
+            ("Patient", {"contact": f'[{{"gender":"male"}},{{"organization":{{"identifier":{{"type":"{SENTINEL}"}}}}}}]'},
+             "contact[1].organization.identifier.type", "contact[1].organization.identifier.type", "is not JSON object text"),
+            ("Patient", {"identifier": f'[{{"value":"v","assigner":{{"identifier":{{"type":"{SENTINEL}"}}}}}}]'},
+             "identifier[0].assigner.identifier.type", "identifier[0].assigner.identifier.type", "is not JSON object text"),
+            ("Patient", {"id": None, "gender": SENTINEL}, "id", "id", "is required"),
+        ]
+        for resource, columns, path, fhir_path, reason in cases:
+            with self.subTest(path=path, reason=reason):
+                self.assert_redacted(resource, blank_row(resource, **columns), path, fhir_path, reason,
+                                     secret="9876543210987654321" if "valueQuantity" in columns else SENTINEL)
+
+    def test_column_set_and_argument_errors_are_identified(self):
+        extracted = dict(blank_row("Patient"), **{SENTINEL: SENTINEL})
+        with self.assertRaises(ShapeError) as caught:
+            shape_row("Patient", extracted, source_system=EAST, logical_path="p", ingest_time=INGEST)
+        self.assertEqual((caught.exception.resource, caught.exception.path), ("Patient", "(row)"))
+        self.assertNotIn(SENTINEL, str(caught.exception))
+        for arguments, path in (({"source_system": ""}, "msftSourceSystem"), ({"logical_path": ""}, "msftFilePath"),
+                                ({"ingest_time": datetime(2025, 1, 1)}, "msftModifiedDatetime")):
+            call = {**dict(source_system=EAST, logical_path="p", ingest_time=INGEST), **arguments}
+            with self.subTest(path=path), self.assertRaises(ShapeError) as caught:
+                shape_row("Patient", blank_row("Patient"), **call)
+            self.assertEqual((caught.exception.resource, caught.exception.path), ("Patient", path))
 
 
 class ProvenanceTests(unittest.TestCase):

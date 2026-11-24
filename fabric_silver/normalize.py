@@ -23,7 +23,7 @@ import json
 import re
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
-from decimal import ROUND_HALF_UP, Decimal, InvalidOperation
+from decimal import ROUND_HALF_UP, Context, Decimal, InvalidOperation, localcontext
 from functools import lru_cache
 
 import pyarrow as pa
@@ -32,7 +32,25 @@ from fabric_silver.views import CONTRACT_DIR, RESOURCES, load_contract
 
 
 class ShapeError(ValueError):
-    """The extracted row, or a shaping argument, cannot become a Silver row."""
+    """The extracted row, or a shaping argument, cannot become a Silver row.
+
+    Carries only the resource, the Silver mapping path (and its FHIRPath when the path starts at an
+    extraction column) and a fixed reason, never source values, so logging it discloses no PHI. It is
+    raised with no cause or context for the same reason.
+    """
+
+    def __init__(self, resource: str, path: str, reason: str, fhir_path: str | None = None):
+        where = f"{path} (FHIRPath {fhir_path})" if fhir_path else path
+        super().__init__(f"{resource} {where}: {reason}")
+        self.resource, self.path, self.fhir_path, self.reason = resource, path, fhir_path, reason
+
+
+class _Invalid(Exception):
+    """Internal failure at a mapping path; shape_row turns it into a ShapeError naming the resource."""
+
+    def __init__(self, path: str, reason: str):
+        super().__init__(path, reason)
+        self.path, self.reason = path, reason
 
 
 UTC = timezone.utc
@@ -102,6 +120,7 @@ class _Resource:
     name: str
     columns: tuple  # ((silver column, logical type expression), ...)
     extraction: dict  # extraction column -> extraction type
+    paths: dict  # extraction column -> FHIRPath it was extracted from
 
     def silver(self, column: str):
         return _resolve(dict(self.columns)[column], False)
@@ -111,16 +130,22 @@ class _Resource:
         types = dict(self.columns)
         return _resolve(types.get(column + "Orig", types[column]), True)
 
+    def fhir_path(self, path: str) -> str | None:
+        """The FHIRPath of a mapping path rooted at an extraction column (e.g. valueQuantity.value)."""
+        root = re.match(r"[^.\[]+", path).group(0)
+        return self.paths[root] + path[len(root):] if root in self.paths else None
+
 
 @lru_cache(maxsize=None)
 def _resource(resource: str) -> _Resource:
     if resource not in RESOURCES:
-        raise ShapeError(f"unsupported resource {resource!r}; expected one of {RESOURCES}")
+        raise ShapeError(str(resource), "resourceType", "unsupported resource")
     contract = load_contract(resource)
     return _Resource(
         resource,
         tuple((c["name"], c["silverType"]) for c in contract["silverColumns"]),
         {c["column"]: c["type"] for c in contract["extraction"]},
+        {c["column"]: c["path"] for c in contract["extraction"]},
     )
 
 
@@ -149,11 +174,11 @@ def _quote(text: str) -> str:
     return '"' + "".join(out) + '"'
 
 
-def _java_double(value: Decimal) -> str:
+def _java_double(value: Decimal, path: str) -> str:
     """Java Double.toString of the double nearest the JSON number (what Jackson copies)."""
     number = float(value)
     if number != number or number in (float("inf"), float("-inf")):
-        raise ShapeError(f"JSON number {value} is out of double range")
+        raise _Invalid(path, "is out of double range")
     if number == 0:
         return "-0.0" if str(number).startswith("-") else "0.0"
     shortest = Decimal(repr(abs(number))).normalize()
@@ -166,8 +191,11 @@ def _java_double(value: Decimal) -> str:
     return f"{sign}{digits[0]}.{digits[1:] or '0'}E{exponent}"
 
 
-def _jackson(value) -> str:
-    """Compact JSON text Spark keeps when a non-string JSON value lands in a StringType field."""
+def _jackson(value, path: str) -> str:
+    """Compact JSON text Spark keeps when a non-string JSON value lands in a StringType field.
+
+    path names the string field; errors stop there because keys below it are free-form source text.
+    """
     if value is None:
         return "null"
     if isinstance(value, bool):
@@ -175,12 +203,12 @@ def _jackson(value) -> str:
     if isinstance(value, int):
         return str(value)
     if isinstance(value, Decimal):
-        return _java_double(value)
+        return _java_double(value, path)
     if isinstance(value, str):
         return _quote(value)
     if isinstance(value, list):
-        return "[" + ",".join(_jackson(v) for v in value) + "]"
-    return "{" + ",".join(_quote(k) + ":" + _jackson(v) for k, v in value.items()) + "}"
+        return "[" + ",".join(_jackson(v, path) for v in value) + "]"
+    return "{" + ",".join(_quote(k) + ":" + _jackson(v, path) for k, v in value.items()) + "}"
 
 
 def _to_json(value, node) -> str:
@@ -215,7 +243,7 @@ def _timestamp(text: str, path: str) -> datetime:
     """FHIR date/dateTime/instant text as a UTC instant (session time zone assumed UTC)."""
     match = _TIMESTAMP.fullmatch(text)
     if not match:
-        raise ShapeError(f"{path}: {text!r} is not a FHIR date, dateTime or instant")
+        raise _Invalid(path, "is not a FHIR date, dateTime or instant")
     year, month, day, hour, minute, second, fraction, offset = match.groups()
     try:
         if hour is None:
@@ -227,31 +255,36 @@ def _timestamp(text: str, path: str) -> datetime:
             zone = timezone(sign * timedelta(hours=int(offset[1:3]), minutes=int(offset[4:6])))
         micros = int((fraction or "")[:6].ljust(6, "0"))
         local = datetime(int(year), int(month), int(day), int(hour), int(minute), int(second), micros, tzinfo=zone)
-    except ValueError as error:
-        raise ShapeError(f"{path}: {text!r} is not a valid instant: {error}") from None
-    return local.astimezone(UTC)
+        return local.astimezone(UTC)
+    except (ValueError, OverflowError):
+        pass
+    raise _Invalid(path, "is not a valid date or time")
 
 
 def _date(text: str, path: str) -> date:
     match = _DATE.fullmatch(text)
     if not match:
-        raise ShapeError(f"{path}: {text!r} is not a FHIR date")
+        raise _Invalid(path, "is not a FHIR date")
     year, month, day = match.groups()
     try:
         return date(int(year), int(month or 1), int(day or 1))
-    except ValueError as error:
-        raise ShapeError(f"{path}: {text!r} is not a valid date: {error}") from None
+    except ValueError:
+        pass
+    raise _Invalid(path, "is not a valid date or time")
 
 
 def _decimal(value, path: str) -> Decimal:
+    """Round HALF_UP to scale 18, then require at most 36 digits (Spark Decimal.changePrecision)."""
     if isinstance(value, bool) or not isinstance(value, (int, Decimal)):
-        raise ShapeError(f"{path}: expected a JSON number, got {value!r}")
-    try:
-        scaled = Decimal(value).quantize(_SCALE, rounding=ROUND_HALF_UP)
-    except InvalidOperation:
-        raise ShapeError(f"{path}: {value} does not fit decimal(36,18)") from None
-    if len(scaled.as_tuple().digits) > _MAX_DIGITS:
-        raise ShapeError(f"{path}: {value} does not fit decimal(36,18)")
+        raise _Invalid(path, "expected a JSON number")
+    # One digit beyond the target lets a rounding carry (e.g. 18 nines .5e-18 -> 10^18) show as 37 digits.
+    with localcontext(Context(prec=_MAX_DIGITS + 1, rounding=ROUND_HALF_UP)):
+        try:
+            scaled = Decimal(value).quantize(_SCALE)
+        except InvalidOperation:
+            scaled = None
+    if scaled is None or len(scaled.as_tuple().digits) > _MAX_DIGITS:
+        raise _Invalid(path, "does not fit decimal(36,18)")
     return scaled
 
 
@@ -261,34 +294,38 @@ def _parse(value, node, path: str):
         return None
     if isinstance(node, _Struct):
         if not isinstance(value, dict):
-            raise ShapeError(f"{path}: expected a JSON object")
-        unknown = set(value) - set(node.names)
-        if unknown:
-            raise ShapeError(f"{path}: fields {sorted(unknown)} are not in the HDS Silver schema")
+            raise _Invalid(path, "expected a JSON object")
+        if not set(value) <= set(node.names):
+            raise _Invalid(path, "has a field that is not in the HDS Silver schema")  # key names are source data
         return {name: _parse(value.get(name), t, f"{path}.{name}") for name, t in node.fields}
     if isinstance(node, _List):
         if not isinstance(value, list):
-            raise ShapeError(f"{path}: expected a JSON array")
-        if any(v is None for v in value):
-            raise ShapeError(f"{path}: null array elements are not FHIR")
-        return [_parse(v, node.element, f"{path}[{i}]") for i, v in enumerate(value)]
+            raise _Invalid(path, "expected a JSON array")
+        return [_parse_element(v, node.element, f"{path}[{i}]") for i, v in enumerate(value)]
     if node == "string":
-        return value if isinstance(value, str) else _jackson(value)
+        return value if isinstance(value, str) else _jackson(value, path)
     if node == "bool":
         if not isinstance(value, bool):
-            raise ShapeError(f"{path}: expected a boolean, got {value!r}")
+            raise _Invalid(path, "expected a boolean")
         return value
     if node == "int32":
         if isinstance(value, bool) or not isinstance(value, int) or not _INT32[0] <= value <= _INT32[1]:
-            raise ShapeError(f"{path}: expected a 32-bit integer, got {value!r}")
+            raise _Invalid(path, "expected a 32-bit integer")
         return value
     if node == "decimal":
         return _decimal(value, path)
     if not isinstance(value, str):
-        raise ShapeError(f"{path}: expected a date/time string, got {value!r}")
+        raise _Invalid(path, "expected a date/time string")
     return _timestamp(value, path) if node == "timestamp" else _date(value, path)
 
 
+def _parse_element(value, node, path: str):
+    if value is None:
+        raise _Invalid(path, "null array elements are not FHIR")
+    return _parse(value, node, path)
+
+
+_SCALAR_REASONS = {"string": "expected a string", "boolean": "expected a boolean", "integer": "expected a 32-bit integer"}
 _SCALAR_TYPES = {"string": str, "boolean": bool, "integer": int}
 
 
@@ -297,24 +334,29 @@ def _parse_column(spec: _Resource, column: str, value):
     kind = spec.extraction[column]
     if column in _collection_columns(spec.name):
         if not isinstance(value, str):
-            raise ShapeError(f"{column}: expected JSON array text, got {value!r}")
+            raise _Invalid(column, "expected JSON array text")
         try:
             items = json.loads(value, parse_float=Decimal)
-        except json.JSONDecodeError as error:
-            raise ShapeError(f"{column}: invalid JSON: {error}") from None
-        if not isinstance(items, list) or any(item is None for item in items):
-            raise ShapeError(f"{column}: expected a JSON array without nulls")
+        except ValueError:  # JSONDecodeError, or an integer beyond Python's digit limit
+            items = _NOT_JSON
+        if items is _NOT_JSON:
+            raise _Invalid(column, "is not valid JSON")
+        if not isinstance(items, list):
+            raise _Invalid(column, "expected a JSON array")
         if not items:
             return None
         if isinstance(node, _Struct):
             if len(items) != 1:
-                raise ShapeError(f"{column}: expected at most one value, got {len(items)}")
-            return _parse(items[0], node, column)
+                raise _Invalid(column, "expected at most one value")
+            return _parse_element(items[0], node, column)
         return _parse(items, node, column)
     if value is not None and (isinstance(value, bool) != (kind == "boolean")
                               or not isinstance(value, _SCALAR_TYPES[kind])):
-        raise ShapeError(f"{column}: expected {kind}, got {value!r}")
+        raise _Invalid(column, _SCALAR_REASONS[kind])
     return _parse(value, node, column)
+
+
+_NOT_JSON = object()
 
 
 @lru_cache(maxsize=None)
@@ -404,14 +446,14 @@ def _from_internal(value):
     return datetime(1970, 1, 1, tzinfo=UTC) + timedelta(microseconds=value)
 
 
-def _row_from_string(text: str, names) -> dict:
+def _row_from_string(text: str, names, path: str) -> dict:
     """NormalizationUtils.create_row_from_string; HDS fails the job where this raises."""
     try:
         data = json.loads(text) if text else {}
-    except json.JSONDecodeError as error:
-        raise ShapeError(f"reference identifier text {text!r} is not JSON: {error}") from None
+    except ValueError:
+        data = None
     if not isinstance(data, dict):
-        raise ShapeError(f"reference identifier text {text!r} is not a JSON object")
+        raise _Invalid(path, "is not JSON object text")
     return {name: data.get(name) for name in names}
 
 
@@ -432,11 +474,11 @@ def _parse_assigner(value):
             "type": parsed.get("type"), "identifier": nested, "display": parsed.get("display")}
 
 
-def _conform_identifier_row(row) -> dict:
+def _conform_identifier_row(row, path: str) -> dict:
     """IdentifierNormalization.conform_to_row_identifier_schema."""
     type_ = _field(row, "type")
     if isinstance(type_, str):
-        type_ = _row_from_string(type_, _CODEABLE_CONCEPT_FIELDS)
+        type_ = _row_from_string(type_, _CODEABLE_CONCEPT_FIELDS, f"{path}.type")
     if type_:
         coding = [{"extension": _field(c, "extension", cast=str), "id": _field(c, "id", cast=str),
                    "system": _field(c, "system", cast=str), "version": _field(c, "version", cast=str),
@@ -479,9 +521,9 @@ def _has_fhir_id(identifier) -> bool:
     return any(_field(c, "code", cast=str) == _FHIR_ID_CODE for c in coding)
 
 
-def _add_source_id(identifier, value, system) -> dict:
+def _add_source_id(identifier, value, system, path: str) -> dict:
     """IdentifierNormalization.add_source_id_to_identifier_row."""
-    identifier = _conform_identifier_row(identifier)
+    identifier = _conform_identifier_row(identifier, path)
     if _has_fhir_id(identifier) or _field(identifier, "value") or _field(identifier, "system"):
         return identifier
     type_ = _field(identifier, "type")
@@ -511,11 +553,12 @@ def _reference_details(reference: str):
     return None, None, None, None, None, None
 
 
-def _normalize_reference(row, source: str) -> dict:
+def _normalize_reference(row, source: str, path: str) -> dict:
     """ReferenceNormalization.normalize_ref_struct (no dereferencing; only the reference text is parsed)."""
     reference = type_ = display = extension = id_ = id_orig = original = None
     identifier = {"extension": None, "use": None, "value": None, "system": None, "type": None, "period": None,
                   "assigner": None}
+    identifier_path = f"{path}.identifier"
     if isinstance(row, dict) and row:
         reference, type_ = row.get("reference"), row.get("type")
         display, extension = row.get("display"), row.get("extension")
@@ -526,15 +569,15 @@ def _normalize_reference(row, source: str) -> dict:
                 identifier = {name: previous.get(name) for name in ("extension", "use", "value", "system", "type", "period")}
                 identifier["assigner"] = _parse_assigner(previous.get("assigner"))
             elif isinstance(previous, str):
-                identifier = _row_from_string(previous, tuple(identifier))
-        identifier = _conform_identifier_row(identifier)
+                identifier = _row_from_string(previous, tuple(identifier), identifier_path)
+        identifier = _conform_identifier_row(identifier, identifier_path)
         if reference:
             kind, base, parsed_type, rid, system, value = _reference_details(reference)
             type_ = type_ or parsed_type
             if kind == "Literal" and (not base or _without_scheme(base) == _without_scheme(source)):
                 id_ = _resource_id(rid, type_, source)
                 id_orig = rid
-                identifier = _add_source_id(identifier, rid, source)
+                identifier = _add_source_id(identifier, rid, source, identifier_path)
             if kind == "Logical":
                 if not base and not system:
                     identifier = _create_identifier(identifier, value, source)
@@ -642,14 +685,15 @@ _RULES = {
 def _apply(rule: tuple, row: dict, source: str) -> None:
     kind, column = rule[0], rule[1]
     if kind == "reference":
-        row[column] = _normalize_reference(row[column], source)
+        row[column] = _normalize_reference(row[column], source, column)
     elif kind == "references":
         if row[column]:
-            row[column] = [_normalize_reference(r, source) for r in row[column]]
+            row[column] = [_normalize_reference(r, source, f"{column}[{i}]") for i, r in enumerate(row[column])]
     elif kind == "nested":
         nested = rule[2]
         if row[column]:
-            row[column] = [{**element, nested: _normalize_reference(element[nested], source)} for element in row[column]]
+            row[column] = [{**element, nested: _normalize_reference(element[nested], source, f"{column}[{i}].{nested}")}
+                           for i, element in enumerate(row[column])]
     elif "." in column:
         struct, field = column.split(".")
         if row[struct] is not None:
@@ -664,21 +708,24 @@ def _apply(rule: tuple, row: dict, source: str) -> None:
 
 
 def _silver(value, node, path: str):
-    """Check an internal value against its Silver type; the empty dict becomes an all-null struct."""
+    """Check an internal value against its Silver type; the empty dict becomes an all-null struct.
+
+    A mismatch here is a bug in this module, not bad input; messages name the path only.
+    """
     if value is None:
         return None
     if isinstance(node, _Struct):
         if not isinstance(value, dict):
-            raise AssertionError(f"{path}: expected a struct, got {value!r}")
+            raise AssertionError(f"{path}: expected a struct")
         if value and set(value) != set(node.names):
-            raise AssertionError(f"{path}: fields {sorted(value)} do not match {node.name} {list(node.names)}")
+            raise AssertionError(f"{path}: fields do not match {node.name}")
         return {name: _silver(value.get(name), t, f"{path}.{name}") for name, t in node.fields}
     if isinstance(node, _List):
         return [_silver(v, node.element, f"{path}[{i}]") for i, v in enumerate(value)]
     expected = {"string": str, "bool": bool, "int32": int, "decimal": Decimal, "timestamp": datetime, "date": date}[node]
     if not isinstance(value, expected) or (node == "date" and isinstance(value, datetime)) \
             or (node == "timestamp" and value.utcoffset() != timedelta(0)):
-        raise AssertionError(f"{path}: {value!r} is not a Silver {node}")
+        raise AssertionError(f"{path}: value is not a Silver {node}")
     return value
 
 
@@ -691,19 +738,30 @@ def shape_row(resource: str, extracted: dict, *, source_system: str, logical_pat
     """
     spec = _resource(resource)
     if not isinstance(source_system, str) or not source_system:
-        raise ShapeError("source_system must be a non-empty string")
+        raise ShapeError(resource, "msftSourceSystem", "source_system must be a non-empty string")
     if not isinstance(logical_path, str) or not logical_path:
-        raise ShapeError("logical_path must be a non-empty string")
+        raise ShapeError(resource, "msftFilePath", "logical_path must be a non-empty string")
     if not isinstance(ingest_time, datetime) or ingest_time.utcoffset() is None:
-        raise ShapeError("ingest_time must be a timezone-aware datetime")
+        raise ShapeError(resource, "msftModifiedDatetime", "ingest_time must be a timezone-aware datetime")
     if not isinstance(extracted, dict) or set(extracted) != set(spec.extraction):
         given = set(extracted) if isinstance(extracted, dict) else set()
-        raise ShapeError(f"extracted columns differ from the {resource} extraction view: "
-                         f"missing {sorted(set(spec.extraction) - given)}, unexpected {sorted(given - set(spec.extraction))}")
+        # Unexpected names are counted, not listed: they come from the caller and may carry source text.
+        raise ShapeError(resource, "(row)", f"extracted columns differ from the extraction view: missing "
+                                            f"{sorted(set(spec.extraction) - given)}, {len(given - set(spec.extraction))} unexpected")
+    try:
+        return _shape(spec, extracted, source_system, logical_path, ingest_time)
+    except _Invalid as invalid:
+        failure = invalid
+    # Raised outside the handler so neither the internal error nor its cause (e.g. a JSONDecodeError
+    # holding the whole document) is chained onto the ShapeError.
+    raise ShapeError(resource, failure.path, failure.reason, spec.fhir_path(failure.path))
 
+
+def _shape(spec: _Resource, extracted: dict, source_system: str, logical_path: str, ingest_time: datetime) -> dict:
+    resource = spec.name
     row = {column: _parse_column(spec, column, value) for column, value in extracted.items()}
     if row["id"] is None:
-        raise ShapeError("id is required")
+        raise _Invalid("id", "is required")
 
     # Shared rules: meta_lastUpdated (copied then date-normalized), then resource identifier and id.
     row["meta_lastUpdated"] = row["meta"]["lastUpdated"] if row["meta"] is not None else None
