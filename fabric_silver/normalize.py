@@ -198,6 +198,10 @@ def _jackson(value, path: str) -> str:
         return str(value)
     if isinstance(value, Decimal):
         return _java_double(value, path)
+    if isinstance(value, _HugeExponent):
+        if value.double is None:
+            raise _Invalid(path, "is out of double range")
+        return value.double
     if isinstance(value, str):
         return _quote(_text(value, path))
     if isinstance(value, list):
@@ -228,6 +232,28 @@ def _check_texts(value, path: str) -> None:
 
 def _reject_constant(name: str):
     raise ValueError("non-finite numbers are not JSON")  # never surfaces: callers map it to a fixed reason
+
+
+@dataclass(frozen=True)
+class _HugeExponent:
+    """A JSON number whose exponent is beyond Decimal's range (and Java BigDecimal's int scale).
+
+    Kept as a value so the failure is reported at its leaf: a decimal leaf rejects it, a string leaf gets the
+    Java double Jackson would copy (signed zero), or None when that double is infinite.
+    """
+    double: str | None
+
+
+def _json_number(token: str):
+    """parse_float for extraction JSON: the exact Decimal, or _HugeExponent when Decimal cannot hold the exponent."""
+    try:
+        return Decimal(token)
+    except InvalidOperation:  # json's number grammar leaves the exponent as the only failure
+        pass
+    mantissa, _, exponent = token.lower().partition("e")
+    if exponent.startswith("-") or not mantissa.strip("-0."):
+        return _HugeExponent("-0.0" if token.startswith("-") else "0.0")
+    return _HugeExponent(None)
 
 
 def _to_json(value, node) -> str:
@@ -294,6 +320,8 @@ def _date(text: str, path: str) -> date:
 
 def _decimal(value, path: str) -> Decimal:
     """Round HALF_UP to scale 18, then require at most 36 digits (Spark Decimal.changePrecision)."""
+    if isinstance(value, _HugeExponent):  # Java BigDecimal cannot read it either: Spark nulls the record
+        raise _Invalid(path, "does not fit decimal(36,18)")
     if isinstance(value, bool) or not isinstance(value, (int, Decimal)):
         raise _Invalid(path, "expected a JSON number")
     # One digit beyond the target lets a rounding carry (e.g. 18 nines .5e-18 -> 10^18) show as 37 digits.
@@ -361,7 +389,7 @@ def _parse_column(spec: _Resource, column: str, value):
         if not isinstance(value, str):
             raise _Invalid(column, "expected JSON array text")
         try:  # NaN/Infinity are not JSON (FHIR forbids them); rejecting keeps floats out of the parsed tree
-            items = json.loads(value, parse_float=Decimal, parse_constant=_reject_constant)
+            items = json.loads(value, parse_float=_json_number, parse_constant=_reject_constant)
         except ValueError:  # JSONDecodeError, a non-finite constant, or an integer beyond Python's digit limit
             items = _NOT_JSON
         except RecursionError:

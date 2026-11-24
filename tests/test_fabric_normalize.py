@@ -451,6 +451,27 @@ class ValueTypeTests(unittest.TestCase):
             with self.subTest(text=text), self.assertRaises(ShapeError):
                 shape("Observation", valueQuantity=f'[{{"value":{text}}}]')
 
+    def test_exponents_beyond_bigdecimal_range(self):
+        """source-derived, unverified against a captured run: Spark from_json reads a DecimalType field with Jackson's
+        getDecimalValue (Java BigDecimal); an exponent beyond int range throws NumberFormatException, so the record is
+        nulled in PERMISSIVE mode, a gap rejected here even when the mantissa is zero. A StringType field copies the token
+        as a Java double: Double.parseDouble saturates to Infinity (rejected, as for 1e999) or to signed zero."""
+        exponents = ("1e999999999999999999999999", "-1e999999999999999999999999", "1e-999999999999999999999999",
+                     "-1e-999999999999999999999999", "0e+9999999999999999999")
+        for text in exponents:
+            with self.subTest(column="valueQuantity", text=text), self.assertRaises(ShapeError) as caught:
+                shape("Observation", valueQuantity=f'[{{"value":{text}}}]')
+            self.assertEqual((caught.exception.path, caught.exception.reason),
+                             ("valueQuantity.value", "does not fit decimal(36,18)"))
+        for text in exponents[:2]:
+            with self.subTest(column="extension", text=text), self.assertRaises(ShapeError) as caught:
+                shape("Observation", extension=f'[{{"url":"u","valueDecimal":{text}}}]')
+            self.assertEqual((caught.exception.path, caught.exception.reason), ("extension", "is out of double range"))
+        for text, double in zip(exponents[2:], ("0.0", "-0.0", "0.0")):
+            with self.subTest(column="extension", text=text):
+                row = shape("Observation", extension=f'[{{"url":"u","valueDecimal":{text}}}]')
+                self.assertEqual(row["extension"], f'[{{"url":"u","valueDecimal":{double}}}]')
+
     def test_string_fields_given_json_keep_compact_jackson_text(self):
         """source-derived, unverified against a captured run: Spark JacksonParser copies non-string tokens into StringType fields as compact JSON;
         doubles print as Java Double.toString."""
@@ -551,6 +572,11 @@ class ErrorRedactionTests(unittest.TestCase):
             ("Observation", {"subject": f'[{{"reference":"Patient/p1","identifier":{{"type":{{"coding":42,'
                                         f'"text":"{SENTINEL}"}}}}}}]'},
              "subject.identifier.type.coding", "subject.identifier.type.coding", "expected a JSON array"),
+            # Exponents beyond Decimal's range: previously decimal.InvalidOperation escaped json.loads.
+            ("Observation", {"valueQuantity": f'[{{"unit":"{SENTINEL}","value":1e9999999999999999999999999}}]'},
+             "valueQuantity.value", "value.ofType(Quantity).value", "does not fit decimal(36,18)"),
+            ("Observation", {"extension": f'[{{"url":"{SENTINEL}","valueDecimal":1e9999999999999999999999999}}]'},
+             "extension", "extension", "is out of double range"),
         ]
         for resource, columns, path, fhir_path, reason in cases:
             with self.subTest(path=path, reason=reason):
@@ -1087,6 +1113,10 @@ JSON_MUTATIONS = (
     f'{{"coding":42,"text":{json.dumps(SENTINEL)}}}', f'{{"coding":[42,{json.dumps(SENTINEL)}]}}',
     f'{{"start":99999999999999999999,"end":{json.dumps(SENTINEL)}}}',
     "[" * 3000 + json.dumps(SENTINEL) + "]" * 3000,
+    # Exponents beyond Decimal's (and Java BigDecimal's) range, huge and tiny, signed, zero mantissa; long digit strings.
+    "1e999999999999999999999999", "-1e999999999999999999999999", "1e-999999999999999999999999",
+    "-1e-999999999999999999999999", "0e+9999999999999999999", "0." + "0" * 5000 + "1", "9" * 5000 + ".5",
+    f'{{"value":1e999999999999999999999999,"unit":{json.dumps(SENTINEL)}}}',
     # JSON text inside a string (HDS reparses Reference.identifier members held as strings).
     json.dumps(f'{{"coding":42,"text":{json.dumps(SENTINEL)}}}'), json.dumps(f'{{"value":"{SENTINEL}\\ud800"}}'),
     json.dumps("[" * 3000 + "]" * 3000), json.dumps(f'{{"identifier":{{"value":"{SENTINEL}\\ud800"}}}}'),
@@ -1205,6 +1235,23 @@ class MutationRedactionTests(unittest.TestCase):
                 problem, row = mutation_problem("Patient", None, {**base, name: value})
                 self.assertIsNone(problem)
                 self.assertIsNone(row, "expected a ShapeError")
+
+    def test_programming_errors_are_not_disguised_as_shape_errors(self):
+        """Only input-triggered failures at a mapping path become ShapeError; a bug in this module must surface as itself."""
+        from unittest import mock
+        import fabric_silver.normalize as normalize
+        injected = (
+            ("_resource_id", AttributeError, {}),
+            ("_timestamp", TypeError, {"effectiveDateTime": "2025-01-01T00:00:00Z"}),
+            ("_decimal", ArithmeticError, {"valueQuantity": '[{"value":1.5}]'}),
+            ("_jackson", ValueError, {"extension": '[{"url":"u","valueInteger":1}]'}),
+            ("_normalize_reference", KeyError, {"subject": '[{"reference":"Patient/p1"}]'}),
+        )
+        for helper, error, columns in injected:
+            with self.subTest(helper=helper), mock.patch.object(normalize, helper, side_effect=error("injected")):
+                with self.assertRaises(error) as caught:
+                    shape("Observation", **columns)
+                self.assertNotIsInstance(caught.exception, ShapeError)
 
 
 class FixtureTests(unittest.TestCase):
