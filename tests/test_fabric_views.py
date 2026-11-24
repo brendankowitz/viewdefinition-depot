@@ -30,12 +30,12 @@ HDS_SILVER = Path(r"E:\Downloads\HDS v1.4.0\HDS.SourceCode\hds-build-artifacts\h
 
 def selected_cli():
     choice = os.environ.get("IGNIXA_PARITY_CLI")
-    if choice == "pinned":
-        return PINNED
-    if choice:
-        # A mistyped explicit selection must never turn into a green run without extraction tests.
-        if not Path(choice).is_file():
-            raise AssertionError(f"IGNIXA_PARITY_CLI is not 'pinned' or an existing file: {choice}")
+    if choice is not None:
+        if choice == "pinned":
+            return PINNED
+        # A mistyped, empty or blank explicit selection must never become a green run without extraction tests.
+        if not choice.strip() or not Path(choice).is_file():
+            raise AssertionError(f"IGNIXA_PARITY_CLI is not 'pinned' or an existing file: {choice!r}")
         return ["dotnet", choice]
     if not DEV_DLL.is_file():
         raise unittest.SkipTest(f"default development CLI not built at {DEV_DLL}")
@@ -274,6 +274,12 @@ class CliSelectionTests(unittest.TestCase):
         with mock.patch.dict(os.environ, {"IGNIXA_PARITY_CLI": str(ROOT / "no-such-cli.dll")}):
             with self.assertRaises(AssertionError):
                 selected_cli()
+
+    def test_empty_or_blank_explicit_selection_fails_instead_of_falling_back(self):
+        for value in ("", "   "):
+            with self.subTest(value=value), mock.patch.dict(os.environ, {"IGNIXA_PARITY_CLI": value}):
+                with self.assertRaises(AssertionError):
+                    selected_cli()
 
     def test_pinned_selection_needs_no_file(self):
         with mock.patch.dict(os.environ, {"IGNIXA_PARITY_CLI": "pinned"}):
