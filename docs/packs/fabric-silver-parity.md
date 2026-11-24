@@ -72,6 +72,14 @@ references without dereferencing them, adds the `*Orig` columns and builds the
 columns keep pre-normalization values and the known divergences. For example,
 unknown JSON fields are rejected rather than dropped.
 
+A field-path gate walks every leaf of both deployed schemas. Each leaf needs
+a populated, hand-derived example, or a named HDS condition that keeps it
+null. Only two such conditions exist. First, a normalized Reference's
+`.reference` is always moved to `msftSourceReference`. Second, its
+`.identifier.period` members stay null because HDS stores that period as a
+string. Shaping errors name the resource, the mapping path and a fixed
+reason. They never include source values.
+
 These rules were written from reading the HDS normalization source. No HDS
 run has been captured, so every expected value in
 `tests/test_fabric_normalize.py` is a hand-derived example, not observed

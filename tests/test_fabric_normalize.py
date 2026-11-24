@@ -16,8 +16,10 @@ import hashlib
 import json
 import traceback
 import unittest
+from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
 from decimal import Decimal
+from functools import lru_cache
 from pathlib import Path
 
 import pyarrow as pa
@@ -622,11 +624,434 @@ class StringCompanionTests(unittest.TestCase):
         self.assertIsNone(self.west_obs["valueQuantity_string"])
 
     def test_every_string_companion_is_json_of_its_column(self):
-        for row, resource in ((self.patient, "Patient"), (self.east_obs, "Observation"), (self.west_obs, "Observation")):
-            for name in target_schema(resource).names:
-                if name.endswith("_string"):
-                    base = row[name[: -len("_string")]]
-                    self.assertEqual(row[name] is None, base is None, name)
+        """source-derived, unverified against a captured run: stringify_complex_types writes to_json(col, ignoreNullFields=False);
+        timestamps print as yyyy-MM-dd'T'HH:mm:ss.SSSXXX (UTC session), decimals at scale 18, struct keys in schema order."""
+        rows = [("Patient", self.patient), ("Observation", self.east_obs), ("Observation", self.west_obs)]
+        rows += [(w.resource, shape_witness(w)) for w in witnesses()]
+        for resource, row in rows:
+            assert_companions_render_columns(self, resource, row)
+
+
+# ---- field-path evidence ----------------------------------------------------------------------
+# Every reachable Silver leaf path (from the deployed schema) must have a populated, independently
+# expected example below or a named always-null condition. Pass-through columns follow from_json, so
+# their expectation is `from_json_oracle` (the hand-written conversion rule) applied to the witness
+# JSON; normalized columns carry hand-written literals.
+
+EXT_URL = "https://example.test/fhir/StructureDefinition/witness"
+FHIR_ID_CODING = FHIR_ID_TYPE["coding"][0]
+CHOICE_GROUPS = (
+    ("boundsDuration", "boundsRange", "boundsPeriod"),
+    ("valueQuantity", "valueCodeableConcept", "valueString", "valueBoolean", "valueInteger", "valueRange", "valueRatio",
+     "valueSampledData", "valueTime", "valueDateTime", "valuePeriod"),
+)
+WITNESS_INSTANT = "2024-05-06T07:08:09.123+02:00"
+
+
+def ext(label: str) -> list:
+    return [{"url": EXT_URL, "valueString": label}]
+
+
+def ext_text(label: str) -> str:
+    """Jackson text of ext(label) kept in a StringType field."""
+    return f'[{{"url":"{EXT_URL}","valueString":"{label}"}}]'
+
+
+def ext_repr(label: str) -> str:
+    """str() of the json.loads result of ext(label): what get_row_field(..., cast=str) stores."""
+    return f"[{{'url': '{EXT_URL}', 'valueString': '{label}'}}]"
+
+
+def is_reference(t) -> bool:
+    return pa.types.is_struct(t) and t.get_field_index("msftSourceReference") >= 0
+
+
+def column_type(resource: str, column: str):
+    return target_schema(resource).field(column).type
+
+
+def fill(t, path: str, choice: str | None = None):
+    """FHIR JSON populating every field of a pass-through Silver type (normalized References are left out).
+
+    In a choice group only `choice` (default: the first alternative) is set; a list of such structs gets
+    one element per alternative so that each one is populated.
+    """
+    if pa.types.is_list(t):
+        element = t.value_type
+        group = next((g for g in CHOICE_GROUPS if pa.types.is_struct(element)
+                      and element.get_field_index(g[0]) >= 0), None)
+        if group:
+            return [fill(element, f"{path}[{i}]", alt) for i, alt in enumerate(group)]
+        if path.endswith("contained"):
+            return [{"resourceType": "Basic", "id": "contained-1"}]
+        return [fill(element, f"{path}[0]", choice)]
+    if pa.types.is_struct(t):
+        out = {}
+        for f in t:
+            group = next((g for g in CHOICE_GROUPS if f.name in g), None)
+            if is_reference(f.type) or (group and f.name != (choice if choice in group else group[0])):
+                continue
+            out[f.name] = ext(f"{path}.extension") if f.name == "extension" else fill(f.type, f"{path}.{f.name}", choice)
+        return out
+    if pa.types.is_string(t):
+        return path
+    if pa.types.is_boolean(t):
+        return True
+    if pa.types.is_int32(t):
+        return 7
+    if pa.types.is_decimal(t):
+        return Decimal("12.5")
+    if pa.types.is_timestamp(t):
+        return WITNESS_INSTANT
+    raise AssertionError(f"no witness value for {t}")
+
+
+def from_json_oracle(value, t):
+    """from_json of FHIR JSON into a Silver type with no normalization rule (hand-written conversion rule)."""
+    if value is None:
+        return None
+    if pa.types.is_struct(t):
+        return {f.name: from_json_oracle(value.get(f.name), f.type) for f in t}
+    if pa.types.is_list(t):
+        return [from_json_oracle(v, t.value_type) for v in value]
+    if pa.types.is_string(t):
+        return value if isinstance(value, str) else json.dumps(value, separators=(",", ":"), ensure_ascii=False)
+    if pa.types.is_decimal(t):
+        return Decimal(value).quantize(Decimal("1E-18"))
+    if pa.types.is_timestamp(t):
+        return datetime.fromisoformat(value).astimezone(UTC)
+    if pa.types.is_date(t):
+        return date.fromisoformat(value)
+    return value
+
+
+def reference_witness(rtype: str, rid: str, source: str = EAST) -> tuple[dict, dict]:
+    """A literal local reference carrying every Reference member, and its hand-derived Silver value.
+
+    reference_normalization.normalize_ref_struct; identifier_normalization.conform_to_row_identifier_schema
+    and add_source_id_to_identifier_row; utils.create_row_from_string / parse_assigner_json_safely /
+    get_row_field. The raw ReferenceIdentifier members are strings (Jackson text), so: identifier.type is
+    re-parsed with json.loads and its members cast with str() (Python repr for lists); identifier.period is
+    a string, which get_row_field treats as "not a Row" -> all-null period; the assigner is re-parsed and its
+    nested identifier members are str()-cast. The Reference's own id is not in the Silver Reference.
+    """
+    fhir = {
+        "id": "ref-element-id", "extension": ext("re"), "reference": f"{rtype}/{rid}", "type": rtype,
+        "identifier": {
+            "extension": ext("ie"), "use": "official",
+            "type": {"id": "t1", "extension": ext("te"),
+                     "coding": [{"id": "c1", "extension": ext("ce"), "system": "urn:s", "version": "v1", "code": "k",
+                                 "display": "K", "userSelected": True}],
+                     "text": "tt"},
+            "period": {"start": "2024-01-01T00:00:00Z"},
+            "assigner": {"id": "a1", "extension": ext("ae"), "reference": "Organization/o1", "type": "Organization",
+                         "display": "Assigner",
+                         "identifier": {"extension": ext("aie"), "use": "secondary", "value": "av", "system": "urn:as",
+                                        "type": {"text": "ORG"}, "period": {"start": "2024"},
+                                        "assigner": {"display": "Parent"}}},
+        },
+        "display": "Display",
+    }
+    expected = {
+        "reference": None, "type": rtype,
+        "identifier": {
+            "extension": ext_text("ie"), "use": "official", "value": rid, "system": source,
+            "type": {"extension": ext_repr("te"), "id": "t1",
+                     "coding": [{"extension": ext_repr("ce"), "id": "c1", "system": "urn:s", "version": "v1", "code": "k",
+                                 "display": "K", "userSelected": True}, FHIR_ID_CODING],
+                     "text": "tt"},
+            "period": NULL_PERIOD,
+            "assigner": {"extension": ext_repr("ae"), "id": "a1", "reference": "Organization/o1", "type": "Organization",
+                         "identifier": {"extension": ext_repr("aie"), "use": "secondary", "type": "{'text': 'ORG'}",
+                                        "value": "av", "system": "urn:as", "period": "{'start': '2024'}",
+                                        "assigner": "{'display': 'Parent'}"},
+                         "display": "Assigner"},
+        },
+        "display": "Display", "extension": ext_text("re"),
+        "id": sha(f"{source.split('://', 1)[1]}/{rtype}/{rid}"), "idOrig": rid,
+        "msftSourceReference": f"{rtype}/{rid}",
+    }
+    return fhir, expected
+
+
+@dataclass(frozen=True)
+class Witness:
+    name: str
+    resource: str
+    fhir: dict
+    expected: dict  # asserted Silver columns -> hand-derived value
+
+
+def witness_meta() -> tuple[dict, dict]:
+    """date_normalization on meta.lastUpdated: lastUpdatedOrig keeps the parsed timestamp; both are UTC."""
+    fhir = {"id": "m1", "extension": ext("me"), "versionId": "3", "lastUpdated": "2024-06-01T12:00:00.5+02:00",
+            "source": "urn:source", "profile": ["urn:profile"],
+            "security": [fill(column_type("Patient", "maritalStatus").field("coding").type.value_type, "meta.security[0]")],
+            "tag": [fill(column_type("Patient", "maritalStatus").field("coding").type.value_type, "meta.tag[0]")]}
+    last = utc(2024, 6, 1, 10, 0, 0, 500000)
+    meta_type = pa.struct([f for f in column_type("Patient", "meta") if f.name != "lastUpdatedOrig"])
+    return fhir, {**from_json_oracle(fhir, meta_type), "lastUpdatedOrig": last}
+
+
+def witness_identifier(resource: str, rid: str) -> tuple[list, list]:
+    """identifier_normalization.add_source_id_to_identifier_col (array_union with the fhirId element), then the
+    nested identifier.assigner reference rule; the fhirId element's all-null assigner Row is truthy."""
+    assigner_in, assigner_out = reference_witness("Organization", "assigner-org")
+    concept = column_type("Patient", "maritalStatus")  # CodeableConcept
+    element = {"extension": ext("ide"), "use": "usual", "value": "mrn-1", "system": "urn:mrn",
+               "type": fill(concept, "identifier[0].type"),
+               "period": {"id": "ip", "extension": ext("ipe"), "start": "2020-01-01T00:00:00+02:00",
+                          "end": "2021-01-01T00:00:00Z"},
+               "assigner": assigner_in}
+    # A display-only assigner with a business identifier: no reference, so no source id; the absent
+    # type/period/assigner become HDS's `{}` placeholder (all-null structs).
+    business = {"value": "mrn-2", "assigner": {"display": "Issuer", "identifier": {"system": "urn:issuer", "value": "iss-1"}}}
+    business_out = {"extension": None, "use": None, "value": "mrn-2", "system": None, "type": None, "period": None,
+                    "assigner": {"reference": None, "type": None,
+                                 "identifier": {"extension": None, "use": None, "value": "iss-1", "system": "urn:issuer",
+                                                "type": NULL_CC, "period": NULL_PERIOD, "assigner": NULL_RAW_REF},
+                                 "display": "Issuer", "extension": None, "id": None, "idOrig": None,
+                                 "msftSourceReference": None}}
+    expected = [
+        {"extension": ext_text("ide"), "use": "usual", "value": "mrn-1", "system": "urn:mrn",
+         "type": from_json_oracle(element["type"], concept),
+         "period": {"extension": ext_text("ipe"), "id": "ip", "start": utc(2019, 12, 31, 22), "end": utc(2021, 1, 1)},
+         "assigner": assigner_out},
+        business_out,
+        {"extension": None, "use": None, "value": rid, "system": EAST, "type": FHIR_ID_TYPE, "period": NULL_PERIOD,
+         "assigner": FHIR_ID_ASSIGNER},
+    ]
+    return [element, business], expected
+
+
+def passthrough(resource: str, fhir: dict, columns) -> dict:
+    return {c: from_json_oracle(fhir.get(c), column_type(resource, c)) for c in columns}
+
+
+def provenance(resource: str, rid: str, path: str) -> dict:
+    return {"id": sha(f"east.example.test/fhir/{resource}/{rid}"), "idOrig": rid, "resourceType": resource,
+            "msftSourceSystem": EAST, "msftFilePath": path, "msftModifiedDatetime": INGEST, "msftCreatedDatetime": INGEST}
+
+
+def witness_path(name: str) -> str:
+    return f"Files/witness/{name}.ndjson"
+
+
+@lru_cache(maxsize=None)
+def witnesses() -> tuple:
+    out = []
+
+    # Patient: every pass-through column, every normalized column, deceased/multipleBirth boolean choices.
+    t = lambda c: column_type("Patient", c)  # noqa: E731
+    meta_in, meta_out = witness_meta()
+    ids_in, ids_out = witness_identifier("Patient", "pw1")
+    gp_in, gp_out = reference_witness("Practitioner", "gp1")
+    mo_in, mo_out = reference_witness("Organization", "mo1")
+    co_in, co_out = reference_witness("Organization", "contact-org")
+    li_in, li_out = reference_witness("Patient", "linked")
+    contact = fill(t("contact").value_type, "contact[0]")
+    patient_passthrough = ("text", "contained", "name", "telecom", "address", "maritalStatus", "photo", "communication")
+    fhir = {"resourceType": "Patient", "id": "pw1", "meta": meta_in, "implicitRules": "urn:rules", "language": "en",
+            "extension": ext("pe"), "identifier": ids_in, "active": True, "gender": "female", "birthDate": "1990-07-15",
+            "deceasedBoolean": False, "multipleBirthBoolean": True,
+            **{c: fill(t(c), c) for c in patient_passthrough},
+            "contact": [{**contact, "organization": co_in}], "generalPractitioner": [gp_in],
+            "managingOrganization": mo_in, "link": [{"id": "l1", "extension": ext("le"), "other": li_in, "type": "seealso"}]}
+    out.append(Witness("patient-all-members", "Patient", fhir, {
+        **provenance("Patient", "pw1", witness_path("patient-all-members")),
+        **passthrough("Patient", fhir, patient_passthrough + ("implicitRules", "language", "active", "gender",
+                                                              "deceasedBoolean", "multipleBirthBoolean")),
+        "extension": ext_text("pe"),
+        "meta": meta_out, "meta_lastUpdated": meta_out["lastUpdated"], "meta_lastUpdatedOrig": meta_out["lastUpdated"],
+        "identifier": ids_out, "identifierOrig": from_json_oracle(ids_in, t("identifierOrig")),
+        "birthDate": utc(1990, 7, 15), "birthDateOrig": date(1990, 7, 15),
+        "contact": [{**from_json_oracle(contact, t("contact").value_type), "organization": co_out}],
+        "generalPractitioner": [gp_out], "managingOrganization": mo_out,
+        "link": [{"extension": ext_text("le"), "id": "l1", "other": li_out, "type": "seealso"}],
+    }))
+    fhir = {"resourceType": "Patient", "id": "pw2", "deceasedDateTime": "2024-03-04T05:06:07+02:00",
+            "multipleBirthInteger": 3}
+    out.append(Witness("patient-datetime-integer-choices", "Patient", fhir, {
+        **provenance("Patient", "pw2", witness_path("patient-datetime-integer-choices")),
+        "deceasedDateTime": utc(2024, 3, 4, 3, 6, 7), "deceasedDateTimeOrig": utc(2024, 3, 4, 3, 6, 7),
+        "multipleBirthInteger": 3,
+    }))
+
+    # Observation: every pass-through and normalized column; each effective[x] and value[x] choice.
+    t = lambda c: column_type("Observation", c)  # noqa: E731
+    meta_in, meta_out = witness_meta()
+    ids_in, ids_out = witness_identifier("Observation", "ow1")
+    single = {"subject": "Patient", "encounter": "Encounter", "specimen": "Specimen", "device": "Device"}
+    multiple = {"basedOn": "ServiceRequest", "partOf": "Procedure", "focus": "Condition", "performer": "Practitioner",
+                "hasMember": "Observation", "derivedFrom": "Observation"}
+    refs = {c: reference_witness(rtype, f"{c}-1") for c, rtype in {**single, **multiple}.items()}
+    author_in, author_out = reference_witness("Practitioner", "note-author")
+    obs_passthrough = ("text", "contained", "category", "code", "valueQuantity", "dataAbsentReason", "interpretation",
+                       "bodySite", "method", "referenceRange", "component")
+    fhir = {"resourceType": "Observation", "id": "ow1", "meta": meta_in, "implicitRules": "urn:rules", "language": "en",
+            "extension": ext("oe"), "identifier": ids_in, "status": "final",
+            **{c: fill(t(c), c) for c in obs_passthrough},
+            **{c: refs[c][0] for c in single}, **{c: [refs[c][0]] for c in multiple},
+            "effectiveDateTime": "2024-01-01", "issued": "2024-01-01T10:00:00.25-03:00",
+            "note": [{"id": "n1", "extension": ext("ne"), "authorReference": author_in, "time": "2024-02-03T04:05:06-05:00",
+                      "text": "first"}, {"authorString": "Nurse", "text": "second"}]}
+    out.append(Witness("observation-all-members", "Observation", fhir, {
+        **provenance("Observation", "ow1", witness_path("observation-all-members")),
+        **passthrough("Observation", fhir, obs_passthrough + ("implicitRules", "language", "status")),
+        "extension": ext_text("oe"),
+        "meta": meta_out, "meta_lastUpdated": meta_out["lastUpdated"], "meta_lastUpdatedOrig": meta_out["lastUpdated"],
+        "identifier": ids_out, "identifierOrig": from_json_oracle(ids_in, t("identifierOrig")),
+        **{c: refs[c][1] for c in single}, **{c: [refs[c][1]] for c in multiple},
+        "effectiveDateTime": utc(2024, 1, 1), "effectiveDateTimeOrig": utc(2024, 1, 1),
+        "issued": utc(2024, 1, 1, 13, 0, 0, 250000), "issuedOrig": utc(2024, 1, 1, 13, 0, 0, 250000),
+        # The second note has no authorReference: normalize_ref_struct(None) returns its early defaults.
+        "note": [{"extension": ext_text("ne"), "id": "n1", "authorReference": author_out, "authorString": None,
+                  "time": utc(2024, 2, 3, 9, 5, 6), "text": "first"},
+                 {"extension": None, "id": None, "authorReference": NULL_INPUT_REF, "authorString": "Nurse", "time": None,
+                  "text": "second"}],
+    }))
+    choices = [
+        ("effectivePeriod", {"id": "ep", "extension": ext("epe"), "start": "2024-01-02", "end": "2024-01-03T04:05:06+01:00"},
+         {"extension": ext_text("epe"), "id": "ep", "start": utc(2024, 1, 2), "end": utc(2024, 1, 3, 3, 5, 6),
+          "startOrig": utc(2024, 1, 2), "endOrig": utc(2024, 1, 3, 3, 5, 6)},
+         "valuePeriod", {"id": "vp", "extension": ext("vpe"), "start": "2023-12", "end": "2024"},
+         {"extension": ext_text("vpe"), "id": "vp", "start": utc(2023, 12, 1), "end": utc(2024, 1, 1),
+          "startOrig": utc(2023, 12, 1), "endOrig": utc(2024, 1, 1)}),
+        ("effectiveInstant", "2024-01-01T10:00:00Z", utc(2024, 1, 1, 10), "valueInteger", -4, -4),
+        (None, None, None, "valueString", "text value", "text value"),
+        (None, None, None, "valueBoolean", False, False),
+        (None, None, None, "valueTime", "10:11:12", "10:11:12"),
+        (None, None, None, "valueDateTime", "2024-02-29T23:30:00-01:00", utc(2024, 3, 1, 0, 30)),
+    ]
+    for i, bounds in enumerate(CHOICE_GROUPS[0]):  # effectiveTiming once per repeat.bounds[x]
+        value_column = ("valueCodeableConcept", "valueRange", "valueRatio")[i]
+        timing = fill(t("effectiveTiming"), "effectiveTiming", bounds)
+        value = fill(t(value_column), value_column)
+        choices.append(("effectiveTiming", timing, from_json_oracle(timing, t("effectiveTiming")),
+                        value_column, value, from_json_oracle(value, t(value_column))))
+    value = fill(t("valueSampledData"), "valueSampledData")
+    choices.append((None, None, None, "valueSampledData", value, from_json_oracle(value, t("valueSampledData"))))
+    for n, (effective, effective_in, effective_out, value_column, value_in, value_out) in enumerate(choices, start=2):
+        rid, name = f"ow{n}", f"observation-{value_column}"
+        fhir = {"resourceType": "Observation", "id": rid, value_column: value_in}
+        expected = {**provenance("Observation", rid, witness_path(name)), value_column: value_out}
+        if value_column == "valueDateTime":
+            expected["valueDateTimeOrig"] = value_out
+        if effective:
+            fhir[effective] = effective_in
+            expected[effective] = effective_out
+            if effective == "effectiveInstant":
+                expected["effectiveInstantOrig"] = effective_out
+        out.append(Witness(name, "Observation", fhir, expected))
+    return tuple(out)
+
+
+def shape_witness(w: Witness) -> dict:
+    return shape_row(w.resource, extracted_from_resource(w.resource, w.fhir), source_system=EAST,
+                     logical_path=witness_path(w.name), ingest_time=INGEST)
+
+
+def leaf_paths(t, prefix: str) -> set:
+    if pa.types.is_struct(t):
+        return set().union(*(leaf_paths(f.type, f"{prefix}.{f.name}") for f in t))
+    if pa.types.is_list(t):
+        return leaf_paths(t.value_type, f"{prefix}[]")
+    return {prefix}
+
+
+def populated_paths(value, t, prefix: str) -> set:
+    if value is None:
+        return set()
+    if pa.types.is_struct(t):
+        return set().union(*(populated_paths(value[f.name], f.type, f"{prefix}.{f.name}") for f in t))
+    if pa.types.is_list(t):
+        return set().union(set(), *(populated_paths(v, t.value_type, f"{prefix}[]") for v in value))
+    return {prefix}
+
+
+REFERENCE_SLOTS = {
+    "Patient": ("generalPractitioner[]", "managingOrganization", "contact[].organization", "link[].other",
+                "identifier[].assigner"),
+    "Observation": ("basedOn[]", "partOf[]", "subject", "focus[]", "encounter", "performer[]", "specimen", "device",
+                    "hasMember[]", "derivedFrom[]", "note[].authorReference", "identifier[].assigner"),
+}
+
+
+def always_null(resource: str) -> dict:
+    """Silver leaf paths no FHIR input can populate under the HDS rules, each with its reference condition."""
+    conditions = {}
+    for slot in REFERENCE_SLOTS[resource]:
+        conditions[f"{slot}.reference"] = (
+            "reference_normalization.normalize_ref_struct moves every non-empty reference to msftSourceReference and "
+            "sets reference to None; FHIR forbids empty strings, so no reference survives")
+        for member in ("extension", "id", "start", "end"):
+            conditions[f"{slot}.identifier.period.{member}"] = (
+                "the raw Reference.identifier.period is a StringType field; identifier_normalization."
+                "conform_to_row_identifier_schema reads its members with utils.get_row_field, which returns the default "
+                "(None) for a value that is not a Row or dict")
+    return conditions
+
+
+def render_for_json(value, t):
+    """The structure json.loads(companion, parse_float=Decimal, object_pairs_hook=list) must give for a column."""
+    if value is None:
+        return None
+    if pa.types.is_struct(t):
+        return [(f.name, render_for_json(value[f.name], f.type)) for f in t]
+    if pa.types.is_list(t):
+        return [render_for_json(v, t.value_type) for v in value]
+    if pa.types.is_timestamp(t):
+        return f"{value:%Y-%m-%dT%H:%M:%S}.{value.microsecond // 1000:03d}Z"
+    if pa.types.is_date(t):
+        return value.isoformat()
+    return value
+
+
+def assert_companions_render_columns(case: unittest.TestCase, resource: str, row: dict) -> None:
+    schema = target_schema(resource)
+    for name in schema.names:
+        if not name.endswith("_string"):
+            continue
+        base = name[: -len("_string")]
+        with case.subTest(resource=resource, column=name):
+            if row[base] is None:
+                case.assertIsNone(row[name])
+                continue
+            parsed = json.loads(row[name], parse_float=Decimal, object_pairs_hook=list)
+            case.assertEqual(parsed, render_for_json(row[base], schema.field(base).type))
+
+
+class FieldPathEvidenceTests(unittest.TestCase):
+    """source-derived, unverified against a captured run: witness expectations follow from_json plus the HDS
+    normalization files named on each helper; none of them come from a captured HDS run."""
+
+    def test_witness_columns_equal_hand_derived_values(self):
+        for w in witnesses():
+            row = shape_witness(w)
+            pa.Table.from_pylist([row], schema=target_schema(w.resource))
+            for column, expected in w.expected.items():
+                with self.subTest(witness=w.name, column=column):
+                    self.assertEqual(row[column], expected)
+
+    def test_every_silver_leaf_is_populated_or_has_a_named_always_null_condition(self):
+        for resource in ("Patient", "Observation"):
+            schema = target_schema(resource)
+            self.assertEqual(schema_digest(schema), DIGESTS[resource][1])
+            leaves = set().union(*(leaf_paths(f.type, f.name) for f in schema))
+            conditions = always_null(resource)
+            self.assertLessEqual(set(conditions), leaves, "always-null paths must exist in the deployed schema")
+            evidenced, seen = set(), set()
+            for w in (w for w in witnesses() if w.resource == resource):
+                row = shape_witness(w)
+                for column, expected in w.expected.items():
+                    evidenced |= populated_paths(expected, schema.field(column).type, column)
+                    if column + "_string" in schema.names and row[column + "_string"] is not None:
+                        evidenced.add(column + "_string")  # content checked by the companion test
+                seen |= set().union(*(populated_paths(row[f.name], f.type, f.name) for f in schema))
+            with self.subTest(resource=resource, check="every leaf evidenced"):
+                self.assertEqual(sorted(leaves - evidenced - set(conditions)), [])
+            with self.subTest(resource=resource, check="always-null leaves stay null"):
+                self.assertEqual(sorted(seen & set(conditions)), [])
 
 
 class FixtureTests(unittest.TestCase):
