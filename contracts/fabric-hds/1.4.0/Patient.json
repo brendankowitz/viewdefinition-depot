@@ -1,0 +1,54 @@
+{
+  "resource": "Patient",
+  "view": "patient_silver_projection",
+  "targetVersion": "1.4.0",
+  "schemaSource": "HDS.SourceCode/hds-build-artifacts/healthcare-tables/1.4.0/Silver/Patient/_delta_log/00000000000000000000.json",
+  "keyColumn": "idOrig",
+  "targetFields": [
+    { "path": "idOrig", "type": "string" },
+    { "path": "id", "type": "string" },
+    { "path": "msftSourceSystem", "type": "string" },
+    { "path": "msftCreatedDatetime", "type": "timestamp" },
+    { "path": "msftModifiedDatetime", "type": "timestamp" },
+    { "path": "msftFilePath", "type": "string" },
+    { "path": "meta_lastUpdatedOrig", "type": "timestamp" },
+    { "path": "active", "type": "boolean" },
+    { "path": "gender", "type": "string" },
+    { "path": "birthDateOrig", "type": "date" },
+    { "path": "identifierOrig_string", "type": "string" },
+    { "path": "name_string", "type": "string" }
+  ],
+  "loaderOwnedFields": [
+    { "path": "id", "type": "string", "reason": "Fabric-derived deterministic resource ID" },
+    { "path": "msftCreatedDatetime", "type": "timestamp", "reason": "Fabric ingestion creation timestamp" },
+    { "path": "msftModifiedDatetime", "type": "timestamp", "reason": "Fabric ingestion modification timestamp" },
+    { "path": "msftFilePath", "type": "string", "reason": "Fabric ingestion source file lineage" },
+    { "path": "birthDateOrig", "type": "date", "reason": "CLI date output requires conversion from TIMESTAMP to Fabric DATE" },
+    { "path": "identifierOrig_string", "type": "string", "reason": "CLI does not losslessly serialize complex repeating identifiers" },
+    { "path": "name_string", "type": "string", "reason": "CLI does not losslessly serialize complex repeating names" }
+  ],
+  "expectedRowCount": 1,
+  "outputSchema": [
+    { "name": "msftSourceSystem", "duckdbType": "VARCHAR" },
+    { "name": "idOrig", "duckdbType": "VARCHAR" },
+    { "name": "meta_lastUpdatedOrig", "duckdbType": "TIMESTAMP" },
+    { "name": "active", "duckdbType": "BOOLEAN" },
+    { "name": "gender", "duckdbType": "VARCHAR" }
+  ],
+  "projections": [
+    { "column": "msftSourceSystem", "source": "%sourceSystem", "target": "msftSourceSystem", "targetType": "string", "classification": "direct", "parquetType": "VARCHAR" },
+    { "column": "idOrig", "source": "id", "target": "idOrig", "targetType": "string", "classification": "direct", "parquetType": "VARCHAR" },
+    { "column": "meta_lastUpdatedOrig", "source": "meta.lastUpdated", "target": "meta_lastUpdatedOrig", "targetType": "timestamp", "classification": "direct", "parquetType": "TIMESTAMP" },
+    { "column": "active", "source": "active", "target": "active", "targetType": "boolean", "classification": "direct", "parquetType": "BOOLEAN" },
+    { "column": "gender", "source": "gender", "target": "gender", "targetType": "string", "classification": "direct", "parquetType": "VARCHAR" }
+  ],
+  "expectedRows": [
+    {
+      "idOrig": "p1",
+      "msftSourceSystem": "example-east",
+      "meta_lastUpdatedOrig": "2024-01-15T12:00:00Z",
+      "active": true,
+      "gender": "female"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "observation_silver_projection",
+  "resource": "Observation",
+  "fhirVersion": ["4.0.1"],
+  "constant": [{ "name": "sourceSystem", "valueString": "example-east" }],
+  "select": [{
+    "column": [
+      { "name": "msftSourceSystem", "path": "%sourceSystem", "type": "string" },
+      { "name": "idOrig", "path": "id", "type": "string" },
+      { "name": "meta_lastUpdatedOrig", "path": "meta.lastUpdated", "type": "datetime" },
+      { "name": "status", "path": "status", "type": "string" },
+      { "name": "code_text", "path": "code.text", "type": "string" },
+      { "name": "code_coding_loinc_system", "path": "code.coding.where(system = 'http://loinc.org').first().system", "type": "string" },
+      { "name": "code_coding_loinc_code", "path": "code.coding.where(system = 'http://loinc.org').first().code", "type": "string" },
+      { "name": "code_coding_loinc_display", "path": "code.coding.where(system = 'http://loinc.org').first().display", "type": "string" },
+      { "name": "subject_reference", "path": "subject.reference", "type": "string" },
+      { "name": "valueQuantity_value", "path": "value.ofType(Quantity).value", "type": "decimal" },
+      { "name": "valueQuantity_system", "path": "value.ofType(Quantity).system", "type": "string" },
+      { "name": "valueQuantity_code", "path": "value.ofType(Quantity).code", "type": "string" },
+      { "name": "valueQuantity_unit", "path": "value.ofType(Quantity).unit", "type": "string" },
+      { "name": "valueString", "path": "value.ofType(string)", "type": "string" }
+    ]
+  }]
+}
