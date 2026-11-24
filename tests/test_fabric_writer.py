@@ -300,20 +300,25 @@ class HermeticWriterTests(Workspace):
         self.assertFalse((self.state / "CURRENT").exists())
 
 
+def development_cli():
+    choice = os.environ.get("IGNIXA_PARITY_CLI")
+    if choice is None and not DEV_DLL.is_file():
+        raise unittest.SkipTest(f"default development CLI not built at {DEV_DLL}")
+    dll = Path(choice).resolve() if choice is not None else DEV_DLL
+    if not dll.is_file() or dll.suffix.lower() != ".dll":
+        raise AssertionError("IGNIXA_PARITY_CLI must select an existing development DLL")
+    return ["dotnet", str(dll)]
+
+
 class DevelopmentExtractionTests(Workspace):
     def test_ignixa_output_drives_all_three_writer_events(self):
-        choice = os.environ.get("IGNIXA_PARITY_CLI")
-        if choice is None and not DEV_DLL.is_file():
-            self.skipTest(f"default development CLI not built at {DEV_DLL}")
-        dll = Path(choice).resolve() if choice is not None else DEV_DLL
-        self.assertTrue(dll.is_file() and dll.suffix.lower() == ".dll",
-                        "IGNIXA_PARITY_CLI must select an existing development DLL")
+        cli = development_cli()
         self.save_manifest()
         witness = {}
         for input_id, item in self.spec["inputs"].items():
             resource = item["resource"]
             source = PARITY / item["path"]
-            extract(["dotnet", str(dll)], VIEW_DIR / f"{resource}.json", source,
+            extract(cli, VIEW_DIR / f"{resource}.json", source,
                     self.extracted / f"{input_id}.parquet")
             [raw] = read_ndjson(source)
             cells = {}

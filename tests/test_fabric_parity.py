@@ -16,7 +16,9 @@ from fabric_silver.reference import compare_events, snapshot_values
 from fabric_silver.views import VIEW_DIR, contract_view, render
 from fabric_silver.writer import apply_batch
 from test_fabric_views import PINNED, column_mismatches, extract, read_ndjson as read_fhir
-from test_fabric_writer import CONTRACTS, DEPLOYED, PARITY, RESOURCES, ROOT, TIMES, synthetic_rows
+from test_fabric_writer import (
+    CONTRACTS, DEPLOYED, PARITY, RESOURCES, ROOT, TIMES, development_cli, synthetic_rows,
+)
 
 MANIFEST = PARITY / "batches.json"
 REFERENCE = PARITY / "reference"
@@ -37,8 +39,8 @@ def write_ndjson(path, records):
     path.write_text("".join(json.dumps(record) + "\n" for record in records), encoding="utf-8")
 
 
-def released_cli_snapshots(workspace, manifest, events):
-    """Run only when a complete independent capture is available; never use a dev DLL."""
+def cli_snapshots(cli, workspace, manifest, events):
+    """Check per-input extraction against the source and publish the three events."""
     extracted = workspace / "extracted"
     extracted.mkdir()
     for input_id, item in manifest["inputs"].items():
@@ -46,10 +48,10 @@ def released_cli_snapshots(workspace, manifest, events):
         source = PARITY / item["path"]
         if hashlib.sha256(source.read_bytes()).hexdigest() != item["sha256"]:
             raise AssertionError(f"{input_id}: fixture digest differs")
-        result = extract(PINNED, VIEW_DIR / f"{resource}.json", source, extracted / f"{input_id}.parquet")
+        result = extract(cli, VIEW_DIR / f"{resource}.json", source, extracted / f"{input_id}.parquet")
         mismatches = column_mismatches(read_json(CONTRACTS / f"{resource}.json"), result, read_fhir(source))
         if mismatches:
-            raise AssertionError(f"{input_id}: released CLI extraction differs from fixture: {mismatches}")
+            raise AssertionError(f"{input_id}: CLI extraction differs from fixture: {mismatches}")
     return {event: apply_batch(MANIFEST, event, extracted, workspace / "state", ingest_time=TIMES[event])
             for event in events}
 
@@ -125,7 +127,8 @@ class CatalogTests(unittest.TestCase):
         manifest = read_json(MANIFEST)
         events = [event["name"] for event in manifest["events"]]
         with tempfile.TemporaryDirectory() as directory:
-            snapshots = cache(lambda: released_cli_snapshots(Path(directory), manifest, events))
+            # Only the released pin can supply candidate snapshots for independent evidence.
+            snapshots = cache(lambda: cli_snapshots(PINNED, Path(directory), manifest, events))
             statuses = check_statuses(entries, CONTRACTS, VIEW_DIR, REFERENCE, events, snapshots)
         count = f"{statuses.count('verified')}/{len(entries)}"
         for path in (ROOT / "README.md", ROOT / "docs/packs/fabric-silver-parity.md"):
@@ -136,7 +139,7 @@ class CatalogTests(unittest.TestCase):
                 self.assertEqual(set(published), {count})
 
 
-class HarnessMechanicsTests(unittest.TestCase):
+class WriterReferenceWorkspace(unittest.TestCase):
     """Writer-derived expectations in temp only; never independent capture."""
 
     def setUp(self):
@@ -144,20 +147,11 @@ class HarnessMechanicsTests(unittest.TestCase):
         self.addCleanup(workspace.cleanup)
         self.root = Path(workspace.name)
         self.reference = self.root / "reference"
-        self.events = [event["name"] for event in read_json(MANIFEST)["events"]]
-        extracted = self.root / "extracted"
-        extracted.mkdir()
-        rows = synthetic_rows()
-        rows["east-observation-1"]["code"] = json.dumps([{"coding": [
-            {"system": "http://loinc.org", "code": "8310-5"},
-            {"system": "https://codes.example.test/pilot", "code": "TEMP"},
-        ]}])
-        for input_id, row in rows.items():
-            pq.write_table(pa.Table.from_pylist([row]), extracted / f"{input_id}.parquet")
-        self.snapshots = {
-            event: apply_batch(MANIFEST, event, extracted, self.root / "state", ingest_time=TIMES[event])
-            for event in self.events
-        }
+        self.manifest = read_json(MANIFEST)
+        self.events = [event["name"] for event in self.manifest["events"]]
+
+    def write_reference(self, snapshots):
+        self.snapshots = snapshots
         for resource in RESOURCES:
             for actual, expected in self.pairs(resource):
                 values = snapshot_values(actual, DEPLOYED[resource]["schemaSha256"])
@@ -178,6 +172,29 @@ class HarnessMechanicsTests(unittest.TestCase):
         mutate(east)
         write_ndjson(expected, records)
 
+    def assert_altered_reference_target_rejected(self):
+        self.mutate_initial_observation(lambda row: row["subject"].update(id="different-target-id"))
+        with self.assertRaisesRegex(ValueError, r"^Observation\.subject\.id: no matching row$"):
+            self.compare("Observation")
+
+
+class HarnessMechanicsTests(WriterReferenceWorkspace):
+    def setUp(self):
+        super().setUp()
+        extracted = self.root / "extracted"
+        extracted.mkdir()
+        rows = synthetic_rows()
+        rows["east-observation-1"]["code"] = json.dumps([{"coding": [
+            {"system": "http://loinc.org", "code": "8310-5"},
+            {"system": "https://codes.example.test/pilot", "code": "TEMP"},
+        ]}])
+        for input_id, row in rows.items():
+            pq.write_table(pa.Table.from_pylist([row]), extracted / f"{input_id}.parquet")
+        self.write_reference({
+            event: apply_batch(MANIFEST, event, extracted, self.root / "state", ingest_time=TIMES[event])
+            for event in self.events
+        })
+
     def test_writer_snapshots_compare_across_all_three_events(self):
         for resource in RESOURCES:
             with self.subTest(resource=resource):
@@ -189,9 +206,7 @@ class HarnessMechanicsTests(unittest.TestCase):
             self.compare("Observation")
 
     def test_altered_reference_target_fails_nested_value_comparison(self):
-        self.mutate_initial_observation(lambda row: row["subject"].update(id="different-target-id"))
-        with self.assertRaisesRegex(ValueError, r"^Observation\.subject\.id: no matching row$"):
-            self.compare("Observation")
+        self.assert_altered_reference_target_rejected()
 
     def test_changed_nested_type_fails_schema_comparison(self):
         actual, _ = self.pairs("Patient")[0]
@@ -242,3 +257,12 @@ class HarnessMechanicsTests(unittest.TestCase):
                 with self.assertRaisesRegex(AssertionError, rf"Patient: claimed verified .*{message}"):
                     check_statuses(*args)
                 artifact.write_bytes(data)
+
+
+class DevelopmentCliHarnessTests(WriterReferenceWorkspace):
+    def test_dev_cli_round_trip_rejects_corrupted_reference(self):
+        """Development CLI to comparator: harness mechanics only, not HDS evidence."""
+        self.write_reference(cli_snapshots(development_cli(), self.root, self.manifest, self.events))
+        for resource in RESOURCES:
+            self.compare(resource)
+        self.assert_altered_reference_target_rejected()

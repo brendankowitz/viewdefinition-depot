@@ -65,14 +65,17 @@ type from `parity/types.json`). Date, dateTime and instant fields are
 extracted as source strings (lossless) and parsed by the shaping step below.
 
 They need a CLI that writes complex `collection: true` columns as JSON text
-(Ignixa PR #549). Extraction and writer tests use the development build
-when it exists at the default path. If none exists and no selection is made,
-they skip with an explicit reason visible in verbose CI output. This skip
-is permitted only because no released CLI can export these views yet; it
-does not count toward verification. Set `IGNIXA_PARITY_CLI` to the DLL path
-to run both suites. An invalid explicit path or failed export fails the run
-rather than skipping. The extraction suite alone also accepts `pinned` to
-demonstrate the loss with `0.6.82`.
+(Ignixa PR #549). The extraction, writer, and CLI-to-comparator tests use
+the development build when it exists at the default path. They skip only
+when no explicit selection was made and that DLL is absent, with a reason
+visible in verbose CI output. This skip is permitted only because no
+released CLI can export these views yet. The CLI-to-comparator test checks
+both tables across all three events and rejects a corrupted expected
+reference target. Its expectations come from the local writer:
+**harness mechanics only, not HDS evidence**. Set `IGNIXA_PARITY_CLI` to
+the DLL path to run all three checks. An invalid explicit path or failed
+export fails the run rather than skipping. The extraction suite alone also
+accepts `pinned` to demonstrate the loss with `0.6.82`.
 
 **Upstream blocker, pinned 0.6.82.** Complex `collection: true` columns come
 back as one `null` per element, so content is lost (count is kept). Observed
