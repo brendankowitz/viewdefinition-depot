@@ -20,10 +20,11 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import re
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
-from decimal import ROUND_HALF_UP, Context, Decimal, InvalidOperation, localcontext
+from decimal import ROUND_HALF_EVEN, ROUND_HALF_UP, Context, Decimal, localcontext
 from functools import lru_cache
 
 import pyarrow as pa
@@ -55,9 +56,15 @@ class _Invalid(Exception):
 
 UTC = timezone.utc
 _SURROGATE = re.compile("[\ud800-\udfff]")
-_SCALE = Decimal(1).scaleb(-18)
 _MAX_DIGITS = 36
 _INT32 = (-(2 ** 31), 2 ** 31 - 1)
+
+# Copy these templates before use: decimal flags are sticky, even with traps disabled.
+_DECIMAL_TEXT = Context(prec=28, rounding=ROUND_HALF_EVEN, Emin=-999999, Emax=999999,
+                        capitals=1, clamp=0, traps=[], flags=[])
+_DECIMAL_SCALE = Context(prec=_MAX_DIGITS + 1, rounding=ROUND_HALF_UP, Emin=-999999, Emax=999999,
+                         capitals=1, clamp=0, traps=[], flags=[])
+_SCALE = Decimal("1E-18", context=_DECIMAL_SCALE.copy())
 
 # ---------------------------------------------------------------- logical types
 
@@ -170,19 +177,21 @@ def _quote(text: str) -> str:
 
 def _java_double(value: Decimal, path: str) -> str:
     """Java Double.toString of the double nearest the JSON number (what Jackson copies)."""
-    number = float(value)
-    if number != number or number in (float("inf"), float("-inf")):
-        raise _Invalid(path, "is out of double range")
-    if number == 0:
-        return "-0.0" if str(number).startswith("-") else "0.0"
-    shortest = Decimal(repr(abs(number))).normalize()
-    sign = "-" if number < 0 else ""
-    if Decimal("1e-3") <= shortest < Decimal("1e7"):
-        text = format(shortest, "f")
-        return sign + (text if "." in text else text + ".0")
-    digits = "".join(map(str, shortest.as_tuple().digits))
-    exponent = len(digits) - 1 + shortest.as_tuple().exponent
-    return f"{sign}{digits[0]}.{digits[1:] or '0'}E{exponent}"
+    with localcontext(_DECIMAL_TEXT) as ctx:
+        if not value.is_finite():
+            raise _Invalid(path, "is out of double range")
+        number = float(value)
+        if not math.isfinite(number):
+            raise _Invalid(path, "is out of double range")
+        if number == 0:
+            return "-0.0" if str(number).startswith("-") else "0.0"
+        shortest = ctx.normalize(Decimal(repr(abs(number)), context=ctx))
+        sign = "-" if number < 0 else ""
+        if -3 <= shortest.adjusted() < 7:
+            text = format(shortest, "f")
+            return sign + (text if "." in text else text + ".0")
+        digits = "".join(map(str, shortest.as_tuple().digits))
+        return f"{sign}{digits[0]}.{digits[1:] or '0'}E{shortest.adjusted()}"
 
 
 def _jackson(value, path: str) -> str:
@@ -246,10 +255,11 @@ class _HugeExponent:
 
 def _json_number(token: str):
     """parse_float for extraction JSON: the exact Decimal, or _HugeExponent when Decimal cannot hold the exponent."""
-    try:
-        return Decimal(token)
-    except InvalidOperation:  # json's number grammar leaves the exponent as the only failure
-        pass
+    # Unlike Context.create_decimal, this constructor doesn't round to context precision.
+    value = Decimal(token, context=_DECIMAL_TEXT.copy())
+    if value.is_finite():
+        return value
+    # JSON's number grammar leaves an unrepresentable exponent as the only failure.
     mantissa, _, exponent = token.lower().partition("e")
     if exponent.startswith("-") or not mantissa.strip("-0."):
         return _HugeExponent("-0.0" if token.startswith("-") else "0.0")
@@ -268,8 +278,10 @@ def _to_json(value, node) -> str:
         return _quote(value)
     if node == "bool":
         return "true" if value else "false"
-    if node in ("int32", "decimal"):
-        return str(value)  # Decimal str follows Java BigDecimal.toString at scale 18
+    if node == "int32":
+        return str(value)
+    if node == "decimal":
+        return _DECIMAL_TEXT.copy().to_sci_string(value)  # BigDecimal.toString at scale 18
     if node == "timestamp":
         moment = value.astimezone(UTC)
         return (f'"{moment.year:04d}-{moment.month:02d}-{moment.day:02d}T{moment.hour:02d}:{moment.minute:02d}:'
@@ -325,12 +337,12 @@ def _decimal(value, path: str) -> Decimal:
     if isinstance(value, bool) or not isinstance(value, (int, Decimal)):
         raise _Invalid(path, "expected a JSON number")
     # One digit beyond the target lets a rounding carry (e.g. 18 nines .5e-18 -> 10^18) show as 37 digits.
-    with localcontext(Context(prec=_MAX_DIGITS + 1, rounding=ROUND_HALF_UP)):
-        try:
-            scaled = Decimal(value).quantize(_SCALE)
-        except InvalidOperation:
-            scaled = None
-    if scaled is None or len(scaled.as_tuple().digits) > _MAX_DIGITS:
+    ctx = _DECIMAL_SCALE.copy()
+    exact = Decimal(value, context=ctx) if isinstance(value, int) else value
+    if not exact.is_finite():
+        raise _Invalid(path, "does not fit decimal(36,18)")
+    scaled = ctx.quantize(exact, _SCALE)
+    if not scaled.is_finite() or len(scaled.as_tuple().digits) > _MAX_DIGITS:
         raise _Invalid(path, "does not fit decimal(36,18)")
     return scaled
 
@@ -857,7 +869,7 @@ def shape_row(resource: str, extracted: dict, *, source_system: str, logical_pat
         failure = invalid
     # Raised outside the handler so neither the internal error nor its cause (e.g. a JSONDecodeError
     # holding the whole document) is chained onto the ShapeError.
-    raise ShapeError(resource, failure.path, failure.reason, spec.fhir_path(failure.path))
+    raise ShapeError(resource, failure.path, failure.reason, spec.fhir_path(failure.path)) from None
 
 
 def _shape(spec: _Resource, extracted: dict, source_system: str, logical_path: str, ingest_time: datetime) -> dict:

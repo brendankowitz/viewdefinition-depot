@@ -12,6 +12,7 @@ hand in the shape of the extraction views' columns.
 """
 from __future__ import annotations
 
+import decimal
 import hashlib
 import json
 import re
@@ -1252,6 +1253,92 @@ class MutationRedactionTests(unittest.TestCase):
                 with self.assertRaises(error) as caught:
                     shape("Observation", **columns)
                 self.assertNotIsInstance(caught.exception, ShapeError)
+
+
+class DecimalContextTests(unittest.TestCase):
+    def test_out_of_range_exponent_is_redacted_with_invalid_operation_trap_off(self):
+        with decimal.localcontext(decimal.DefaultContext) as ctx:
+            ctx.traps[decimal.InvalidOperation] = False
+            with self.assertRaises(ShapeError) as raised:
+                shape("Observation", valueQuantity='[{"value":1e9999999999999999999999999}]')
+        exc = raised.exception
+        self.assertEqual((exc.resource, exc.path, exc.reason),
+                         ("Observation", "valueQuantity.value", "does not fit decimal(36,18)"))
+        self.assertIsNone(exc.__cause__)
+        self.assertIsNone(exc.__context__)
+        self.assertNotIn("1e9999999999999999999999999", "".join(traceback.format_exception(exc)))
+
+    def test_extension_double_renders_with_low_precision_and_inexact_trap(self):
+        with decimal.localcontext(decimal.DefaultContext) as ctx:
+            ctx.prec = 2
+            ctx.traps[decimal.Inexact] = True
+            row = shape("Observation", extension='[{"valueDecimal":12.345678901234567891}]')
+        self.assertEqual(row["extension"], '[{"valueDecimal":12.345678901234567}]')
+        pa.Table.from_pylist([row], schema=target_schema("Observation"))
+
+    def test_rows_errors_and_caller_context_are_independent_of_decimal_settings(self):
+        def outcome(call):
+            try:
+                return shape_row(**call)
+            except ShapeError as exc:
+                return exc.resource, exc.path, exc.reason, exc.fhir_path, exc.args
+
+        def snapshot(ctx):
+            return (ctx.prec, ctx.rounding, ctx.Emin, ctx.Emax, ctx.capitals, ctx.clamp,
+                    dict(ctx.traps), dict(ctx.flags))
+
+        def call(resource, extracted, path, source=EAST):
+            return dict(resource=resource, extracted=extracted, logical_path=path, source_system=source,
+                        ingest_time=INGEST)
+
+        cases = [call(w.resource, extracted_from_resource(w.resource, w.fhir), witness_path(w.name))
+                 for w in witnesses()]
+        for path in sorted((FIXTURES / "input").rglob("*.ndjson")):
+            relative = path.relative_to(FIXTURES).as_posix()
+            cases.extend(call(path.stem, extracted_from_resource(path.stem, fhir), relative,
+                              WEST if "/west/" in relative else EAST) for fhir in ndjson(relative))
+
+        tokens = (
+            "1e400", "-1e400", "1e-400", "-0.0", "NaN", "Infinity", "-Infinity", "9" * 5000,
+            "1e999999999999999999999999", "-1e999999999999999999999999", "1e-999999999999999999999999",
+            "-1e-999999999999999999999999", "0e+9999999999999999999", "0." + "0" * 5000 + "1",
+            "9" * 5000 + ".5", "123456789012345678.123456789012345678", "1.2345678901234567895",
+            "-1.2345678901234567895", "999999999999999999.9999999999999999995",
+            "0.001", "0.0009999999999999998", "1e7", "9999999.999999998", "5e-324",
+        )
+        for token in tokens:
+            columns = (
+                ("valueQuantity", '[{"value":' + token + '}]'),
+                ("component", '[{"valueRange":{"low":{"value":' + token + '}}}]'),
+                ("extension", '[{"valueDecimal":' + token + '}]'),
+            )
+            for column, text in columns:
+                cases.append(call("Observation", blank_row("Observation", **{column: text}), column))
+
+        default = decimal.Context(prec=28, rounding=decimal.ROUND_HALF_EVEN, Emin=-999999, Emax=999999,
+                                  capitals=1, clamp=0, traps=[decimal.InvalidOperation, decimal.DivisionByZero,
+                                                               decimal.Overflow], flags=[])
+        with decimal.localcontext(default):
+            expected = [outcome(case) for case in cases]
+        contexts = [("default", default), ("traps off", decimal.Context(traps=[])),
+                    ("traps on", decimal.Context(traps=list(default.traps))),
+                    ("low precision", decimal.Context(prec=2)),
+                    ("high precision", decimal.Context(prec=1000)),
+                    ("tiny bounds", decimal.Context(Emin=-2, Emax=2)),
+                    ("clamp and lowercase", decimal.Context(clamp=1, capitals=0)),
+                    ("combined", decimal.Context(prec=2, Emin=-2, Emax=2, capitals=0, clamp=1,
+                                                 traps=list(default.traps)))]
+        contexts.extend((name, decimal.Context(rounding=getattr(decimal, name)))
+                        for name in sorted(dir(decimal)) if name.startswith("ROUND_"))
+        for name, ctx in contexts:
+            with self.subTest(context=name), decimal.localcontext(ctx) as ambient:
+                # Start with a sticky flag as well as clear ones to detect both clearing and setting.
+                ambient.flags[decimal.DivisionByZero] = True
+                before = snapshot(ambient)
+                for index, (case, want) in enumerate(zip(cases, expected, strict=True)):
+                    self.assertEqual(outcome(case), want, (name, index, case["logical_path"]))
+                    self.assertIs(decimal.getcontext(), ambient)
+                    self.assertEqual(snapshot(ambient), before, (name, index, case["logical_path"]))
 
 
 class FixtureTests(unittest.TestCase):
