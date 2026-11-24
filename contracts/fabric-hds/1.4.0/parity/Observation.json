@@ -1,0 +1,966 @@
+{
+  "resource": "Observation",
+  "fhirVersion": "4.0.1",
+  "hdsVersion": "1.4.0",
+  "schemaSha256": "cedf46756c6c3360cc93716222c8ff40fa218ab465011c7132943a5e8bd0e82f",
+  "evidence": "Lossless-extraction evidence only. Not HDS parity.",
+  "extraction": [
+    {
+      "column": "id",
+      "path": "id",
+      "type": "string"
+    },
+    {
+      "column": "language",
+      "path": "language",
+      "type": "string"
+    },
+    {
+      "column": "implicitRules",
+      "path": "implicitRules",
+      "type": "string"
+    },
+    {
+      "column": "status",
+      "path": "status",
+      "type": "string"
+    },
+    {
+      "column": "effectiveDateTime",
+      "path": "effective.ofType(dateTime)",
+      "type": "string"
+    },
+    {
+      "column": "effectiveInstant",
+      "path": "effective.ofType(instant)",
+      "type": "string"
+    },
+    {
+      "column": "issued",
+      "path": "issued",
+      "type": "string"
+    },
+    {
+      "column": "valueString",
+      "path": "value.ofType(string)",
+      "type": "string"
+    },
+    {
+      "column": "valueBoolean",
+      "path": "value.ofType(boolean)",
+      "type": "boolean"
+    },
+    {
+      "column": "valueInteger",
+      "path": "value.ofType(integer)",
+      "type": "integer"
+    },
+    {
+      "column": "valueTime",
+      "path": "value.ofType(time)",
+      "type": "string"
+    },
+    {
+      "column": "valueDateTime",
+      "path": "value.ofType(dateTime)",
+      "type": "string"
+    },
+    {
+      "column": "meta",
+      "path": "meta",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "text",
+      "path": "text",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "contained",
+      "path": "contained",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "extension",
+      "path": "extension",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "identifier",
+      "path": "identifier",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "basedOn",
+      "path": "basedOn",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "partOf",
+      "path": "partOf",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "category",
+      "path": "category",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "code",
+      "path": "code",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "subject",
+      "path": "subject",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "focus",
+      "path": "focus",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "encounter",
+      "path": "encounter",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "effectivePeriod",
+      "path": "effective.ofType(Period)",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "effectiveTiming",
+      "path": "effective.ofType(Timing)",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "performer",
+      "path": "performer",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "valueQuantity",
+      "path": "value.ofType(Quantity)",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "valueCodeableConcept",
+      "path": "value.ofType(CodeableConcept)",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "valueRange",
+      "path": "value.ofType(Range)",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "valueRatio",
+      "path": "value.ofType(Ratio)",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "valueSampledData",
+      "path": "value.ofType(SampledData)",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "valuePeriod",
+      "path": "value.ofType(Period)",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "dataAbsentReason",
+      "path": "dataAbsentReason",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "interpretation",
+      "path": "interpretation",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "note",
+      "path": "note",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "bodySite",
+      "path": "bodySite",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "method",
+      "path": "method",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "specimen",
+      "path": "specimen",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "device",
+      "path": "device",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "referenceRange",
+      "path": "referenceRange",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "hasMember",
+      "path": "hasMember",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "derivedFrom",
+      "path": "derivedFrom",
+      "type": "string",
+      "collection": true
+    },
+    {
+      "column": "component",
+      "path": "component",
+      "type": "string",
+      "collection": true
+    }
+  ],
+  "silverColumns": [
+    {
+      "name": "msftModifiedDatetime",
+      "silverType": "timestamp[us, tz=UTC]",
+      "sourcing": "fabric-assigned",
+      "note": "Assigned by the ingestion/writer; not read from FHIR JSON."
+    },
+    {
+      "name": "id",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "id"
+      ]
+    },
+    {
+      "name": "resourceType",
+      "silverType": "string",
+      "sourcing": "constant",
+      "value": "Observation"
+    },
+    {
+      "name": "msftSourceSystem",
+      "silverType": "string",
+      "sourcing": "fabric-assigned",
+      "note": "Assigned by the ingestion/writer; not read from FHIR JSON."
+    },
+    {
+      "name": "msftFilePath",
+      "silverType": "string",
+      "sourcing": "fabric-assigned",
+      "note": "Assigned by the ingestion/writer; not read from FHIR JSON."
+    },
+    {
+      "name": "extension",
+      "silverType": "string",
+      "sourcing": "extracted",
+      "from": [
+        "extension"
+      ]
+    },
+    {
+      "name": "meta",
+      "silverType": "struct",
+      "sourcing": "extracted",
+      "from": [
+        "meta"
+      ]
+    },
+    {
+      "name": "implicitRules",
+      "silverType": "string",
+      "sourcing": "extracted",
+      "from": [
+        "implicitRules"
+      ]
+    },
+    {
+      "name": "language",
+      "silverType": "string",
+      "sourcing": "extracted",
+      "from": [
+        "language"
+      ]
+    },
+    {
+      "name": "text",
+      "silverType": "struct",
+      "sourcing": "extracted",
+      "from": [
+        "text"
+      ]
+    },
+    {
+      "name": "contained",
+      "silverType": "list<string>",
+      "sourcing": "extracted",
+      "from": [
+        "contained"
+      ]
+    },
+    {
+      "name": "identifier",
+      "silverType": "list<struct>",
+      "sourcing": "extracted",
+      "from": [
+        "identifier"
+      ]
+    },
+    {
+      "name": "basedOn",
+      "silverType": "list<struct>",
+      "sourcing": "extracted",
+      "from": [
+        "basedOn"
+      ]
+    },
+    {
+      "name": "partOf",
+      "silverType": "list<struct>",
+      "sourcing": "extracted",
+      "from": [
+        "partOf"
+      ]
+    },
+    {
+      "name": "status",
+      "silverType": "string",
+      "sourcing": "extracted",
+      "from": [
+        "status"
+      ]
+    },
+    {
+      "name": "category",
+      "silverType": "list<struct>",
+      "sourcing": "extracted",
+      "from": [
+        "category"
+      ]
+    },
+    {
+      "name": "code",
+      "silverType": "struct",
+      "sourcing": "extracted",
+      "from": [
+        "code"
+      ]
+    },
+    {
+      "name": "subject",
+      "silverType": "struct",
+      "sourcing": "extracted",
+      "from": [
+        "subject"
+      ]
+    },
+    {
+      "name": "focus",
+      "silverType": "list<struct>",
+      "sourcing": "extracted",
+      "from": [
+        "focus"
+      ]
+    },
+    {
+      "name": "encounter",
+      "silverType": "struct",
+      "sourcing": "extracted",
+      "from": [
+        "encounter"
+      ]
+    },
+    {
+      "name": "effectiveDateTime",
+      "silverType": "timestamp[us, tz=UTC]",
+      "sourcing": "derived",
+      "from": [
+        "effectiveDateTime"
+      ]
+    },
+    {
+      "name": "effectivePeriod",
+      "silverType": "struct",
+      "sourcing": "extracted",
+      "from": [
+        "effectivePeriod"
+      ]
+    },
+    {
+      "name": "effectiveTiming",
+      "silverType": "struct",
+      "sourcing": "extracted",
+      "from": [
+        "effectiveTiming"
+      ]
+    },
+    {
+      "name": "effectiveInstant",
+      "silverType": "timestamp[us, tz=UTC]",
+      "sourcing": "derived",
+      "from": [
+        "effectiveInstant"
+      ]
+    },
+    {
+      "name": "issued",
+      "silverType": "timestamp[us, tz=UTC]",
+      "sourcing": "derived",
+      "from": [
+        "issued"
+      ]
+    },
+    {
+      "name": "performer",
+      "silverType": "list<struct>",
+      "sourcing": "extracted",
+      "from": [
+        "performer"
+      ]
+    },
+    {
+      "name": "valueQuantity",
+      "silverType": "struct",
+      "sourcing": "extracted",
+      "from": [
+        "valueQuantity"
+      ]
+    },
+    {
+      "name": "valueCodeableConcept",
+      "silverType": "struct",
+      "sourcing": "extracted",
+      "from": [
+        "valueCodeableConcept"
+      ]
+    },
+    {
+      "name": "valueString",
+      "silverType": "string",
+      "sourcing": "extracted",
+      "from": [
+        "valueString"
+      ]
+    },
+    {
+      "name": "valueBoolean",
+      "silverType": "bool",
+      "sourcing": "extracted",
+      "from": [
+        "valueBoolean"
+      ]
+    },
+    {
+      "name": "valueInteger",
+      "silverType": "int32",
+      "sourcing": "extracted",
+      "from": [
+        "valueInteger"
+      ]
+    },
+    {
+      "name": "valueRange",
+      "silverType": "struct",
+      "sourcing": "extracted",
+      "from": [
+        "valueRange"
+      ]
+    },
+    {
+      "name": "valueRatio",
+      "silverType": "struct",
+      "sourcing": "extracted",
+      "from": [
+        "valueRatio"
+      ]
+    },
+    {
+      "name": "valueSampledData",
+      "silverType": "struct",
+      "sourcing": "extracted",
+      "from": [
+        "valueSampledData"
+      ]
+    },
+    {
+      "name": "valueTime",
+      "silverType": "string",
+      "sourcing": "extracted",
+      "from": [
+        "valueTime"
+      ]
+    },
+    {
+      "name": "valueDateTime",
+      "silverType": "timestamp[us, tz=UTC]",
+      "sourcing": "derived",
+      "from": [
+        "valueDateTime"
+      ]
+    },
+    {
+      "name": "valuePeriod",
+      "silverType": "struct",
+      "sourcing": "extracted",
+      "from": [
+        "valuePeriod"
+      ]
+    },
+    {
+      "name": "dataAbsentReason",
+      "silverType": "struct",
+      "sourcing": "extracted",
+      "from": [
+        "dataAbsentReason"
+      ]
+    },
+    {
+      "name": "interpretation",
+      "silverType": "list<struct>",
+      "sourcing": "extracted",
+      "from": [
+        "interpretation"
+      ]
+    },
+    {
+      "name": "note",
+      "silverType": "list<struct>",
+      "sourcing": "extracted",
+      "from": [
+        "note"
+      ]
+    },
+    {
+      "name": "bodySite",
+      "silverType": "struct",
+      "sourcing": "extracted",
+      "from": [
+        "bodySite"
+      ]
+    },
+    {
+      "name": "method",
+      "silverType": "struct",
+      "sourcing": "extracted",
+      "from": [
+        "method"
+      ]
+    },
+    {
+      "name": "specimen",
+      "silverType": "struct",
+      "sourcing": "extracted",
+      "from": [
+        "specimen"
+      ]
+    },
+    {
+      "name": "device",
+      "silverType": "struct",
+      "sourcing": "extracted",
+      "from": [
+        "device"
+      ]
+    },
+    {
+      "name": "referenceRange",
+      "silverType": "list<struct>",
+      "sourcing": "extracted",
+      "from": [
+        "referenceRange"
+      ]
+    },
+    {
+      "name": "hasMember",
+      "silverType": "list<struct>",
+      "sourcing": "extracted",
+      "from": [
+        "hasMember"
+      ]
+    },
+    {
+      "name": "derivedFrom",
+      "silverType": "list<struct>",
+      "sourcing": "extracted",
+      "from": [
+        "derivedFrom"
+      ]
+    },
+    {
+      "name": "component",
+      "silverType": "list<struct>",
+      "sourcing": "extracted",
+      "from": [
+        "component"
+      ]
+    },
+    {
+      "name": "meta_lastUpdated",
+      "silverType": "timestamp[us, tz=UTC]",
+      "sourcing": "derived",
+      "from": [
+        "meta"
+      ]
+    },
+    {
+      "name": "meta_lastUpdatedOrig",
+      "silverType": "timestamp[us, tz=UTC]",
+      "sourcing": "derived",
+      "from": [
+        "meta"
+      ]
+    },
+    {
+      "name": "identifierOrig",
+      "silverType": "list<struct>",
+      "sourcing": "derived",
+      "from": [
+        "identifier"
+      ]
+    },
+    {
+      "name": "idOrig",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "id"
+      ]
+    },
+    {
+      "name": "effectiveDateTimeOrig",
+      "silverType": "timestamp[us, tz=UTC]",
+      "sourcing": "derived",
+      "from": [
+        "effectiveDateTime"
+      ]
+    },
+    {
+      "name": "effectiveInstantOrig",
+      "silverType": "timestamp[us, tz=UTC]",
+      "sourcing": "derived",
+      "from": [
+        "effectiveInstant"
+      ]
+    },
+    {
+      "name": "issuedOrig",
+      "silverType": "timestamp[us, tz=UTC]",
+      "sourcing": "derived",
+      "from": [
+        "issued"
+      ]
+    },
+    {
+      "name": "valueDateTimeOrig",
+      "silverType": "timestamp[us, tz=UTC]",
+      "sourcing": "derived",
+      "from": [
+        "valueDateTime"
+      ]
+    },
+    {
+      "name": "meta_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "meta"
+      ]
+    },
+    {
+      "name": "text_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "text"
+      ]
+    },
+    {
+      "name": "contained_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "contained"
+      ]
+    },
+    {
+      "name": "identifier_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "identifier"
+      ]
+    },
+    {
+      "name": "basedOn_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "basedOn"
+      ]
+    },
+    {
+      "name": "partOf_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "partOf"
+      ]
+    },
+    {
+      "name": "category_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "category"
+      ]
+    },
+    {
+      "name": "code_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "code"
+      ]
+    },
+    {
+      "name": "subject_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "subject"
+      ]
+    },
+    {
+      "name": "focus_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "focus"
+      ]
+    },
+    {
+      "name": "encounter_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "encounter"
+      ]
+    },
+    {
+      "name": "effectivePeriod_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "effectivePeriod"
+      ]
+    },
+    {
+      "name": "effectiveTiming_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "effectiveTiming"
+      ]
+    },
+    {
+      "name": "performer_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "performer"
+      ]
+    },
+    {
+      "name": "valueQuantity_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "valueQuantity"
+      ]
+    },
+    {
+      "name": "valueCodeableConcept_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "valueCodeableConcept"
+      ]
+    },
+    {
+      "name": "valueRange_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "valueRange"
+      ]
+    },
+    {
+      "name": "valueRatio_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "valueRatio"
+      ]
+    },
+    {
+      "name": "valueSampledData_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "valueSampledData"
+      ]
+    },
+    {
+      "name": "valuePeriod_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "valuePeriod"
+      ]
+    },
+    {
+      "name": "dataAbsentReason_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "dataAbsentReason"
+      ]
+    },
+    {
+      "name": "interpretation_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "interpretation"
+      ]
+    },
+    {
+      "name": "note_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "note"
+      ]
+    },
+    {
+      "name": "bodySite_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "bodySite"
+      ]
+    },
+    {
+      "name": "method_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "method"
+      ]
+    },
+    {
+      "name": "specimen_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "specimen"
+      ]
+    },
+    {
+      "name": "device_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "device"
+      ]
+    },
+    {
+      "name": "referenceRange_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "referenceRange"
+      ]
+    },
+    {
+      "name": "hasMember_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "hasMember"
+      ]
+    },
+    {
+      "name": "derivedFrom_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "derivedFrom"
+      ]
+    },
+    {
+      "name": "component_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "component"
+      ]
+    },
+    {
+      "name": "identifierOrig_string",
+      "silverType": "string",
+      "sourcing": "derived",
+      "from": [
+        "identifier"
+      ]
+    },
+    {
+      "name": "msftCreatedDatetime",
+      "silverType": "timestamp[us, tz=UTC]",
+      "sourcing": "fabric-assigned",
+      "note": "Assigned by the ingestion/writer; not read from FHIR JSON."
+    }
+  ],
+  "unsupported": []
+}

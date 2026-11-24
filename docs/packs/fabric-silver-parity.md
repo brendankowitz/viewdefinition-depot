@@ -22,6 +22,22 @@ them. They do not use HDS and do not establish parity. The checked-in
 were computed from the release artifacts; none are hashes inferred from
 populated rows. There are deliberately no expectation NDJSON files yet.
 
+## Check the lossless extraction views
+
+The views in `views/r4/fabric-silver-parity/` are generated from
+`contracts/fabric-hds/1.4.0/parity/` (which also maps every deployed Silver
+column to extracted, derived or Fabric-assigned). They need a CLI that writes
+complex `collection: true` columns as JSON text (Ignixa PR #549); the pinned
+0.6.82 emits `null` elements instead. Extraction tests are skipped, saying so,
+unless a development build exists or `IGNIXA_PARITY_CLI` names one.
+
+```sh
+python -m fabric_silver.views --check
+python -m unittest discover -s tests -p test_fabric_views.py -v
+```
+
+This is extraction evidence only. It does not verify either resource.
+
 ## Inputs shared by the two runs
 
 [`batches.json`](../../examples/r4/fabric-silver-parity/batches.json) is the
