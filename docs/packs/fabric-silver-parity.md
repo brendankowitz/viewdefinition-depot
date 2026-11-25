@@ -225,8 +225,8 @@ ID/timestamp pair in the same batch instead of choosing an unspecified winner.
 
 `python -m unittest discover -s tests -p test_fabric_writer.py -v` checks both
 deployed schema digests after publication, exercises the source-derived event
-rules across process restarts, and tests lossless Ignixa input if the
-development DLL is available (`IGNIXA_PARITY_CLI` may name that DLL). These
+rules across process restarts, and tests lossless Ignixa input when
+`IGNIXA_PARITY_CLI` names a development DLL (it skips when unset). These
 checks do not compare row values against a Fabric capture.
 
 ## Inputs shared by the two runs
