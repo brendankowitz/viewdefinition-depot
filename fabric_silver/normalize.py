@@ -12,6 +12,9 @@ references, dates) and ``dataframe_utils.stringify_complex_types``. They were
 derived from reading the HDS source; no captured HDS run exists, so none of
 this is verified parity.
 
+The reference patterns and normalization helpers are HDS-derived, not
+clean-room; see Licensing in docs/packs/fabric-silver-parity.md.
+
 Input that HDS would silently drop or null (unknown JSON fields, type
 mismatches, unparsable dates) is rejected with ShapeError instead, so that a
 gap is never mistaken for a value.
@@ -441,6 +444,7 @@ def _collection_columns(resource: str) -> frozenset:
 # A populated dict stands for a Spark Row (truthy even when every value is null); the empty dict
 # stands for HDS's `{}` placeholder (falsy), which Spark writes as a non-null all-null struct.
 
+# HDS-derived reference patterns; see Licensing in docs/packs/fabric-silver-parity.md.
 _TYPES = ("Account|ActivityDefinition|AdministrableProductDefinition|AdverseEvent|AllergyIntolerance|Appointment|"
           "AppointmentResponse|AuditEvent|Basic|Binary|BiologicallyDerivedProduct|BodyStructure|Bundle|CapabilityStatement|"
           "CarePlan|CareTeam|CatalogEntry|ChargeItem|ChargeItemDefinition|Citation|Claim|ClaimResponse|ClinicalImpression|"

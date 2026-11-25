@@ -3,6 +3,7 @@
 Evidence here is extraction-only: nothing in this file claims HDS parity.
 Set IGNIXA_PARITY_CLI to ``pinned`` to run the extraction tests against the
 repo-pinned CLI, or to the path of a built ``ignixa-sqlonfhir.dll``.
+The development extraction tests skip only when IGNIXA_PARITY_CLI is unset.
 """
 
 import json
@@ -22,24 +23,27 @@ from fabric_silver import views
 
 ROOT = Path(__file__).resolve().parents[1]
 PARITY = ROOT / "examples" / "r4" / "fabric-silver-parity"
-DEV_DLL = (ROOT / ".superpowers" / "sdd" / "2026-11-24-fabric-silver-r4-parity" / "ignixa-549"
-           / "tools" / "Ignixa.SqlOnFhir.Cli" / "bin" / "Debug" / "net10.0" / "ignixa-sqlonfhir.dll")
 PINNED = ["dotnet", "tool", "run", "ignixa-sqlonfhir", "--"]
-HDS_SILVER = Path(r"E:\Downloads\HDS v1.4.0\HDS.SourceCode\hds-build-artifacts\healthcare-tables\1.4.0\Silver")
 
 
 def selected_cli():
-    choice = os.environ.get("IGNIXA_PARITY_CLI")
-    if choice is not None:
-        if choice == "pinned":
-            return PINNED
-        # A mistyped, empty or blank explicit selection must never become a green run without extraction tests.
-        if not choice.strip() or not Path(choice).is_file():
-            raise AssertionError(f"IGNIXA_PARITY_CLI is not 'pinned' or an existing file: {choice!r}")
-        return ["dotnet", choice]
-    if not DEV_DLL.is_file():
-        raise unittest.SkipTest(f"default development CLI not built at {DEV_DLL}")
-    return ["dotnet", str(DEV_DLL)]
+    if os.environ.get("IGNIXA_PARITY_CLI") == "pinned":
+        return PINNED
+    # The writer suite imports the extraction helpers in this module.
+    from test_fabric_writer import development_cli
+
+    return development_cli()
+
+
+def hds_deployment_log(resource):
+    source = os.environ.get("HDS_SOURCE_DIR")
+    if source is None:
+        raise unittest.SkipTest("HDS_SOURCE_DIR is unset; set it to the HDS.SourceCode directory")
+    log = (Path(source) / "hds-build-artifacts/healthcare-tables/1.4.0/Silver"
+           / resource / "_delta_log" / "00000000000000000000.json")
+    if not source.strip() or not log.is_file():
+        raise AssertionError(f"HDS_SOURCE_DIR must select HDS.SourceCode with the {resource} Silver deployment log")
+    return log
 
 
 def run_cli(cli, *args):
@@ -250,10 +254,7 @@ class ContractTests(unittest.TestCase):
     def test_contract_names_match_the_deployed_schema(self):
         from fabric_silver.reference import deployed_schema
         for resource in views.RESOURCES:
-            log = HDS_SILVER / resource / "_delta_log" / "00000000000000000000.json"
-            if not log.is_file():
-                self.skipTest(f"HDS package not present at {HDS_SILVER}")
-            schema = deployed_schema(log)
+            schema = deployed_schema(hds_deployment_log(resource))
             self.assertEqual([c["name"] for c in views.load_contract(resource)["silverColumns"]], schema.names)
 
     def test_pinned_tool_manifest_is_unchanged(self):
@@ -275,11 +276,9 @@ class CliSelectionTests(unittest.TestCase):
             with self.assertRaises(AssertionError):
                 selected_cli()
 
-    def test_empty_or_blank_explicit_selection_fails_instead_of_falling_back(self):
-        # Pretend every file exists so a fallback to the default build cannot skip the test.
+    def test_empty_or_blank_explicit_selection_fails(self):
         for value in ("", "   "):
-            with self.subTest(value=value), mock.patch.object(Path, "is_file", return_value=True), \
-                    mock.patch.dict(os.environ, {"IGNIXA_PARITY_CLI": value}):
+            with self.subTest(value=value), mock.patch.dict(os.environ, {"IGNIXA_PARITY_CLI": value}):
                 with self.assertRaises(AssertionError):
                     selected_cli()
 
@@ -287,11 +286,10 @@ class CliSelectionTests(unittest.TestCase):
         with mock.patch.dict(os.environ, {"IGNIXA_PARITY_CLI": "pinned"}):
             self.assertEqual(selected_cli(), PINNED)
 
-    def test_absent_default_build_skips_with_a_reason(self):
+    def test_unset_selection_skips_with_a_reason(self):
         env = {k: v for k, v in os.environ.items() if k != "IGNIXA_PARITY_CLI"}
-        with mock.patch.dict(os.environ, env, clear=True), \
-                mock.patch.object(Path, "is_file", return_value=False):
-            with self.assertRaisesRegex(unittest.SkipTest, "default development CLI not built"):
+        with mock.patch.dict(os.environ, env, clear=True):
+            with self.assertRaisesRegex(unittest.SkipTest, "IGNIXA_PARITY_CLI is unset"):
                 selected_cli()
 
 

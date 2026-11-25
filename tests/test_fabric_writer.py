@@ -23,7 +23,7 @@ from fabric_silver.normalize import ShapeError, shape_row
 from fabric_silver.reference import schema_digest
 from fabric_silver.views import VIEW_DIR
 from fabric_silver.writer import BatchError, apply_batch
-from test_fabric_views import DEV_DLL, PARITY, ROOT, expected_cell, extract, read_ndjson
+from test_fabric_views import PARITY, ROOT, expected_cell, extract, read_ndjson
 
 RESOURCES = ("Patient", "Observation")
 TIMES = {event: datetime(2026, 2, 1, hour, tzinfo=UTC)
@@ -302,12 +302,13 @@ class HermeticWriterTests(Workspace):
 
 def development_cli():
     choice = os.environ.get("IGNIXA_PARITY_CLI")
-    if choice is None and not DEV_DLL.is_file():
-        raise unittest.SkipTest(f"default development CLI not built at {DEV_DLL}")
-    dll = Path(choice).resolve() if choice is not None else DEV_DLL
-    if not dll.is_file() or dll.suffix.lower() != ".dll":
-        raise AssertionError("IGNIXA_PARITY_CLI must select an existing development DLL")
-    return ["dotnet", str(dll)]
+    if choice is None:
+        raise unittest.SkipTest("IGNIXA_PARITY_CLI is unset; set it to the development CLI DLL")
+    dll = Path(choice)
+    if not choice.strip() or dll.suffix.lower() != ".dll" or not dll.is_file():
+        raise AssertionError("IGNIXA_PARITY_CLI must select an existing development DLL; "
+                             "'pinned' is accepted only by the extraction suite")
+    return ["dotnet", str(dll.resolve())]
 
 
 class DevelopmentExtractionTests(Workspace):

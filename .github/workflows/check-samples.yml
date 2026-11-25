@@ -30,4 +30,6 @@ jobs:
       - name: Check generated parity views
         run: python -m fabric_silver.views --check
       - name: Run Fabric Silver parity pilot checks
+        # Optional dev CLI and HDS schema checks skip only when their respective
+        # variables, IGNIXA_PARITY_CLI and HDS_SOURCE_DIR, are unset.
         run: python -m unittest discover -s tests -p "test_fabric_*.py" -v

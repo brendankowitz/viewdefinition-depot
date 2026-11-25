@@ -16,6 +16,13 @@ the independent HDS reference after **every** manifest event, including
 clock relationships. The test derives the count from those gates; a status
 label, a schema match alone, or a development CLI run is not verification.
 
+The gate checks mechanical consistency (schema digest, keyed rows, clock
+ranking, and distinct snapshot files), not capture authenticity. The first
+real-capture PR must add capture provenance and require it in the gate:
+HDS release, artifact hashes, input hashes, time zone, and run window.
+See [Independent reference and acceptance](../superpowers/specs/2026-11-24-fabric-silver-r4-parity-design.md#independent-reference-and-acceptance).
+Reviewers must not accept writer-generated expectations as an HDS capture.
+
 ### Blockers and pending decisions
 
 - **Independent HDS capture:** No disposable synthetic Fabric/HDS runtime is
@@ -25,8 +32,16 @@ label, a schema match alone, or a development CLI run is not verification.
   complex collection values. [Ignixa PR #549](https://github.com/brendankowitz/ignixa-fhir/pull/549)
   was merged on 2026-11-24 (`400845482a83f35c77fa7c644bced4f68125f080`),
   but is unreleased. The pin stays unchanged.
-- **Licensing:** Redistribution terms for HDS-derived contracts are
-  unresolved; resolve them before expanding or distributing derived material.
+- **Licensing:** The contracts and parts of `fabric_silver/normalize.py`
+  were written after reading the HDS v1.4.0 source, not clean-room.
+  `_TYPES`, `_LITERAL`, and `_LOGICAL` use the resource alternation and
+  patterns from HDS `constants.py`. `_without_scheme`, `_reference_details`,
+  and `_resource_id` closely follow the Microsoft-copyrighted HDS
+  `NormalizationUtils` code. The [HDS license terms](https://go.microsoft.com/fwlink/?LinkId=2369925)
+  permit redistribution only under the same terms with a copy of the
+  terms, and restrict use to Microsoft platforms. How to handle the
+  HDS-derived material remains unresolved. The owner decided to publish
+  this work as a draft PR with this disclosure.
 - **Runtime assumptions:** Confirm exact Spark/Jackson JSON text and UTC
   session behavior against the stock runtime, including `_string` columns
   and timestamp handling.
@@ -56,6 +71,11 @@ writer-derived expectations and four deliberate corruptions. These are
 were computed from the release artifacts; none are hashes inferred from
 populated rows. There are deliberately no expectation NDJSON files yet.
 
+For the optional deployed-schema cross-checks, set `HDS_SOURCE_DIR` to the
+v1.4.0 release's `HDS.SourceCode` directory. These checks skip only when
+`HDS_SOURCE_DIR` is unset and fail if it is set but the required logs are
+missing or invalid. CI leaves both optional environment variables unset.
+
 ## Check the lossless extraction views
 
 The views in `views/r4/fabric-silver-parity/` are generated from
@@ -65,10 +85,9 @@ type from `parity/types.json`). Date, dateTime and instant fields are
 extracted as source strings (lossless) and parsed by the shaping step below.
 
 They need a CLI that writes complex `collection: true` columns as JSON text
-(Ignixa PR #549). The extraction, writer, and CLI-to-comparator tests use
-the development build when it exists at the default path. They skip only
-when no explicit selection was made and that DLL is absent, with a reason
-visible in verbose CI output. This skip is permitted only because no
+(Ignixa PR #549). The optional extraction, writer, and CLI-to-comparator
+tests skip only when `IGNIXA_PARITY_CLI` is unset, with a reason visible
+in verbose CI output. This skip is permitted only because no
 released CLI can export these views yet. The CLI-to-comparator test checks
 both tables across all three events and rejects a corrupted expected
 reference target. Its expectations come from the local writer:
@@ -78,8 +97,10 @@ export fails the run rather than skipping. The extraction suite alone also
 accepts `pinned` to demonstrate the loss with `0.6.82`.
 
 **Upstream blocker, pinned 0.6.82.** Complex `collection: true` columns come
-back as one `null` per element, so content is lost (count is kept). Observed
-by reading Parquet back against the source:
+back as one `null` per element, so content is lost (count is kept). The
+table below is a one-off manual Parquet read-back measurement with
+Ignixa CLI `0.6.82`. Tests assert only the `Observation.code.coding` loss,
+not the other losses listed here:
 
 | Input | Lost columns |
 | --- | --- |
@@ -89,15 +110,14 @@ by reading Parquet back against the source:
 | `input/west/initial/Patient.ndjson` | `meta` |
 
 The supported command therefore needs a released CLI containing PR #549; the
-extraction was verified only with a development build at revision
+extraction was checked only with a development build at revision
 `40851de69a4f4cac84703050e87baa50221c4efc`. Neither Patient nor Observation is
 covered or verified.
 
 For development, build `tools/Ignixa.SqlOnFhir.Cli/Ignixa.SqlOnFhir.Cli.csproj`
 from that revision in a separate Ignixa checkout with the .NET 10 SDK.
-Use the resulting `bin/Debug/net10.0/ignixa-sqlonfhir.dll`. The tests also
-discover it automatically if the checkout is at
-`.superpowers/sdd/2026-11-24-fabric-silver-r4-parity/ignixa-549`.
+Set `IGNIXA_PARITY_CLI` to the path of the resulting
+`bin/Debug/net10.0/ignixa-sqlonfhir.dll`.
 
 ```sh
 python -m fabric_silver.views --check
@@ -348,12 +368,12 @@ expectations from local writer output.
        compare_events(pairs, identity["schemaSha256"])
    ```
 
-       Finally compare the **local writer's** three published directories against
-       those same NDJSON files. Use the released CLI containing #549, not the
-       development route. For each writer event use the recorded controllable
-       clock or a deterministic UTC instant inside the capture bounds. Update
-       the parity gate's event clocks with the chosen instants when checking in
-       the capture; the example clocks above are for the local pilot only.
+   Finally compare the **local writer's** three published directories against
+   those same NDJSON files. Use the released CLI containing #549, not the
+   development route. For each writer event use the recorded controllable
+   clock or a deterministic UTC instant inside the capture bounds. Update
+   the parity gate's event clocks with the chosen instants when checking in
+   the capture; the example clocks above are for the local pilot only.
 
    Then on a **private copy**, duplicate one Observation row without
    changing its schema (e.g. `pa.concat_tables([t, t.slice(0, 1)])` and

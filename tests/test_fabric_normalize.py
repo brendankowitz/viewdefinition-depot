@@ -1,8 +1,9 @@
 """Silver shaping and normalization tests for the Fabric HDS v1.4.0 parity pilot.
 
 There is no captured HDS run. Schema tests compare against the real deployed
-Silver Delta schemas (recorded digests, plus the HDS build artifact when it is
-present). Every value expectation below was derived by hand from reading the
+Silver Delta schemas (recorded digests, plus the HDS build artifact check,
+which skips only when HDS_SOURCE_DIR is unset). Every value expectation
+below was derived by hand from reading the
 HDS normalization source *before* the implementation was written, and is
 labelled "source-derived, unverified against a captured run" with the HDS
 file/function it follows. None of these tests establish verified parity.
@@ -28,11 +29,11 @@ import pyarrow as pa
 
 from fabric_silver.normalize import ShapeError, shape_row, target_schema
 from fabric_silver.reference import deployed_schema, schema_digest
+from test_fabric_views import hds_deployment_log
 
 ROOT = Path(__file__).resolve().parents[1]
 PARITY = ROOT / "contracts" / "fabric-hds" / "1.4.0" / "parity"
 FIXTURES = ROOT / "examples" / "r4" / "fabric-silver-parity"
-HDS_SILVER = Path(r"E:\Downloads\HDS v1.4.0\HDS.SourceCode\hds-build-artifacts\healthcare-tables\1.4.0\Silver")
 
 EAST = "https://east.example.test/fhir"
 WEST = "https://west.example.test/fhir"
@@ -162,9 +163,7 @@ class SchemaTests(unittest.TestCase):
 
     def test_target_schema_equals_deployed_delta_log(self):
         for resource in DIGESTS:
-            log = HDS_SILVER / resource / "_delta_log" / "00000000000000000000.json"
-            if not log.exists():
-                self.skipTest("HDS build artifacts are not present on this machine")
+            log = hds_deployment_log(resource)
             with self.subTest(resource=resource):
                 self.assertTrue(target_schema(resource).equals(deployed_schema(log), check_metadata=False))
 
