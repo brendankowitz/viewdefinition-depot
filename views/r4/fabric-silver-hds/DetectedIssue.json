@@ -1,0 +1,133 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "detectedissue_hds_projection",
+  "status": "draft",
+  "resource": "DetectedIssue",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "code",
+          "path": "code",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "severity",
+          "path": "severity",
+          "type": "string"
+        },
+        {
+          "name": "patient",
+          "path": "patient",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifiedDateTime",
+          "path": "identified.ofType(dateTime)",
+          "type": "string"
+        },
+        {
+          "name": "identifiedPeriod",
+          "path": "identified.ofType(Period)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "author",
+          "path": "author",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicated",
+          "path": "implicated",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "evidence",
+          "path": "evidence",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "detail",
+          "path": "detail",
+          "type": "string"
+        },
+        {
+          "name": "reference",
+          "path": "reference",
+          "type": "string"
+        },
+        {
+          "name": "mitigation",
+          "path": "mitigation",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

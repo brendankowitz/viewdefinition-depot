@@ -1,0 +1,105 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "visionprescription_hds_projection",
+  "status": "draft",
+  "resource": "VisionPrescription",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "created",
+          "path": "created",
+          "type": "string"
+        },
+        {
+          "name": "patient",
+          "path": "patient",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "encounter",
+          "path": "encounter",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "dateWritten",
+          "path": "dateWritten",
+          "type": "string"
+        },
+        {
+          "name": "prescriber",
+          "path": "prescriber",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "lensSpecification",
+          "path": "lensSpecification",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

@@ -22,12 +22,7 @@ The selected target field snapshots in [`contracts/fabric-hds/1.4.0`](../../cont
 - `HDS.SourceCode/hds-build-artifacts/healthcare-tables/1.4.0/Silver/Patient/_delta_log/00000000000000000000.json`
 - `HDS.SourceCode/hds-build-artifacts/healthcare-tables/1.4.0/Silver/Observation/_delta_log/00000000000000000000.json`
 
-The user-provided local copies were:
-
-- `E:\Downloads\HDS v1.4.0\HDS.SourceCode\hds-build-artifacts\healthcare-tables\1.4.0\Silver\Patient\_delta_log\00000000000000000000.json`
-- `E:\Downloads\HDS v1.4.0\HDS.SourceCode\hds-build-artifacts\healthcare-tables\1.4.0\Silver\Observation\_delta_log\00000000000000000000.json`
-
-These local files are provenance only, not runtime or CI dependencies. To update the target version, compare the selected paths and types against the new official release, update the versioned contracts and projections deliberately, and rerun the checker.
+These paths are release-relative provenance only, not runtime or CI dependencies. To update the target version, compare the selected paths and types against the new official release, update the versioned contracts and projections deliberately, and rerun the checker.
 
 ## Projections and mapping
 

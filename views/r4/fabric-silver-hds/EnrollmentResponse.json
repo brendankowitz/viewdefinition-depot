@@ -1,0 +1,104 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "enrollmentresponse_hds_projection",
+  "status": "draft",
+  "resource": "EnrollmentResponse",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "request",
+          "path": "request",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "outcome",
+          "path": "outcome",
+          "type": "string"
+        },
+        {
+          "name": "disposition",
+          "path": "disposition",
+          "type": "string"
+        },
+        {
+          "name": "created",
+          "path": "created",
+          "type": "string"
+        },
+        {
+          "name": "organization",
+          "path": "organization",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "requestProvider",
+          "path": "requestProvider",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

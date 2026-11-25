@@ -1,0 +1,193 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "testscript_hds_projection",
+  "status": "draft",
+  "resource": "TestScript",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "url",
+          "path": "url",
+          "type": "string"
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "version",
+          "path": "version",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "path": "name",
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "path": "title",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "experimental",
+          "path": "experimental",
+          "type": "boolean"
+        },
+        {
+          "name": "date",
+          "path": "date",
+          "type": "string"
+        },
+        {
+          "name": "publisher",
+          "path": "publisher",
+          "type": "string"
+        },
+        {
+          "name": "contact",
+          "path": "contact",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "description",
+          "path": "description",
+          "type": "string"
+        },
+        {
+          "name": "useContext",
+          "path": "useContext",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "jurisdiction",
+          "path": "jurisdiction",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "purpose",
+          "path": "purpose",
+          "type": "string"
+        },
+        {
+          "name": "copyright",
+          "path": "copyright",
+          "type": "string"
+        },
+        {
+          "name": "origin",
+          "path": "origin",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "destination",
+          "path": "destination",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "metadata",
+          "path": "metadata",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "fixture",
+          "path": "fixture",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "profile",
+          "path": "profile",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "variable",
+          "path": "variable",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "setup",
+          "path": "setup",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "test",
+          "path": "test",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "teardown",
+          "path": "teardown",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

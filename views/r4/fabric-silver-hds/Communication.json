@@ -1,0 +1,194 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "communication_hds_projection",
+  "status": "draft",
+  "resource": "Communication",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "instantiatesCanonical",
+          "path": "instantiatesCanonical",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "instantiatesUri",
+          "path": "instantiatesUri",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "basedOn",
+          "path": "basedOn",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "partOf",
+          "path": "partOf",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "inResponseTo",
+          "path": "inResponseTo",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "statusReason",
+          "path": "statusReason",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "category",
+          "path": "category",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "priority",
+          "path": "priority",
+          "type": "string"
+        },
+        {
+          "name": "medium",
+          "path": "medium",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "subject",
+          "path": "subject",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "topic",
+          "path": "topic",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "about",
+          "path": "about",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "encounter",
+          "path": "encounter",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "sent",
+          "path": "sent",
+          "type": "string"
+        },
+        {
+          "name": "received",
+          "path": "received",
+          "type": "string"
+        },
+        {
+          "name": "recipient",
+          "path": "recipient",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "sender",
+          "path": "sender",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reasonCode",
+          "path": "reasonCode",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reasonReference",
+          "path": "reasonReference",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "payload",
+          "path": "payload",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "note",
+          "path": "note",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

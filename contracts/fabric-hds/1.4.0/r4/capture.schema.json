@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Independent HDS 1.4.0 / FHIR R4 capture, format 1",
+  "description": "The root validates capture.json. Validate each UTF-8 NDJSON line against #/$defs/rowRecord. Input and row files are relative to capture.json; recorded artifact and configuration names are release-relative. The candidate is supplied separately.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["captureFormatVersion", "captureId", "deployment", "inputs", "events"],
+  "properties": {
+    "captureFormatVersion": {"const": "1"},
+    "captureId": {"$ref": "#/$defs/id"},
+    "deployment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fhirVersion", "hdsVersion", "release", "artifactSha256", "configurationSha256", "runtime", "sessionTimeZone"],
+      "properties": {
+        "fhirVersion": {"const": "4.0.1"},
+        "hdsVersion": {"const": "1.4.0"},
+        "release": {"$ref": "#/$defs/text"},
+        "artifactSha256": {"$ref": "#/$defs/hashes"},
+        "configurationSha256": {"$ref": "#/$defs/hashes"},
+        "runtime": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["platform", "sparkVersion", "deltaVersion", "javaVersion"],
+          "properties": {
+            "platform": {"$ref": "#/$defs/text"},
+            "sparkVersion": {"$ref": "#/$defs/text"},
+            "deltaVersion": {"$ref": "#/$defs/text"},
+            "javaVersion": {"$ref": "#/$defs/text"}
+          }
+        },
+        "sessionTimeZone": {"const": "UTC"}
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {"$ref": "#/$defs/id"},
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256", "sourceToken", "sourceSystem", "logicalPath", "observedFilePath"],
+        "properties": {
+          "path": {"$ref": "#/$defs/relativePath"},
+          "sha256": {"$ref": "#/$defs/sha256"},
+          "sourceToken": {"$ref": "#/$defs/id", "description": "Synthetic source path segment supplied to stock HDS, not an inferred output."},
+          "callerNamespace": {"$ref": "#/$defs/text", "description": "Optional synthetic fixture/caller namespace; never substituted for an observed value or dereferenced."},
+          "sourceSystem": {"$ref": "#/$defs/text", "description": "Observed msftSourceSystem for the input."},
+          "logicalPath": {"$ref": "#/$defs/relativePath", "description": "Synthetic fixture's caller-supplied relative logical path, not a file to open or a substitute for the observed path."},
+          "observedFilePath": {
+            "description": "Exact emitted msftFilePath. A synthetic relative path or a credential-free OneLake URI; compare verbatim, never open.",
+            "oneOf": [{"$ref": "#/$defs/relativePath"}, {"$ref": "#/$defs/oneLakeUri"}]
+          }
+        }
+      }
+    },
+    "events": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "inputIds", "runWindowUtc", "resources"],
+        "properties": {
+          "name": {"$ref": "#/$defs/id"},
+          "inputIds": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+          "runWindowUtc": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["start", "end"],
+            "properties": {"start": {"$ref": "#/$defs/utc"}, "end": {"$ref": "#/$defs/utc"}}
+          },
+          "resources": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/snapshot"}}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "text": {"type": "string", "pattern": "\\S"},
+    "id": {"$ref": "#/$defs/relativePath", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*(?![\\s\\S])"},
+    "resourceName": {"$ref": "#/$defs/id", "pattern": "^[A-Z][A-Za-z0-9]*(?![\\s\\S])"},
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$", "maxLength": 64},
+    "relativePath": {
+      "description": "Portable local path, slash-separated; no empty or dot segments, drive, URI, backslash, stream, or trailing dots/spaces.",
+      "type": "string",
+      "pattern": "^(?!.*[. ](?:/|$))[^/\\\\:<>\"|?*\\u0000-\\u001f\\u007f]+(?:/[^/\\\\:<>\"|?*\\u0000-\\u001f\\u007f]+)*(?![\\s\\S])",
+      "not": {
+        "description": "Windows device names can denote non-files, even with a filename extension.",
+        "pattern": "(?:^|/)(?:[Cc][Oo][Nn](?:[Ii][Nn]\\$|[Oo][Uu][Tt]\\$)?|[Nn][Uu][Ll]|[Aa][Uu][Xx]|[Pp][Rr][Nn]|(?:[Cc][Oo][Mm]|[Ll][Pp][Tt])[0-9¹²³]) *(?:\\.|/|$)"
+      }
+    },
+    "hashes": {
+      "type": "object", "minProperties": 1,
+      "propertyNames": {"$ref": "#/$defs/relativePath"},
+      "additionalProperties": {"$ref": "#/$defs/sha256"}
+    },
+    "oneLakeUri": {
+      "type": "string",
+      "description": "Canonical HTTPS or ABFSS OneLake DFS URI. Synthetic workspace and path components use URI-unreserved ASCII or %20; no user credentials, SAS/query, fragment, ports or dot segments.",
+      "pattern": "^(?:https://onelake\\.dfs\\.fabric\\.microsoft\\.com/[A-Za-z0-9](?:[A-Za-z0-9._~-]|%20)*|abfss://[A-Za-z0-9](?:[A-Za-z0-9._~-]|%20)*@onelake\\.dfs\\.fabric\\.microsoft\\.com)/(?:[A-Za-z0-9._~-]|%20)+(?:/(?:[A-Za-z0-9._~-]|%20)+)+(?![\\s\\S])",
+      "not": {"pattern": "/\\.{1,2}(?:/|$)"}
+    },
+    "utc": {
+      "type": "string", "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]{1,6})?(?:Z|\\+00:00)(?![\\s\\S])"
+    },
+    "snapshot": {
+      "type": "object", "additionalProperties": false,
+      "required": ["resource", "table", "deltaVersion", "rowCount", "schemaSha256", "parquetSha256", "rowsPath"],
+      "properties": {
+        "resource": {"$ref": "#/$defs/resourceName"},
+        "table": {"$ref": "#/$defs/resourceName"},
+        "deltaVersion": {"type": "integer", "minimum": 0},
+        "rowCount": {"type": "integer", "minimum": 0},
+        "schemaSha256": {"$ref": "#/$defs/sha256"},
+        "parquetSha256": {
+          "$ref": "#/$defs/sha256",
+          "description": "Hash of the operator's original HDS export, not the candidate Parquet."
+        },
+        "rowsPath": {"$ref": "#/$defs/relativePath"}
+      }
+    },
+    "clockBounds": {
+      "type": "object", "additionalProperties": false,
+      "required": ["min", "max"],
+      "properties": {"min": {"$ref": "#/$defs/utc"}, "max": {"$ref": "#/$defs/utc"}}
+    },
+    "rowRecord": {
+      "type": "object", "additionalProperties": false, "required": ["values"],
+      "properties": {
+        "values": {"type": "object", "description": "Complete row, including nulls and actual observed clock values."},
+        "timeBounds": {
+          "description": "Only for uncontrolled ingestion clocks, within the assigning run's inclusive UTC window.",
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "msftCreatedDatetime": {"$ref": "#/$defs/clockBounds"},
+            "msftModifiedDatetime": {"$ref": "#/$defs/clockBounds"}
+          }
+        }
+      }
+    }
+  }
+}

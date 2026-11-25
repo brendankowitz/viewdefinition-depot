@@ -1,0 +1,102 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "medicinalproductpharmaceutical_hds_projection",
+  "status": "draft",
+  "resource": "MedicinalProductPharmaceutical",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "administrableDoseForm",
+          "path": "administrableDoseForm",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "unitOfPresentation",
+          "path": "unitOfPresentation",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "ingredient",
+          "path": "ingredient",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "device",
+          "path": "device",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "characteristics",
+          "path": "characteristics",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "routeOfAdministration",
+          "path": "routeOfAdministration",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "documentmanifest_hds_projection",
+  "status": "draft",
+  "resource": "DocumentManifest",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "masterIdentifier",
+          "path": "masterIdentifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "path": "type",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "subject",
+          "path": "subject",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "created",
+          "path": "created",
+          "type": "string"
+        },
+        {
+          "name": "author",
+          "path": "author",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "recipient",
+          "path": "recipient",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "source",
+          "path": "source",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "path": "description",
+          "type": "string"
+        },
+        {
+          "name": "content",
+          "path": "content",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "related",
+          "path": "related",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

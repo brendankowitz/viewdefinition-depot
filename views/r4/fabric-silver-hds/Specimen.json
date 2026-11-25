@@ -1,0 +1,136 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "specimen_hds_projection",
+  "status": "draft",
+  "resource": "Specimen",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "accessionIdentifier",
+          "path": "accessionIdentifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "path": "type",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "subject",
+          "path": "subject",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "receivedTime",
+          "path": "receivedTime",
+          "type": "string"
+        },
+        {
+          "name": "parent",
+          "path": "parent",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "request",
+          "path": "request",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "collection",
+          "path": "collection",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "processing",
+          "path": "processing",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "container",
+          "path": "container",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "condition",
+          "path": "condition",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "note",
+          "path": "note",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

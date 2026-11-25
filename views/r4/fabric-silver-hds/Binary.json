@@ -1,0 +1,52 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "binary_hds_projection",
+  "status": "draft",
+  "resource": "Binary",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "contentType",
+          "path": "contentType",
+          "type": "string"
+        },
+        {
+          "name": "securityContext",
+          "path": "securityContext",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "data",
+          "path": "data",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

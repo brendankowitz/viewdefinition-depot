@@ -1,0 +1,2 @@
+# Ingestion SHA-256 is over the exact bytes, including line endings.
+*.ndjson text eol=lf

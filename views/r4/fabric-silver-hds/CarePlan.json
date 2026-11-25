@@ -1,0 +1,193 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "careplan_hds_projection",
+  "status": "draft",
+  "resource": "CarePlan",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "instantiatesCanonical",
+          "path": "instantiatesCanonical",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "instantiatesUri",
+          "path": "instantiatesUri",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "basedOn",
+          "path": "basedOn",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "replaces",
+          "path": "replaces",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "partOf",
+          "path": "partOf",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "intent",
+          "path": "intent",
+          "type": "string"
+        },
+        {
+          "name": "category",
+          "path": "category",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "title",
+          "path": "title",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "path": "description",
+          "type": "string"
+        },
+        {
+          "name": "subject",
+          "path": "subject",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "encounter",
+          "path": "encounter",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "period",
+          "path": "period",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "created",
+          "path": "created",
+          "type": "string"
+        },
+        {
+          "name": "author",
+          "path": "author",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contributor",
+          "path": "contributor",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "careTeam",
+          "path": "careTeam",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "addresses",
+          "path": "addresses",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "supportingInfo",
+          "path": "supportingInfo",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "goal",
+          "path": "goal",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "activity",
+          "path": "activity",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "note",
+          "path": "note",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

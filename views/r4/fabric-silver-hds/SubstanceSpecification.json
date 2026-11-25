@@ -1,0 +1,172 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "substancespecification_hds_projection",
+  "status": "draft",
+  "resource": "SubstanceSpecification",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "type",
+          "path": "type",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "domain",
+          "path": "domain",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "description",
+          "path": "description",
+          "type": "string"
+        },
+        {
+          "name": "source",
+          "path": "source",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "comment",
+          "path": "comment",
+          "type": "string"
+        },
+        {
+          "name": "moiety",
+          "path": "moiety",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "property",
+          "path": "property",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "referenceInformation",
+          "path": "referenceInformation",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "structure",
+          "path": "structure",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "code",
+          "path": "code",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "name",
+          "path": "name",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "molecularWeight",
+          "path": "molecularWeight",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "relationship",
+          "path": "relationship",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "nucleicAcid",
+          "path": "nucleicAcid",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "polymer",
+          "path": "polymer",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "protein",
+          "path": "protein",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "sourceMaterial",
+          "path": "sourceMaterial",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

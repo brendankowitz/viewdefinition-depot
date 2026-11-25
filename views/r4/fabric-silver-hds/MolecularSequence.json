@@ -1,0 +1,152 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "molecularsequence_hds_projection",
+  "status": "draft",
+  "resource": "MolecularSequence",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "type",
+          "path": "type",
+          "type": "string"
+        },
+        {
+          "name": "coordinateSystem",
+          "path": "coordinateSystem",
+          "type": "integer"
+        },
+        {
+          "name": "patient",
+          "path": "patient",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "specimen",
+          "path": "specimen",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "device",
+          "path": "device",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "performer",
+          "path": "performer",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "quantity",
+          "path": "quantity",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "referenceSeq",
+          "path": "referenceSeq",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "variant",
+          "path": "variant",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "observedSeq",
+          "path": "observedSeq",
+          "type": "string"
+        },
+        {
+          "name": "quality",
+          "path": "quality",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "readCoverage",
+          "path": "readCoverage",
+          "type": "integer"
+        },
+        {
+          "name": "repository",
+          "path": "repository",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "pointer",
+          "path": "pointer",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "structureVariant",
+          "path": "structureVariant",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

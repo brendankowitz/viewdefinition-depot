@@ -1,0 +1,90 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "medicinalproductundesirableeffect_hds_projection",
+  "status": "draft",
+  "resource": "MedicinalProductUndesirableEffect",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "subject",
+          "path": "subject",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "symptomConditionEffect",
+          "path": "symptomConditionEffect",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "classification",
+          "path": "classification",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "frequencyOfOccurrence",
+          "path": "frequencyOfOccurrence",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "population",
+          "path": "population",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "slot_hds_projection",
+  "status": "draft",
+  "resource": "Slot",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "serviceCategory",
+          "path": "serviceCategory",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "serviceType",
+          "path": "serviceType",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "specialty",
+          "path": "specialty",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "appointmentType",
+          "path": "appointmentType",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "schedule",
+          "path": "schedule",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "start",
+          "path": "start",
+          "type": "string"
+        },
+        {
+          "name": "end",
+          "path": "end",
+          "type": "string"
+        },
+        {
+          "name": "overbooked",
+          "path": "overbooked",
+          "type": "boolean"
+        },
+        {
+          "name": "comment",
+          "path": "comment",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

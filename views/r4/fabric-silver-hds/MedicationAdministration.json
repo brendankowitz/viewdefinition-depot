@@ -1,0 +1,184 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "medicationadministration_hds_projection",
+  "status": "draft",
+  "resource": "MedicationAdministration",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "instantiates",
+          "path": "instantiates",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "partOf",
+          "path": "partOf",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "statusReason",
+          "path": "statusReason",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "category",
+          "path": "category",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "medicationCodeableConcept",
+          "path": "medication.ofType(CodeableConcept)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "medicationReference",
+          "path": "medication.ofType(Reference)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "subject",
+          "path": "subject",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "context",
+          "path": "context",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "supportingInformation",
+          "path": "supportingInformation",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "effectiveDateTime",
+          "path": "effective.ofType(dateTime)",
+          "type": "string"
+        },
+        {
+          "name": "effectivePeriod",
+          "path": "effective.ofType(Period)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "performer",
+          "path": "performer",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reasonCode",
+          "path": "reasonCode",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reasonReference",
+          "path": "reasonReference",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "request",
+          "path": "request",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "device",
+          "path": "device",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "note",
+          "path": "note",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "dosage",
+          "path": "dosage",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "eventHistory",
+          "path": "eventHistory",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "measurereport_hds_projection",
+  "status": "draft",
+  "resource": "MeasureReport",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "path": "type",
+          "type": "string"
+        },
+        {
+          "name": "measure",
+          "path": "measure",
+          "type": "string"
+        },
+        {
+          "name": "subject",
+          "path": "subject",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "date",
+          "path": "date",
+          "type": "string"
+        },
+        {
+          "name": "reporter",
+          "path": "reporter",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "period",
+          "path": "period",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "improvementNotation",
+          "path": "improvementNotation",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "group",
+          "path": "group",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "evaluatedResource",
+          "path": "evaluatedResource",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

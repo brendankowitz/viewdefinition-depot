@@ -1,0 +1,147 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "coverageeligibilityrequest_hds_projection",
+  "status": "draft",
+  "resource": "CoverageEligibilityRequest",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "priority",
+          "path": "priority",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "purpose",
+          "path": "purpose",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "patient",
+          "path": "patient",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "servicedDate",
+          "path": "serviced.ofType(date)",
+          "type": "string"
+        },
+        {
+          "name": "servicedPeriod",
+          "path": "serviced.ofType(Period)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "created",
+          "path": "created",
+          "type": "string"
+        },
+        {
+          "name": "enterer",
+          "path": "enterer",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "provider",
+          "path": "provider",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "insurer",
+          "path": "insurer",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "facility",
+          "path": "facility",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "supportingInfo",
+          "path": "supportingInfo",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "insurance",
+          "path": "insurance",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "item",
+          "path": "item",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

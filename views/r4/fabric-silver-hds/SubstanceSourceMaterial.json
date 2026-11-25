@@ -1,0 +1,137 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "substancesourcematerial_hds_projection",
+  "status": "draft",
+  "resource": "SubstanceSourceMaterial",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "sourceMaterialClass",
+          "path": "sourceMaterialClass",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "sourceMaterialType",
+          "path": "sourceMaterialType",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "sourceMaterialState",
+          "path": "sourceMaterialState",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "organismId",
+          "path": "organismId",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "organismName",
+          "path": "organismName",
+          "type": "string"
+        },
+        {
+          "name": "parentSubstanceId",
+          "path": "parentSubstanceId",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "parentSubstanceName",
+          "path": "parentSubstanceName",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "countryOfOrigin",
+          "path": "countryOfOrigin",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "geographicalLocation",
+          "path": "geographicalLocation",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "developmentStage",
+          "path": "developmentStage",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "fractionDescription",
+          "path": "fractionDescription",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "organism",
+          "path": "organism",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "partDescription",
+          "path": "partDescription",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

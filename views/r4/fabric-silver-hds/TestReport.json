@@ -1,0 +1,126 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "testreport_hds_projection",
+  "status": "draft",
+  "resource": "TestReport",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "name",
+          "path": "name",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "testScript",
+          "path": "testScript",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "result",
+          "path": "result",
+          "type": "string"
+        },
+        {
+          "name": "score",
+          "path": "score",
+          "type": "decimal"
+        },
+        {
+          "name": "tester",
+          "path": "tester",
+          "type": "string"
+        },
+        {
+          "name": "issued",
+          "path": "issued",
+          "type": "string"
+        },
+        {
+          "name": "participant",
+          "path": "participant",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "setup",
+          "path": "setup",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "test",
+          "path": "test",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "teardown",
+          "path": "teardown",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

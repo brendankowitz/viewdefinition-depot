@@ -1,0 +1,158 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "goal_hds_projection",
+  "status": "draft",
+  "resource": "Goal",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "lifecycleStatus",
+          "path": "lifecycleStatus",
+          "type": "string"
+        },
+        {
+          "name": "achievementStatus",
+          "path": "achievementStatus",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "category",
+          "path": "category",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "priority",
+          "path": "priority",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "description",
+          "path": "description",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "subject",
+          "path": "subject",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "startDate",
+          "path": "start.ofType(date)",
+          "type": "string"
+        },
+        {
+          "name": "startCodeableConcept",
+          "path": "start.ofType(CodeableConcept)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "target",
+          "path": "target",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "statusDate",
+          "path": "statusDate",
+          "type": "string"
+        },
+        {
+          "name": "statusReason",
+          "path": "statusReason",
+          "type": "string"
+        },
+        {
+          "name": "expressedBy",
+          "path": "expressedBy",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "addresses",
+          "path": "addresses",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "note",
+          "path": "note",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "outcomeCode",
+          "path": "outcomeCode",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "outcomeReference",
+          "path": "outcomeReference",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}
