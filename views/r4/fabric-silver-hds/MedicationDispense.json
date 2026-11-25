@@ -1,0 +1,213 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "medicationdispense_hds_projection",
+  "status": "draft",
+  "resource": "MedicationDispense",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "partOf",
+          "path": "partOf",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "statusReasonCodeableConcept",
+          "path": "statusReason.ofType(CodeableConcept)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "statusReasonReference",
+          "path": "statusReason.ofType(Reference)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "category",
+          "path": "category",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "medicationCodeableConcept",
+          "path": "medication.ofType(CodeableConcept)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "medicationReference",
+          "path": "medication.ofType(Reference)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "subject",
+          "path": "subject",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "context",
+          "path": "context",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "supportingInformation",
+          "path": "supportingInformation",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "performer",
+          "path": "performer",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "location",
+          "path": "location",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "authorizingPrescription",
+          "path": "authorizingPrescription",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "type",
+          "path": "type",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "quantity",
+          "path": "quantity",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "daysSupply",
+          "path": "daysSupply",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "whenPrepared",
+          "path": "whenPrepared",
+          "type": "string"
+        },
+        {
+          "name": "whenHandedOver",
+          "path": "whenHandedOver",
+          "type": "string"
+        },
+        {
+          "name": "destination",
+          "path": "destination",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "receiver",
+          "path": "receiver",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "note",
+          "path": "note",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "dosageInstruction",
+          "path": "dosageInstruction",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "substitution",
+          "path": "substitution",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "detectedIssue",
+          "path": "detectedIssue",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "eventHistory",
+          "path": "eventHistory",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

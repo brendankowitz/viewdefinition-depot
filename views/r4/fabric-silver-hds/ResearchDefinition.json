@@ -1,0 +1,254 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "researchdefinition_hds_projection",
+  "status": "draft",
+  "resource": "ResearchDefinition",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "url",
+          "path": "url",
+          "type": "string"
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "version",
+          "path": "version",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "path": "name",
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "path": "title",
+          "type": "string"
+        },
+        {
+          "name": "shortTitle",
+          "path": "shortTitle",
+          "type": "string"
+        },
+        {
+          "name": "subtitle",
+          "path": "subtitle",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "experimental",
+          "path": "experimental",
+          "type": "boolean"
+        },
+        {
+          "name": "subjectCodeableConcept",
+          "path": "subject.ofType(CodeableConcept)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "subjectReference",
+          "path": "subject.ofType(Reference)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "date",
+          "path": "date",
+          "type": "string"
+        },
+        {
+          "name": "publisher",
+          "path": "publisher",
+          "type": "string"
+        },
+        {
+          "name": "contact",
+          "path": "contact",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "description",
+          "path": "description",
+          "type": "string"
+        },
+        {
+          "name": "comment",
+          "path": "comment",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "useContext",
+          "path": "useContext",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "jurisdiction",
+          "path": "jurisdiction",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "purpose",
+          "path": "purpose",
+          "type": "string"
+        },
+        {
+          "name": "usage",
+          "path": "usage",
+          "type": "string"
+        },
+        {
+          "name": "copyright",
+          "path": "copyright",
+          "type": "string"
+        },
+        {
+          "name": "approvalDate",
+          "path": "approvalDate",
+          "type": "string"
+        },
+        {
+          "name": "lastReviewDate",
+          "path": "lastReviewDate",
+          "type": "string"
+        },
+        {
+          "name": "effectivePeriod",
+          "path": "effectivePeriod",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "topic",
+          "path": "topic",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "author",
+          "path": "author",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "editor",
+          "path": "editor",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reviewer",
+          "path": "reviewer",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "endorser",
+          "path": "endorser",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "relatedArtifact",
+          "path": "relatedArtifact",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "library",
+          "path": "library",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "population",
+          "path": "population",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "exposure",
+          "path": "exposure",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "exposureAlternative",
+          "path": "exposureAlternative",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "outcome",
+          "path": "outcome",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

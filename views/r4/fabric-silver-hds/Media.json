@@ -1,0 +1,190 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "media_hds_projection",
+  "status": "draft",
+  "resource": "Media",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "basedOn",
+          "path": "basedOn",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "partOf",
+          "path": "partOf",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "path": "type",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modality",
+          "path": "modality",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "view",
+          "path": "view",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "subject",
+          "path": "subject",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "encounter",
+          "path": "encounter",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "createdDateTime",
+          "path": "created.ofType(dateTime)",
+          "type": "string"
+        },
+        {
+          "name": "createdPeriod",
+          "path": "created.ofType(Period)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "issued",
+          "path": "issued",
+          "type": "string"
+        },
+        {
+          "name": "operator",
+          "path": "operator",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reasonCode",
+          "path": "reasonCode",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "bodySite",
+          "path": "bodySite",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "deviceName",
+          "path": "deviceName",
+          "type": "string"
+        },
+        {
+          "name": "device",
+          "path": "device",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "height",
+          "path": "height",
+          "type": "integer"
+        },
+        {
+          "name": "width",
+          "path": "width",
+          "type": "integer"
+        },
+        {
+          "name": "frames",
+          "path": "frames",
+          "type": "integer"
+        },
+        {
+          "name": "duration",
+          "path": "duration",
+          "type": "decimal"
+        },
+        {
+          "name": "content",
+          "path": "content",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "note",
+          "path": "note",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

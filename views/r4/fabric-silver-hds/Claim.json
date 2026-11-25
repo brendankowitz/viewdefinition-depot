@@ -1,0 +1,219 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "claim_hds_projection",
+  "status": "draft",
+  "resource": "Claim",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "path": "type",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "subType",
+          "path": "subType",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "use",
+          "path": "use",
+          "type": "string"
+        },
+        {
+          "name": "patient",
+          "path": "patient",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "billablePeriod",
+          "path": "billablePeriod",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "created",
+          "path": "created",
+          "type": "string"
+        },
+        {
+          "name": "enterer",
+          "path": "enterer",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "insurer",
+          "path": "insurer",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "provider",
+          "path": "provider",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "priority",
+          "path": "priority",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "fundsReserve",
+          "path": "fundsReserve",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "related",
+          "path": "related",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "prescription",
+          "path": "prescription",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "originalPrescription",
+          "path": "originalPrescription",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "payee",
+          "path": "payee",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "referral",
+          "path": "referral",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "facility",
+          "path": "facility",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "careTeam",
+          "path": "careTeam",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "supportingInfo",
+          "path": "supportingInfo",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "diagnosis",
+          "path": "diagnosis",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "procedure",
+          "path": "procedure",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "insurance",
+          "path": "insurance",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "accident",
+          "path": "accident",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "item",
+          "path": "item",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "total",
+          "path": "total",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

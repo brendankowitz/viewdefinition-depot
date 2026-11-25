@@ -1,0 +1,96 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "substancepolymer_hds_projection",
+  "status": "draft",
+  "resource": "SubstancePolymer",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "class",
+          "path": "class",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "geometry",
+          "path": "geometry",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "copolymerConnectivity",
+          "path": "copolymerConnectivity",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modification",
+          "path": "modification",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "monomerSet",
+          "path": "monomerSet",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "repeat",
+          "path": "repeat",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

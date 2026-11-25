@@ -1,0 +1,226 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "immunization_hds_projection",
+  "status": "draft",
+  "resource": "Immunization",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "statusReason",
+          "path": "statusReason",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "vaccineCode",
+          "path": "vaccineCode",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "patient",
+          "path": "patient",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "encounter",
+          "path": "encounter",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "occurrenceDateTime",
+          "path": "occurrence.ofType(dateTime)",
+          "type": "string"
+        },
+        {
+          "name": "occurrenceString",
+          "path": "occurrence.ofType(string)",
+          "type": "string"
+        },
+        {
+          "name": "recorded",
+          "path": "recorded",
+          "type": "string"
+        },
+        {
+          "name": "primarySource",
+          "path": "primarySource",
+          "type": "boolean"
+        },
+        {
+          "name": "reportOrigin",
+          "path": "reportOrigin",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "location",
+          "path": "location",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "manufacturer",
+          "path": "manufacturer",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "lotNumber",
+          "path": "lotNumber",
+          "type": "string"
+        },
+        {
+          "name": "expirationDate",
+          "path": "expirationDate",
+          "type": "string"
+        },
+        {
+          "name": "site",
+          "path": "site",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "route",
+          "path": "route",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "doseQuantity",
+          "path": "doseQuantity",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "performer",
+          "path": "performer",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "note",
+          "path": "note",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reasonCode",
+          "path": "reasonCode",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reasonReference",
+          "path": "reasonReference",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "isSubpotent",
+          "path": "isSubpotent",
+          "type": "boolean"
+        },
+        {
+          "name": "subpotentReason",
+          "path": "subpotentReason",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "education",
+          "path": "education",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "programEligibility",
+          "path": "programEligibility",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "fundingSource",
+          "path": "fundingSource",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reaction",
+          "path": "reaction",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "protocolApplied",
+          "path": "protocolApplied",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

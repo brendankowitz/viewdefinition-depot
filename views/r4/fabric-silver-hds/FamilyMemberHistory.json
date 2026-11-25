@@ -1,0 +1,206 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "familymemberhistory_hds_projection",
+  "status": "draft",
+  "resource": "FamilyMemberHistory",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "instantiatesCanonical",
+          "path": "instantiatesCanonical",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "instantiatesUri",
+          "path": "instantiatesUri",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "dataAbsentReason",
+          "path": "dataAbsentReason",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "patient",
+          "path": "patient",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "date",
+          "path": "date",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "path": "name",
+          "type": "string"
+        },
+        {
+          "name": "relationship",
+          "path": "relationship",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "sex",
+          "path": "sex",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "bornPeriod",
+          "path": "born.ofType(Period)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "bornDate",
+          "path": "born.ofType(date)",
+          "type": "string"
+        },
+        {
+          "name": "bornString",
+          "path": "born.ofType(string)",
+          "type": "string"
+        },
+        {
+          "name": "ageAge",
+          "path": "age.ofType(Age)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "ageRange",
+          "path": "age.ofType(Range)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "ageString",
+          "path": "age.ofType(string)",
+          "type": "string"
+        },
+        {
+          "name": "estimatedAge",
+          "path": "estimatedAge",
+          "type": "boolean"
+        },
+        {
+          "name": "deceasedBoolean",
+          "path": "deceased.ofType(boolean)",
+          "type": "boolean"
+        },
+        {
+          "name": "deceasedAge",
+          "path": "deceased.ofType(Age)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "deceasedRange",
+          "path": "deceased.ofType(Range)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "deceasedDate",
+          "path": "deceased.ofType(date)",
+          "type": "string"
+        },
+        {
+          "name": "deceasedString",
+          "path": "deceased.ofType(string)",
+          "type": "string"
+        },
+        {
+          "name": "reasonCode",
+          "path": "reasonCode",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reasonReference",
+          "path": "reasonReference",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "note",
+          "path": "note",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "condition",
+          "path": "condition",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

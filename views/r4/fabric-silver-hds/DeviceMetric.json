@@ -1,0 +1,117 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "devicemetric_hds_projection",
+  "status": "draft",
+  "resource": "DeviceMetric",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "type",
+          "path": "type",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "unit",
+          "path": "unit",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "source",
+          "path": "source",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "parent",
+          "path": "parent",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "operationalStatus",
+          "path": "operationalStatus",
+          "type": "string"
+        },
+        {
+          "name": "color",
+          "path": "color",
+          "type": "string"
+        },
+        {
+          "name": "category",
+          "path": "category",
+          "type": "string"
+        },
+        {
+          "name": "measurementPeriod",
+          "path": "measurementPeriod",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "calibration",
+          "path": "calibration",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

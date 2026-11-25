@@ -1,0 +1,106 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "schedule_hds_projection",
+  "status": "draft",
+  "resource": "Schedule",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "active",
+          "path": "active",
+          "type": "boolean"
+        },
+        {
+          "name": "serviceCategory",
+          "path": "serviceCategory",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "serviceType",
+          "path": "serviceType",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "specialty",
+          "path": "specialty",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "actor",
+          "path": "actor",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "planningHorizon",
+          "path": "planningHorizon",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "comment",
+          "path": "comment",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

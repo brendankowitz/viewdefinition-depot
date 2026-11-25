@@ -1,0 +1,649 @@
+{
+  "contractFormatVersion": "1",
+  "fhirVersion": "4.0.1",
+  "hdsVersion": "1.4.0",
+  "resource": "SubstancePolymer",
+  "table": "SubstancePolymer",
+  "deployment": {
+    "schemaSha256": "8c4509beb44e3ea24c062be5dc547a39713ce40b2d97095a797969b022f7b7f1",
+    "schemaStringSha256": "fd24966a2ece5c7951ad615143875c62507cfeb548a2786a4029386bed0d969f",
+    "fields": [
+      [
+        "msftModifiedDatetime",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "resourceType",
+        true,
+        "string"
+      ],
+      [
+        "id",
+        true,
+        "string"
+      ],
+      [
+        "extension",
+        true,
+        "string"
+      ],
+      [
+        "meta",
+        true,
+        "@143e6da9ca880a1d1ce8fadd32e9f99ffdb31552988fe9357c07ca6cca9e8598"
+      ],
+      [
+        "implicitRules",
+        true,
+        "string"
+      ],
+      [
+        "language",
+        true,
+        "string"
+      ],
+      [
+        "text",
+        true,
+        "@50e85895ae8ef1cbf352c1af7615c7a73a79317a4cdd6fae2a1a7d7867378f37"
+      ],
+      [
+        "contained",
+        true,
+        "@bf858f0d5548b8d080ea47117c2694bb5e8a2f3fd293eb15c7a5506b70accf6b"
+      ],
+      [
+        "class",
+        true,
+        "@1db4e29d5405e2f93fd73ab2b661ad10c8a34274fbe993675a290d17782d7c64"
+      ],
+      [
+        "geometry",
+        true,
+        "@1db4e29d5405e2f93fd73ab2b661ad10c8a34274fbe993675a290d17782d7c64"
+      ],
+      [
+        "copolymerConnectivity",
+        true,
+        "@6938d053d6409e74b2ba2f2edc7a84a3e9f5beb559aa056ddbf7cb45d94592d9"
+      ],
+      [
+        "modification",
+        true,
+        "@bf858f0d5548b8d080ea47117c2694bb5e8a2f3fd293eb15c7a5506b70accf6b"
+      ],
+      [
+        "monomerSet",
+        true,
+        "@80a659ee2f27d6da97ea88b940104d8e6daf996cb19ed7a231066b71fec0ed9a"
+      ],
+      [
+        "repeat",
+        true,
+        "@a8e7c66d20cecf97bd502fcd116c523d1c50dffcba2952854b534954fd3c93a2"
+      ],
+      [
+        "msftSourceSystem",
+        true,
+        "string"
+      ],
+      [
+        "meta_lastUpdated",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "meta_lastUpdatedOrig",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "identifier",
+        true,
+        "@2a1242fc9d47b24256b3e26abc24e80d8a8af3608883e46c7ca54911a18b49cd"
+      ],
+      [
+        "identifierOrig",
+        true,
+        "@2a1242fc9d47b24256b3e26abc24e80d8a8af3608883e46c7ca54911a18b49cd"
+      ],
+      [
+        "idOrig",
+        true,
+        "string"
+      ],
+      [
+        "meta_string",
+        true,
+        "string"
+      ],
+      [
+        "text_string",
+        true,
+        "string"
+      ],
+      [
+        "contained_string",
+        true,
+        "string"
+      ],
+      [
+        "class_string",
+        true,
+        "string"
+      ],
+      [
+        "geometry_string",
+        true,
+        "string"
+      ],
+      [
+        "copolymerConnectivity_string",
+        true,
+        "string"
+      ],
+      [
+        "modification_string",
+        true,
+        "string"
+      ],
+      [
+        "monomerSet_string",
+        true,
+        "string"
+      ],
+      [
+        "repeat_string",
+        true,
+        "string"
+      ],
+      [
+        "identifier_string",
+        true,
+        "string"
+      ],
+      [
+        "identifierOrig_string",
+        true,
+        "string"
+      ],
+      [
+        "msftCreatedDatetime",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "msftFilePath",
+        true,
+        "string"
+      ]
+    ]
+  },
+  "provenance": {
+    "release": "https://www.microsoft.com/en-us/download/details.aspx?id=108754",
+    "creationLogPath": "hds-build-artifacts/healthcare-tables/1.4.0/Silver/SubstancePolymer/_delta_log/00000000000000000000.json",
+    "creationLogSha256": "2a7f4330d251695fc8d8a8392b6b62ed667bc65a177b024ed7ee840139c852fa",
+    "sourceArtifactSha256": {
+      "hds-build-artifacts/healthcare-configuration/1.4.0/_internal/fhir4/schema/silver/substancepolymer.avsc": "4bc6cc116b0752e524702a1cba78635a015cea16c604185b213b3d330afd1d71"
+    },
+    "fhirStructureDefinition": {
+      "canonical": "http://hl7.org/fhir/StructureDefinition/SubstancePolymer",
+      "packagePath": "package/StructureDefinition-SubstancePolymer.json",
+      "sha256": "15bbf2aa993d72e3167ccc2f56b4e4ddc6cbebcadd6dad79e5074a85b3070a3e"
+    }
+  },
+  "projection": {
+    "view": "views/r4/fabric-silver-hds/SubstancePolymer.json",
+    "columns": [
+      {
+        "name": "id",
+        "path": "id",
+        "type": "string",
+        "fhirElement": "SubstancePolymer.id",
+        "fhirType": "string",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "id",
+          "idOrig"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "meta",
+        "path": "meta",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "SubstancePolymer.meta",
+        "fhirType": "Meta",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "meta",
+          "meta_lastUpdated",
+          "meta_lastUpdatedOrig",
+          "meta_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "implicitRules",
+        "path": "implicitRules",
+        "type": "string",
+        "fhirElement": "SubstancePolymer.implicitRules",
+        "fhirType": "uri",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "implicitRules"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "language",
+        "path": "language",
+        "type": "string",
+        "fhirElement": "SubstancePolymer.language",
+        "fhirType": "code",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "language"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "text",
+        "path": "text",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "SubstancePolymer.text",
+        "fhirType": "Narrative",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "text",
+          "text_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "contained",
+        "path": "contained",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "SubstancePolymer.contained",
+        "fhirType": "Resource",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "contained",
+          "contained_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "extension",
+        "path": "extension",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "SubstancePolymer.extension",
+        "fhirType": "Extension",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "extension"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "modifierExtension",
+        "path": "modifierExtension",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "SubstancePolymer.modifierExtension",
+        "fhirType": "Extension",
+        "min": 0,
+        "max": "*",
+        "targetFields": [],
+        "mappingKind": "unsupported",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "class",
+        "path": "class",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "SubstancePolymer.class",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "class",
+          "class_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "geometry",
+        "path": "geometry",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "SubstancePolymer.geometry",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "geometry",
+          "geometry_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "copolymerConnectivity",
+        "path": "copolymerConnectivity",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "SubstancePolymer.copolymerConnectivity",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "copolymerConnectivity",
+          "copolymerConnectivity_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "modification",
+        "path": "modification",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "SubstancePolymer.modification",
+        "fhirType": "string",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "modification",
+          "modification_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "monomerSet",
+        "path": "monomerSet",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "SubstancePolymer.monomerSet",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "monomerSet",
+          "monomerSet_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "repeat",
+        "path": "repeat",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "SubstancePolymer.repeat",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "repeat",
+          "repeat_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      }
+    ],
+    "targetMappings": [
+      {
+        "field": "msftModifiedDatetime",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "resourceType",
+        "mappingKind": "derived",
+        "reason": "resource-discriminator",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "id",
+        "mappingKind": "derived",
+        "reason": "normalized-identity",
+        "evidence": "source-derived",
+        "sourceColumn": "id"
+      },
+      {
+        "field": "extension",
+        "mappingKind": "serialized",
+        "reason": "complex-to-text",
+        "evidence": "source-derived",
+        "sourceColumn": "extension"
+      },
+      {
+        "field": "meta",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "implicitRules",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "implicitRules"
+      },
+      {
+        "field": "language",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "language"
+      },
+      {
+        "field": "text",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "text"
+      },
+      {
+        "field": "contained",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "contained"
+      },
+      {
+        "field": "class",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "class"
+      },
+      {
+        "field": "geometry",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "geometry"
+      },
+      {
+        "field": "copolymerConnectivity",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "copolymerConnectivity"
+      },
+      {
+        "field": "modification",
+        "mappingKind": "derived",
+        "reason": "collection-to-array",
+        "evidence": "source-derived",
+        "sourceColumn": "modification"
+      },
+      {
+        "field": "monomerSet",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "monomerSet"
+      },
+      {
+        "field": "repeat",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "repeat"
+      },
+      {
+        "field": "msftSourceSystem",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "meta_lastUpdated",
+        "mappingKind": "derived",
+        "reason": "nested-temporal-value",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "meta_lastUpdatedOrig",
+        "mappingKind": "derived",
+        "reason": "nested-temporal-value",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "identifier",
+        "mappingKind": "unsupported",
+        "reason": "no-r4-source-element",
+        "evidence": "contract-sourced"
+      },
+      {
+        "field": "identifierOrig",
+        "mappingKind": "unsupported",
+        "reason": "no-r4-source-element",
+        "evidence": "contract-sourced"
+      },
+      {
+        "field": "idOrig",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "id"
+      },
+      {
+        "field": "meta_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "text_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "text"
+      },
+      {
+        "field": "contained_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "contained"
+      },
+      {
+        "field": "class_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "class"
+      },
+      {
+        "field": "geometry_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "geometry"
+      },
+      {
+        "field": "copolymerConnectivity_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "copolymerConnectivity"
+      },
+      {
+        "field": "modification_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "modification"
+      },
+      {
+        "field": "monomerSet_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "monomerSet"
+      },
+      {
+        "field": "repeat_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "repeat"
+      },
+      {
+        "field": "identifier_string",
+        "mappingKind": "unsupported",
+        "reason": "no-r4-source-element",
+        "evidence": "contract-sourced"
+      },
+      {
+        "field": "identifierOrig_string",
+        "mappingKind": "unsupported",
+        "reason": "no-r4-source-element",
+        "evidence": "contract-sourced"
+      },
+      {
+        "field": "msftCreatedDatetime",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "msftFilePath",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      }
+    ]
+  }
+}

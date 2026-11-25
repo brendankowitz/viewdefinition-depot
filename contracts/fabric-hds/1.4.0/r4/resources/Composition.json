@@ -1,0 +1,922 @@
+{
+  "contractFormatVersion": "1",
+  "fhirVersion": "4.0.1",
+  "hdsVersion": "1.4.0",
+  "resource": "Composition",
+  "table": "Composition",
+  "deployment": {
+    "schemaSha256": "5d6fabf6224ee8bbcd421f570d0f832847aa3c8085674bd828be6450439e8521",
+    "schemaStringSha256": "a6eb7c615b45ceb20dee2e31bbecaae2fb229583a009ea877be2802994ad3523",
+    "fields": [
+      [
+        "msftModifiedDatetime",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "resourceType",
+        true,
+        "string"
+      ],
+      [
+        "id",
+        true,
+        "string"
+      ],
+      [
+        "extension",
+        true,
+        "string"
+      ],
+      [
+        "meta",
+        true,
+        "@143e6da9ca880a1d1ce8fadd32e9f99ffdb31552988fe9357c07ca6cca9e8598"
+      ],
+      [
+        "implicitRules",
+        true,
+        "string"
+      ],
+      [
+        "language",
+        true,
+        "string"
+      ],
+      [
+        "text",
+        true,
+        "@50e85895ae8ef1cbf352c1af7615c7a73a79317a4cdd6fae2a1a7d7867378f37"
+      ],
+      [
+        "contained",
+        true,
+        "@bf858f0d5548b8d080ea47117c2694bb5e8a2f3fd293eb15c7a5506b70accf6b"
+      ],
+      [
+        "identifier",
+        true,
+        "@6fbc5c73fdbc4ccf8cdd1676eb1344330bf084fb09e6ef6d084017a9e79ed070"
+      ],
+      [
+        "status",
+        true,
+        "string"
+      ],
+      [
+        "type",
+        true,
+        "@1db4e29d5405e2f93fd73ab2b661ad10c8a34274fbe993675a290d17782d7c64"
+      ],
+      [
+        "category",
+        true,
+        "@6938d053d6409e74b2ba2f2edc7a84a3e9f5beb559aa056ddbf7cb45d94592d9"
+      ],
+      [
+        "subject",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "encounter",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "date",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "author",
+        true,
+        "@ca02e152cc687985fe91998487afb5e8fbd2fe92d50fa19ab8179a79dbb79317"
+      ],
+      [
+        "title",
+        true,
+        "string"
+      ],
+      [
+        "confidentiality",
+        true,
+        "string"
+      ],
+      [
+        "attester",
+        true,
+        "@919ebd49922eb6bbf4642274bffb3b387a4df53644313d475ae149221c451593"
+      ],
+      [
+        "custodian",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "relatesTo",
+        true,
+        "@4831421ea0b5d1272d86e3b5d2c523713e2f385cb3ec239f56eb4885da1c0e97"
+      ],
+      [
+        "event",
+        true,
+        "@6ae84abd394d23eed0cefb2a318806c6ecb91d2df1946c97fbe419c13cc7c13a"
+      ],
+      [
+        "section",
+        true,
+        "@c5dc37c28e7ce0180d8ecd5c85faabbe8eed09f5876dff7b23d18520b7e411e5"
+      ],
+      [
+        "msftSourceSystem",
+        true,
+        "string"
+      ],
+      [
+        "meta_lastUpdated",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "meta_lastUpdatedOrig",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "idOrig",
+        true,
+        "string"
+      ],
+      [
+        "dateOrig",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "meta_string",
+        true,
+        "string"
+      ],
+      [
+        "text_string",
+        true,
+        "string"
+      ],
+      [
+        "contained_string",
+        true,
+        "string"
+      ],
+      [
+        "identifier_string",
+        true,
+        "string"
+      ],
+      [
+        "type_string",
+        true,
+        "string"
+      ],
+      [
+        "category_string",
+        true,
+        "string"
+      ],
+      [
+        "subject_string",
+        true,
+        "string"
+      ],
+      [
+        "encounter_string",
+        true,
+        "string"
+      ],
+      [
+        "author_string",
+        true,
+        "string"
+      ],
+      [
+        "attester_string",
+        true,
+        "string"
+      ],
+      [
+        "custodian_string",
+        true,
+        "string"
+      ],
+      [
+        "relatesTo_string",
+        true,
+        "string"
+      ],
+      [
+        "event_string",
+        true,
+        "string"
+      ],
+      [
+        "section_string",
+        true,
+        "string"
+      ],
+      [
+        "msftCreatedDatetime",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "msftFilePath",
+        true,
+        "string"
+      ]
+    ]
+  },
+  "provenance": {
+    "release": "https://www.microsoft.com/en-us/download/details.aspx?id=108754",
+    "creationLogPath": "hds-build-artifacts/healthcare-tables/1.4.0/Silver/Composition/_delta_log/00000000000000000000.json",
+    "creationLogSha256": "4a5d1ea87c3f82cd6a4121ba152554f73de9fe40b2998bbb6e2ec985de03c60d",
+    "sourceArtifactSha256": {
+      "hds-build-artifacts/healthcare-configuration/1.4.0/_internal/fhir4/schema/silver/composition.avsc": "183d221434a6ba359ef44f728f5e67b9c6b840a1ff26d525490c6862de0e3047"
+    },
+    "fhirStructureDefinition": {
+      "canonical": "http://hl7.org/fhir/StructureDefinition/Composition",
+      "packagePath": "package/StructureDefinition-Composition.json",
+      "sha256": "d00a2a0e20c08ae84b80b081f9b38249d6c34768c82ebc269cccd5f7ef3c9820"
+    }
+  },
+  "projection": {
+    "view": "views/r4/fabric-silver-hds/Composition.json",
+    "columns": [
+      {
+        "name": "id",
+        "path": "id",
+        "type": "string",
+        "fhirElement": "Composition.id",
+        "fhirType": "string",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "id",
+          "idOrig"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "meta",
+        "path": "meta",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Composition.meta",
+        "fhirType": "Meta",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "meta",
+          "meta_lastUpdated",
+          "meta_lastUpdatedOrig",
+          "meta_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "implicitRules",
+        "path": "implicitRules",
+        "type": "string",
+        "fhirElement": "Composition.implicitRules",
+        "fhirType": "uri",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "implicitRules"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "language",
+        "path": "language",
+        "type": "string",
+        "fhirElement": "Composition.language",
+        "fhirType": "code",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "language"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "text",
+        "path": "text",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Composition.text",
+        "fhirType": "Narrative",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "text",
+          "text_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "contained",
+        "path": "contained",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Composition.contained",
+        "fhirType": "Resource",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "contained",
+          "contained_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "extension",
+        "path": "extension",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Composition.extension",
+        "fhirType": "Extension",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "extension"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "modifierExtension",
+        "path": "modifierExtension",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Composition.modifierExtension",
+        "fhirType": "Extension",
+        "min": 0,
+        "max": "*",
+        "targetFields": [],
+        "mappingKind": "unsupported",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "identifier",
+        "path": "identifier",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Composition.identifier",
+        "fhirType": "Identifier",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "identifier",
+          "identifier_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "status",
+        "path": "status",
+        "type": "string",
+        "fhirElement": "Composition.status",
+        "fhirType": "code",
+        "min": 1,
+        "max": "1",
+        "targetFields": [
+          "status"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "type",
+        "path": "type",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Composition.type",
+        "fhirType": "CodeableConcept",
+        "min": 1,
+        "max": "1",
+        "targetFields": [
+          "type",
+          "type_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "category",
+        "path": "category",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Composition.category",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "category",
+          "category_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "subject",
+        "path": "subject",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Composition.subject",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "subject",
+          "subject_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "encounter",
+        "path": "encounter",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Composition.encounter",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "encounter",
+          "encounter_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "date",
+        "path": "date",
+        "type": "string",
+        "fhirElement": "Composition.date",
+        "fhirType": "dateTime",
+        "min": 1,
+        "max": "1",
+        "targetFields": [
+          "date",
+          "dateOrig"
+        ],
+        "mappingKind": "derived",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "author",
+        "path": "author",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Composition.author",
+        "fhirType": "Reference",
+        "min": 1,
+        "max": "*",
+        "targetFields": [
+          "author",
+          "author_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "title",
+        "path": "title",
+        "type": "string",
+        "fhirElement": "Composition.title",
+        "fhirType": "string",
+        "min": 1,
+        "max": "1",
+        "targetFields": [
+          "title"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "confidentiality",
+        "path": "confidentiality",
+        "type": "string",
+        "fhirElement": "Composition.confidentiality",
+        "fhirType": "code",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "confidentiality"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "attester",
+        "path": "attester",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Composition.attester",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "attester",
+          "attester_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "custodian",
+        "path": "custodian",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Composition.custodian",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "custodian",
+          "custodian_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "relatesTo",
+        "path": "relatesTo",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Composition.relatesTo",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "relatesTo",
+          "relatesTo_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "event",
+        "path": "event",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Composition.event",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "event",
+          "event_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "section",
+        "path": "section",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Composition.section",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "section",
+          "section_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      }
+    ],
+    "targetMappings": [
+      {
+        "field": "msftModifiedDatetime",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "resourceType",
+        "mappingKind": "derived",
+        "reason": "resource-discriminator",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "id",
+        "mappingKind": "derived",
+        "reason": "normalized-identity",
+        "evidence": "source-derived",
+        "sourceColumn": "id"
+      },
+      {
+        "field": "extension",
+        "mappingKind": "serialized",
+        "reason": "complex-to-text",
+        "evidence": "source-derived",
+        "sourceColumn": "extension"
+      },
+      {
+        "field": "meta",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "implicitRules",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "implicitRules"
+      },
+      {
+        "field": "language",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "language"
+      },
+      {
+        "field": "text",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "text"
+      },
+      {
+        "field": "contained",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "contained"
+      },
+      {
+        "field": "identifier",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "identifier"
+      },
+      {
+        "field": "status",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "status"
+      },
+      {
+        "field": "type",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "type"
+      },
+      {
+        "field": "category",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "category"
+      },
+      {
+        "field": "subject",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "subject"
+      },
+      {
+        "field": "encounter",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "encounter"
+      },
+      {
+        "field": "date",
+        "mappingKind": "derived",
+        "reason": "temporal-conversion",
+        "evidence": "source-derived",
+        "sourceColumn": "date"
+      },
+      {
+        "field": "author",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "author"
+      },
+      {
+        "field": "title",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "title"
+      },
+      {
+        "field": "confidentiality",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "confidentiality"
+      },
+      {
+        "field": "attester",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "attester"
+      },
+      {
+        "field": "custodian",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "custodian"
+      },
+      {
+        "field": "relatesTo",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "relatesTo"
+      },
+      {
+        "field": "event",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "event"
+      },
+      {
+        "field": "section",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "section"
+      },
+      {
+        "field": "msftSourceSystem",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "meta_lastUpdated",
+        "mappingKind": "derived",
+        "reason": "nested-temporal-value",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "meta_lastUpdatedOrig",
+        "mappingKind": "derived",
+        "reason": "nested-temporal-value",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "idOrig",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "id"
+      },
+      {
+        "field": "dateOrig",
+        "mappingKind": "derived",
+        "reason": "temporal-conversion",
+        "evidence": "source-derived",
+        "sourceColumn": "date"
+      },
+      {
+        "field": "meta_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "text_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "text"
+      },
+      {
+        "field": "contained_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "contained"
+      },
+      {
+        "field": "identifier_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "identifier"
+      },
+      {
+        "field": "type_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "type"
+      },
+      {
+        "field": "category_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "category"
+      },
+      {
+        "field": "subject_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "subject"
+      },
+      {
+        "field": "encounter_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "encounter"
+      },
+      {
+        "field": "author_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "author"
+      },
+      {
+        "field": "attester_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "attester"
+      },
+      {
+        "field": "custodian_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "custodian"
+      },
+      {
+        "field": "relatesTo_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "relatesTo"
+      },
+      {
+        "field": "event_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "event"
+      },
+      {
+        "field": "section_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "section"
+      },
+      {
+        "field": "msftCreatedDatetime",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "msftFilePath",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      }
+    ]
+  }
+}

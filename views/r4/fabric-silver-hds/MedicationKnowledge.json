@@ -1,0 +1,190 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "medicationknowledge_hds_projection",
+  "status": "draft",
+  "resource": "MedicationKnowledge",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "code",
+          "path": "code",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "manufacturer",
+          "path": "manufacturer",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "doseForm",
+          "path": "doseForm",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "amount",
+          "path": "amount",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "synonym",
+          "path": "synonym",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "relatedMedicationKnowledge",
+          "path": "relatedMedicationKnowledge",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "associatedMedication",
+          "path": "associatedMedication",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "productType",
+          "path": "productType",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "monograph",
+          "path": "monograph",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "ingredient",
+          "path": "ingredient",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "preparationInstruction",
+          "path": "preparationInstruction",
+          "type": "string"
+        },
+        {
+          "name": "intendedRoute",
+          "path": "intendedRoute",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "cost",
+          "path": "cost",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "monitoringProgram",
+          "path": "monitoringProgram",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "administrationGuidelines",
+          "path": "administrationGuidelines",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "medicineClassification",
+          "path": "medicineClassification",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "packaging",
+          "path": "packaging",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "drugCharacteristic",
+          "path": "drugCharacteristic",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contraindication",
+          "path": "contraindication",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "regulatory",
+          "path": "regulatory",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "kinetics",
+          "path": "kinetics",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

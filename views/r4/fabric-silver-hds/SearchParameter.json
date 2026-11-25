@@ -1,0 +1,199 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "searchparameter_hds_projection",
+  "status": "draft",
+  "resource": "SearchParameter",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "url",
+          "path": "url",
+          "type": "string"
+        },
+        {
+          "name": "version",
+          "path": "version",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "path": "name",
+          "type": "string"
+        },
+        {
+          "name": "derivedFrom",
+          "path": "derivedFrom",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "experimental",
+          "path": "experimental",
+          "type": "boolean"
+        },
+        {
+          "name": "date",
+          "path": "date",
+          "type": "string"
+        },
+        {
+          "name": "publisher",
+          "path": "publisher",
+          "type": "string"
+        },
+        {
+          "name": "contact",
+          "path": "contact",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "description",
+          "path": "description",
+          "type": "string"
+        },
+        {
+          "name": "useContext",
+          "path": "useContext",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "jurisdiction",
+          "path": "jurisdiction",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "purpose",
+          "path": "purpose",
+          "type": "string"
+        },
+        {
+          "name": "code",
+          "path": "code",
+          "type": "string"
+        },
+        {
+          "name": "base",
+          "path": "base",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "type",
+          "path": "type",
+          "type": "string"
+        },
+        {
+          "name": "expression",
+          "path": "expression",
+          "type": "string"
+        },
+        {
+          "name": "xpath",
+          "path": "xpath",
+          "type": "string"
+        },
+        {
+          "name": "xpathUsage",
+          "path": "xpathUsage",
+          "type": "string"
+        },
+        {
+          "name": "target",
+          "path": "target",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "multipleOr",
+          "path": "multipleOr",
+          "type": "boolean"
+        },
+        {
+          "name": "multipleAnd",
+          "path": "multipleAnd",
+          "type": "boolean"
+        },
+        {
+          "name": "comparator",
+          "path": "comparator",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifier",
+          "path": "modifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "chain",
+          "path": "chain",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "component",
+          "path": "component",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1183 @@
+{
+  "contractFormatVersion": "1",
+  "fhirVersion": "4.0.1",
+  "hdsVersion": "1.4.0",
+  "types": "contracts/fabric-hds/1.4.0/r4/types.json",
+  "provenance": {
+    "release": "https://www.microsoft.com/en-us/download/details.aspx?id=108754",
+    "hdsFactsSha256": "f6d7706a1b2527f1f2c4855b93cee01020c7e7400719b91c38ad5e68d53bcd10",
+    "fhirPackage": "https://hl7.org/fhir/R4/hl7.fhir.r4.core.tgz",
+    "fhirPackageSha256": "b090bf929e1f665cf2c91583720849695bc38d2892a7c5037c56cb00817fb091",
+    "fhirFactsSha256": "1fbd80fc358bfe4c8bcfe3648a6050c5d06fdf7032219e3259e7c160e08f1924"
+  },
+  "resources": [
+    {
+      "resource": "Account",
+      "table": "Account",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Account.json",
+      "view": "views/r4/fabric-silver-hds/Account.json",
+      "schemaSha256": "38aeabda9eb378ba35fabe48885bee4d01efe1d6f14cdfb2e4536c4c905f74ff",
+      "creationLogSha256": "0606ec9b35f6f1fce33766e4beb8ec8ea10e70999c0661891754ae4bd01f0dd9"
+    },
+    {
+      "resource": "ActivityDefinition",
+      "table": "ActivityDefinition",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/ActivityDefinition.json",
+      "view": "views/r4/fabric-silver-hds/ActivityDefinition.json",
+      "schemaSha256": "2406c1f232a05598b9b068cd65c4e4d3afcbb4787ab9e8452dc93ca9d0825f44",
+      "creationLogSha256": "5255f530ad09d904d780fff69e1c48e1ec3f676b7c5eb47fd65ace8854f58298"
+    },
+    {
+      "resource": "AdverseEvent",
+      "table": "AdverseEvent",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/AdverseEvent.json",
+      "view": "views/r4/fabric-silver-hds/AdverseEvent.json",
+      "schemaSha256": "42d8e7076e771514375db47e7a118398af9eea3c00f1e8296cf8966ab995deed",
+      "creationLogSha256": "f81df8d9dc7fad534bd41f05e314b9d94eb113f0ca8c3be1daac021f30e82c41"
+    },
+    {
+      "resource": "AllergyIntolerance",
+      "table": "AllergyIntolerance",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/AllergyIntolerance.json",
+      "view": "views/r4/fabric-silver-hds/AllergyIntolerance.json",
+      "schemaSha256": "2dfe7b37c72e71c050569aa312c0472d2b437576fda9df578d92532b645380b7",
+      "creationLogSha256": "2151ec0c0bf4f0394ed737661b98d2edd732da07ae9d08ab56cae73e16ba5f17"
+    },
+    {
+      "resource": "Appointment",
+      "table": "Appointment",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Appointment.json",
+      "view": "views/r4/fabric-silver-hds/Appointment.json",
+      "schemaSha256": "b2f330e6e559021902d653adaad1ffa25ac2ca44794b87d3b61d04d6837b82dd",
+      "creationLogSha256": "92e4fc853283dd33a6acd2001fef01990998a2821b32d8e24560cda0ce23204c"
+    },
+    {
+      "resource": "AppointmentResponse",
+      "table": "AppointmentResponse",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/AppointmentResponse.json",
+      "view": "views/r4/fabric-silver-hds/AppointmentResponse.json",
+      "schemaSha256": "89e94977221484612c2ee95a4d3de9ffa5a48994ddf21d8aae924c4fa43614d0",
+      "creationLogSha256": "f1299baba23b8cded3611e91e431b0f043dd26a3a84f7c43de1b032f350cd014"
+    },
+    {
+      "resource": "AuditEvent",
+      "table": "AuditEvent",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/AuditEvent.json",
+      "view": "views/r4/fabric-silver-hds/AuditEvent.json",
+      "schemaSha256": "acfec067310b99776000708d8c3f877accd9aadea94b77e6e8a74db645801c01",
+      "creationLogSha256": "55fcbff5ab0459589c54a21a5e3f63d1307a07ee36c35e6dd54b2fdc050e7be2"
+    },
+    {
+      "resource": "Basic",
+      "table": "Basic",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Basic.json",
+      "view": "views/r4/fabric-silver-hds/Basic.json",
+      "schemaSha256": "d45b19dc3f9abbc7cec26b48557227a90b56f71f4b28070da617be3e68ec1d27",
+      "creationLogSha256": "4f2f8ccad64daa73737502b811b7165aeef6d3f10ddbd316b1c820b274dd94c6"
+    },
+    {
+      "resource": "Binary",
+      "table": "Binary",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Binary.json",
+      "view": "views/r4/fabric-silver-hds/Binary.json",
+      "schemaSha256": "533d288dba1ee86bd1141d12fba5d2f7d53b8f44074ee2c3cfc54e72785b4739",
+      "creationLogSha256": "b15082d7d424457956683a1446a9a62b12b585071c6f676889d5c74d1979c7f3"
+    },
+    {
+      "resource": "BiologicallyDerivedProduct",
+      "table": "BiologicallyDerivedProduct",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/BiologicallyDerivedProduct.json",
+      "view": "views/r4/fabric-silver-hds/BiologicallyDerivedProduct.json",
+      "schemaSha256": "83cc83f5e942ac342bfed145ab024e527e39f6f0070a2c5985b334c928e73797",
+      "creationLogSha256": "96b3a687ebd53c1ac9f70fe531a55dafd9c0930f5aa9d24124cf59130eb50230"
+    },
+    {
+      "resource": "BodyStructure",
+      "table": "BodyStructure",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/BodyStructure.json",
+      "view": "views/r4/fabric-silver-hds/BodyStructure.json",
+      "schemaSha256": "2ef4ee0d0ad7437837276261f7131e69c2cf057fdb184539593773bdc8b7c6f1",
+      "creationLogSha256": "a0e06f8981f184d7cf68da81cb45afdc0b66d8462931ec3e9a825a5e622e5ac3"
+    },
+    {
+      "resource": "Bundle",
+      "table": "Bundle",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Bundle.json",
+      "view": "views/r4/fabric-silver-hds/Bundle.json",
+      "schemaSha256": "e340091dfa2787cb41125c07d72f4ed799ea73d60ffd243531c7bc4ab8d7118d",
+      "creationLogSha256": "d3134a7613a4171d13d4cbe5407276d74792faf86a255236027f2c897139dee8"
+    },
+    {
+      "resource": "CapabilityStatement",
+      "table": "CapabilityStatement",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/CapabilityStatement.json",
+      "view": "views/r4/fabric-silver-hds/CapabilityStatement.json",
+      "schemaSha256": "65075c3019a10270c1e9377891c60c3f7615b10ae5293b6b511605784b53352d",
+      "creationLogSha256": "3df50c493fabb83cab25b20484375af12d292d291d1cb8959a998066af27229d"
+    },
+    {
+      "resource": "CarePlan",
+      "table": "CarePlan",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/CarePlan.json",
+      "view": "views/r4/fabric-silver-hds/CarePlan.json",
+      "schemaSha256": "b3edaf653c2b79819842a927b15dbfc18c09dadf197eef040fdab3e8a5cfd3a4",
+      "creationLogSha256": "4976079f7f9f3eedcb8458108393e74fc2f655be8cbf679d2f8a666a395288a9"
+    },
+    {
+      "resource": "CareTeam",
+      "table": "CareTeam",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/CareTeam.json",
+      "view": "views/r4/fabric-silver-hds/CareTeam.json",
+      "schemaSha256": "a5ac4e904eb50e416fccb1244da61aa36a5676a535f675041baa5db730b05a16",
+      "creationLogSha256": "ec804cf5c5dc7fa8f26bee580444329d66effe5028aec577dfeb4c25b2762a35"
+    },
+    {
+      "resource": "CatalogEntry",
+      "table": "CatalogEntry",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/CatalogEntry.json",
+      "view": "views/r4/fabric-silver-hds/CatalogEntry.json",
+      "schemaSha256": "15181c0931a89e30d64c8cd296e42269fa1d4a485344729ed26b10071d244608",
+      "creationLogSha256": "e2b792585b06dc4478d76036395ccb75d7b1b7346da5126f2c813da0288f48f2"
+    },
+    {
+      "resource": "ChargeItem",
+      "table": "ChargeItem",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/ChargeItem.json",
+      "view": "views/r4/fabric-silver-hds/ChargeItem.json",
+      "schemaSha256": "09b194db1685df275e6330ecb35f561058a6f0f4c533d0e6a32d0adf70766406",
+      "creationLogSha256": "a1587917749147f6f3e09ee8bbb96aaffe1c5c868c990b802ad07bee1e1da768"
+    },
+    {
+      "resource": "ChargeItemDefinition",
+      "table": "ChargeItemDefinition",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/ChargeItemDefinition.json",
+      "view": "views/r4/fabric-silver-hds/ChargeItemDefinition.json",
+      "schemaSha256": "6d03246fdd170ee7cb4efaa252883daf322a90e4d7cd739f66a06cf96de710b3",
+      "creationLogSha256": "b37cf0ad38e4b1352ea5803c9b238cd7dead3f975ac40a61ddec0f11be874923"
+    },
+    {
+      "resource": "Claim",
+      "table": "Claim",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Claim.json",
+      "view": "views/r4/fabric-silver-hds/Claim.json",
+      "schemaSha256": "e31c84ff7f13a999636cc2d1a777ef2c36705acc56234ef896ae560094615317",
+      "creationLogSha256": "82d7abecf02fae2750b8b07ae4046c252044bd05cfafdf87a4db7596e3c98042"
+    },
+    {
+      "resource": "ClaimResponse",
+      "table": "ClaimResponse",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/ClaimResponse.json",
+      "view": "views/r4/fabric-silver-hds/ClaimResponse.json",
+      "schemaSha256": "1037cee2698aaf89461d119e9fdeb3e760dc0a4f857f13c225a3d823c3a48bad",
+      "creationLogSha256": "4f0ef85181e02313aed44614ebdec627579b94665544dfc6c6810de412155b17"
+    },
+    {
+      "resource": "ClinicalImpression",
+      "table": "ClinicalImpression",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/ClinicalImpression.json",
+      "view": "views/r4/fabric-silver-hds/ClinicalImpression.json",
+      "schemaSha256": "16b6ede8e5d81f958443d3ade60947131635ed24c278d74497a3e897efd82aed",
+      "creationLogSha256": "54390bdce5a07a59b4e2b4c0d6e484763e89e87a0db36a36184bd3215ccd076b"
+    },
+    {
+      "resource": "CodeSystem",
+      "table": "CodeSystem",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/CodeSystem.json",
+      "view": "views/r4/fabric-silver-hds/CodeSystem.json",
+      "schemaSha256": "b25d786fadea4bf02e4ae43286e6bc12cf461ec22146b2df88957bcd7e005749",
+      "creationLogSha256": "01fdbbd3efd973470cdfc0283292618ea8761b27141741d3b7b69ddf741bdd77"
+    },
+    {
+      "resource": "Communication",
+      "table": "Communication",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Communication.json",
+      "view": "views/r4/fabric-silver-hds/Communication.json",
+      "schemaSha256": "0d243bd75332f76351e398327b1a2430ef674f2d3b185f0cd6731bc4a920679c",
+      "creationLogSha256": "a10a51e31fc5ae3936d143a385fa71a9d9b7be62c08e7c1af0e0edf90a0cd411"
+    },
+    {
+      "resource": "CommunicationRequest",
+      "table": "CommunicationRequest",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/CommunicationRequest.json",
+      "view": "views/r4/fabric-silver-hds/CommunicationRequest.json",
+      "schemaSha256": "071dabaf26ffeddaaf1cf8ca68c4fa0c4044f03a6ca3c2a2b11999ee2288072d",
+      "creationLogSha256": "945a25d2409d9ef51a2771aac90d598cfddd8e8b968948d037e0d0bb0015a23c"
+    },
+    {
+      "resource": "CompartmentDefinition",
+      "table": "CompartmentDefinition",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/CompartmentDefinition.json",
+      "view": "views/r4/fabric-silver-hds/CompartmentDefinition.json",
+      "schemaSha256": "50597a22437820362ba57ed2ab03c1d540f4b7dfc7bb8073d7c3b73a0fe11db7",
+      "creationLogSha256": "2dd3154a6f3719b3bb00e3c306021a11d94665c307c9e62b1d4fc128212c76eb"
+    },
+    {
+      "resource": "Composition",
+      "table": "Composition",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Composition.json",
+      "view": "views/r4/fabric-silver-hds/Composition.json",
+      "schemaSha256": "5d6fabf6224ee8bbcd421f570d0f832847aa3c8085674bd828be6450439e8521",
+      "creationLogSha256": "4a5d1ea87c3f82cd6a4121ba152554f73de9fe40b2998bbb6e2ec985de03c60d"
+    },
+    {
+      "resource": "ConceptMap",
+      "table": "ConceptMap",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/ConceptMap.json",
+      "view": "views/r4/fabric-silver-hds/ConceptMap.json",
+      "schemaSha256": "cfb4dc08c9feca094ba9ae0b04e133f99b34cdcb390aefd6c46ad8c1ad6b252a",
+      "creationLogSha256": "4877c06a112dbc82583e9d8de2b61d870bae48aca64680fe02d956e94e4f2e5f"
+    },
+    {
+      "resource": "Condition",
+      "table": "Condition",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Condition.json",
+      "view": "views/r4/fabric-silver-hds/Condition.json",
+      "schemaSha256": "6023c018ff3e8a80a39167cc01aac61a7db2f8294f2549648ada46496c1c1c4a",
+      "creationLogSha256": "32ff532c32469112fec82847bd0368b0bfc27af72c90f71814ac9ad0ad978e24"
+    },
+    {
+      "resource": "Consent",
+      "table": "Consent",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Consent.json",
+      "view": "views/r4/fabric-silver-hds/Consent.json",
+      "schemaSha256": "4f98e1f22f09f0e2974f589a09333ad273a767b0a482bdd767e21a1100a74087",
+      "creationLogSha256": "c5050cd9680defce8920e32527802181f9905b4aab30d02fc276762b2472e1ac"
+    },
+    {
+      "resource": "Contract",
+      "table": "Contract",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Contract.json",
+      "view": "views/r4/fabric-silver-hds/Contract.json",
+      "schemaSha256": "ec0a8cbc38492ddc92e1c66a4ccec74d7ce9d8a7fa02f9bb587b18dc8582c4de",
+      "creationLogSha256": "dffa93fff8fdcea84b63252e769551ac4e3718905cd09a383290dc9f714b7f26"
+    },
+    {
+      "resource": "Coverage",
+      "table": "Coverage",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Coverage.json",
+      "view": "views/r4/fabric-silver-hds/Coverage.json",
+      "schemaSha256": "cb2dea490f2eff169b621def4c9fa91d82ab5056a0d5a2ffcb51a3253abc780f",
+      "creationLogSha256": "30ef4df991604b3cccc18f00358b1a6cc68c311daeb84982bd70aa94985155dd"
+    },
+    {
+      "resource": "CoverageEligibilityRequest",
+      "table": "CoverageEligibilityRequest",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/CoverageEligibilityRequest.json",
+      "view": "views/r4/fabric-silver-hds/CoverageEligibilityRequest.json",
+      "schemaSha256": "a044b938c2f300e48a886286180b93879a38eaac688356e2d02da70e8e8d5863",
+      "creationLogSha256": "595336291de065f3123384b7ad835b45993f781b7671af8a972b171d86926502"
+    },
+    {
+      "resource": "CoverageEligibilityResponse",
+      "table": "CoverageEligibilityResponse",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/CoverageEligibilityResponse.json",
+      "view": "views/r4/fabric-silver-hds/CoverageEligibilityResponse.json",
+      "schemaSha256": "022db3d6b023ac504ebbd1a3cb9b9a134c6f07b04eefb6c476edb95ab9ea4008",
+      "creationLogSha256": "411b6bb691e1e8157d9e9fa68e90e9b78f83cfd79c26d49af393e40c7c582ac7"
+    },
+    {
+      "resource": "DetectedIssue",
+      "table": "DetectedIssue",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/DetectedIssue.json",
+      "view": "views/r4/fabric-silver-hds/DetectedIssue.json",
+      "schemaSha256": "2930abaad4fecf043cd17f9475e4012ab5f32e2b4abf8240de4858eb166b08bd",
+      "creationLogSha256": "c5f7875746cbc77214f228c48e019a364c0206065a1737d021f5534ba8a7b853"
+    },
+    {
+      "resource": "Device",
+      "table": "Device",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Device.json",
+      "view": "views/r4/fabric-silver-hds/Device.json",
+      "schemaSha256": "31149b79b6eb06e6e3505f24d76fd8d887fa01d7f0065e7a82c88922805e90e2",
+      "creationLogSha256": "ffefd81396395107dcb6a1dc0cfd42345cd62d1589b7d37041ab3539e546b560"
+    },
+    {
+      "resource": "DeviceDefinition",
+      "table": "DeviceDefinition",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/DeviceDefinition.json",
+      "view": "views/r4/fabric-silver-hds/DeviceDefinition.json",
+      "schemaSha256": "caaba9c6c03fda594f8c10b668d2a1fbbb7fefdd8d025694d3c0cbb01dbd9935",
+      "creationLogSha256": "ece903801777128a459bec71c7e429a43e9bc22d59a8632dfdb65fa5156cd800"
+    },
+    {
+      "resource": "DeviceMetric",
+      "table": "DeviceMetric",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/DeviceMetric.json",
+      "view": "views/r4/fabric-silver-hds/DeviceMetric.json",
+      "schemaSha256": "2e31d41bd5b49402fe95bca53bb52453e33312221a8702e06bf23009ca54654a",
+      "creationLogSha256": "34f5caf600a9b071fe51cec29b838b5f483fd980d1dac22b96b0052f7a5a71c6"
+    },
+    {
+      "resource": "DeviceRequest",
+      "table": "DeviceRequest",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/DeviceRequest.json",
+      "view": "views/r4/fabric-silver-hds/DeviceRequest.json",
+      "schemaSha256": "dedf59fdd2a7dc2127abab5cc622f96259a6d697ce41f4d16c10844f2efc0fe1",
+      "creationLogSha256": "402d61cfa2c7245ecdcb22b4c08a33c108effed63067eeb60fe81f69d7a00ebb"
+    },
+    {
+      "resource": "DeviceUseStatement",
+      "table": "DeviceUseStatement",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/DeviceUseStatement.json",
+      "view": "views/r4/fabric-silver-hds/DeviceUseStatement.json",
+      "schemaSha256": "b7eed46f6ee2780335633ac2d081c02d17e9b8d121097ff903ceb6001f93915f",
+      "creationLogSha256": "9d8749066a7ef880d2ad976cca39d9ccc25cf611108fef9ca611b9c723bb6072"
+    },
+    {
+      "resource": "DiagnosticReport",
+      "table": "DiagnosticReport",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/DiagnosticReport.json",
+      "view": "views/r4/fabric-silver-hds/DiagnosticReport.json",
+      "schemaSha256": "2559dde9bc481fa73c0091716adeff2f4d411061db2772fe6becac191b3dcbda",
+      "creationLogSha256": "79c827ad62a8731477a136b2f59228cd9868d034013461d44ad17d308be71139"
+    },
+    {
+      "resource": "DocumentManifest",
+      "table": "DocumentManifest",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/DocumentManifest.json",
+      "view": "views/r4/fabric-silver-hds/DocumentManifest.json",
+      "schemaSha256": "e685eca90bf50f08b360c80816191c079db75d836678364aae163e85ab6af467",
+      "creationLogSha256": "ff1daa05628f22fe84b0ab9b999532fdbdeddf7f3a50efd5fa60a4104dcd7a9d"
+    },
+    {
+      "resource": "DocumentReference",
+      "table": "DocumentReference",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/DocumentReference.json",
+      "view": "views/r4/fabric-silver-hds/DocumentReference.json",
+      "schemaSha256": "baf19a7943d0e63ba699273b3ce2731b952edd8dd787c8743ed044d7c2bdc5b0",
+      "creationLogSha256": "f7f3447ff68fc8f3396c4ce646a475e1e4c404632001f50ec2e12c270c3185f4"
+    },
+    {
+      "resource": "EffectEvidenceSynthesis",
+      "table": "EffectEvidenceSynthesis",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/EffectEvidenceSynthesis.json",
+      "view": "views/r4/fabric-silver-hds/EffectEvidenceSynthesis.json",
+      "schemaSha256": "4513b21f35b16a798ed516f266d8b6e42bfa7c32bc5bdc674b1d0bcd135cc58a",
+      "creationLogSha256": "932661003c745d944c9a373318a447d51db6030c1e8e5a14a9041bafbe5e7f32"
+    },
+    {
+      "resource": "Encounter",
+      "table": "Encounter",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Encounter.json",
+      "view": "views/r4/fabric-silver-hds/Encounter.json",
+      "schemaSha256": "cee1682027c8fb2a53bd39235371fc123ba66282680ee9d489a39c0fa86ba91f",
+      "creationLogSha256": "cdc6971cccf3ae3586a179205ac7cb45735f615393827f9655ddf3435358f8d0"
+    },
+    {
+      "resource": "Endpoint",
+      "table": "Endpoint",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Endpoint.json",
+      "view": "views/r4/fabric-silver-hds/Endpoint.json",
+      "schemaSha256": "e33c35b90bf876f0bdf90697153ff7eae9f1fa25ee42f54639d375c68b6369c2",
+      "creationLogSha256": "77e17d466f113f66889636cb6345ca8314b49dfa55df6d9d50ecff169ace4dcc"
+    },
+    {
+      "resource": "EnrollmentRequest",
+      "table": "EnrollmentRequest",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/EnrollmentRequest.json",
+      "view": "views/r4/fabric-silver-hds/EnrollmentRequest.json",
+      "schemaSha256": "c4568ffcde56d6e414f5b66350cb43bffc9c720ad84d6b8bf7b375a57da06741",
+      "creationLogSha256": "ae14165e48c2e6a500cabdfcc7d1185e51937a66604a10726b8d1d4aab8e784d"
+    },
+    {
+      "resource": "EnrollmentResponse",
+      "table": "EnrollmentResponse",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/EnrollmentResponse.json",
+      "view": "views/r4/fabric-silver-hds/EnrollmentResponse.json",
+      "schemaSha256": "faa94419ef0142c56aea7659e87f1fe4d19068e5c5d686ab2dc27787970a030d",
+      "creationLogSha256": "842721dc0b7611a01089849171682c38e04a6efadd75eaf8a67b7f0767cf4659"
+    },
+    {
+      "resource": "EpisodeOfCare",
+      "table": "EpisodeOfCare",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/EpisodeOfCare.json",
+      "view": "views/r4/fabric-silver-hds/EpisodeOfCare.json",
+      "schemaSha256": "5ff32146429bc60301e991c9a1d45cfeb3002586b1f6678d6343a983ab96cb90",
+      "creationLogSha256": "c981dc409f450c12370ecf057a89ae7161a895765f99642b2b6e4fffd59cdacc"
+    },
+    {
+      "resource": "EventDefinition",
+      "table": "EventDefinition",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/EventDefinition.json",
+      "view": "views/r4/fabric-silver-hds/EventDefinition.json",
+      "schemaSha256": "2b8e30219282e4f268315c808b564567ef93b4d38a4d5dac0f634fd6f8d4dc62",
+      "creationLogSha256": "6b7a311ccdd9610b7d6f9791a797ba714cb8717c6592c83f1f0bc0f6b4985eea"
+    },
+    {
+      "resource": "Evidence",
+      "table": "Evidence",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Evidence.json",
+      "view": "views/r4/fabric-silver-hds/Evidence.json",
+      "schemaSha256": "d6883ea21bc8f0a55481606267f7b474ea3f48b20ee2c453b1f6abdc477982e3",
+      "creationLogSha256": "541fd0a8b07be634ca407936ceffbd25b3ed78b80a81bbb672e9419925f815b5"
+    },
+    {
+      "resource": "EvidenceVariable",
+      "table": "EvidenceVariable",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/EvidenceVariable.json",
+      "view": "views/r4/fabric-silver-hds/EvidenceVariable.json",
+      "schemaSha256": "7af416f6dab51dbeb0e258ea472841ab076d5154b13133ec7978373f3819e2a4",
+      "creationLogSha256": "8cb36fa46c69989e7166ee403aefc37869f63b27d51e126bac34d90862c87b65"
+    },
+    {
+      "resource": "ExampleScenario",
+      "table": "ExampleScenario",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/ExampleScenario.json",
+      "view": "views/r4/fabric-silver-hds/ExampleScenario.json",
+      "schemaSha256": "1ea4e3e3e20c7435516464835dd48a6b4eec8964c22e20d8d8f88db49466390a",
+      "creationLogSha256": "363d2a4b789c446be7f63de87b13f96f0ca956646be14834e0691eeb88dc7ae8"
+    },
+    {
+      "resource": "ExplanationOfBenefit",
+      "table": "ExplanationOfBenefit",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/ExplanationOfBenefit.json",
+      "view": "views/r4/fabric-silver-hds/ExplanationOfBenefit.json",
+      "schemaSha256": "7489076051cdce7d51252fcbc47bacc49a3fcd1824c9bf9fed1bd011446b3da9",
+      "creationLogSha256": "aa45c292fd781f7c2f360284eb1de9abc891544ae00c01c47865d1712d18e0bd"
+    },
+    {
+      "resource": "FamilyMemberHistory",
+      "table": "FamilyMemberHistory",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/FamilyMemberHistory.json",
+      "view": "views/r4/fabric-silver-hds/FamilyMemberHistory.json",
+      "schemaSha256": "2dc08bdf09253b8b729d1fc57ed55e276f87538b173e851d0d20500b517ff248",
+      "creationLogSha256": "119f615201672999a38ae8a4f952753b4b2628ac4b71c4064cf67963b36dc017"
+    },
+    {
+      "resource": "Flag",
+      "table": "Flag",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Flag.json",
+      "view": "views/r4/fabric-silver-hds/Flag.json",
+      "schemaSha256": "1f2d4931046cf931a0a0f262f6e157dbb23fdeaa7ecd97c1adc2b29cc3d4e22d",
+      "creationLogSha256": "910bf02f6f7b6d0f0ac02af1e0a78b18c8b3a8e87eee897ead88aa10b8de2662"
+    },
+    {
+      "resource": "Goal",
+      "table": "Goal",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Goal.json",
+      "view": "views/r4/fabric-silver-hds/Goal.json",
+      "schemaSha256": "886abcb8af0e579df53f05d5a35a92a80812a0ea69b7dbdbd7599b5ab1671797",
+      "creationLogSha256": "b401bc3fc4cf28a2baac7af58f5aea655fedf9990392a6b5a905fe07981d88d1"
+    },
+    {
+      "resource": "GraphDefinition",
+      "table": "GraphDefinition",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/GraphDefinition.json",
+      "view": "views/r4/fabric-silver-hds/GraphDefinition.json",
+      "schemaSha256": "aabffcf655acb32448b5755df06494fbf55721fc8f42da7158cd433479aeb66c",
+      "creationLogSha256": "37cef5c849239b6efcec2557adefe8386dc26e0b4f3242a0d1e8f761ea8634ee"
+    },
+    {
+      "resource": "Group",
+      "table": "Group",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Group.json",
+      "view": "views/r4/fabric-silver-hds/Group.json",
+      "schemaSha256": "04c70dd6e9f75f01badb60a48e4219f8b0b59c18dad2773ea44ac2110010c73d",
+      "creationLogSha256": "3af359819207fc92838147143c1808cb064a877f5429247f28fa39c0a62a5e71"
+    },
+    {
+      "resource": "GuidanceResponse",
+      "table": "GuidanceResponse",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/GuidanceResponse.json",
+      "view": "views/r4/fabric-silver-hds/GuidanceResponse.json",
+      "schemaSha256": "76916a67e2203f7cbe59e716ef409b0afd46e560f8ad437896e1df11663dbb76",
+      "creationLogSha256": "bf7150ca6375f2ba20c74ff4e9b6c6222532fb7f541f3c4c4bc5d1d4d5f2f691"
+    },
+    {
+      "resource": "HealthcareService",
+      "table": "HealthcareService",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/HealthcareService.json",
+      "view": "views/r4/fabric-silver-hds/HealthcareService.json",
+      "schemaSha256": "937e5e39d36018d8abe606d0c7739b7a4132595aa4e4b3e473a62d13cae9c34f",
+      "creationLogSha256": "88e9cbbd46d570deae71b98307c3acd2a0d2a9094b445cffaccbf7194f5e27b5"
+    },
+    {
+      "resource": "ImagingStudy",
+      "table": "ImagingStudy",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/ImagingStudy.json",
+      "view": "views/r4/fabric-silver-hds/ImagingStudy.json",
+      "schemaSha256": "fc0c3708d6cf9f6f7115b9475957908105af7a069be89c23202e0a45367b7ce5",
+      "creationLogSha256": "e0bb45baf75a69ca2a5a1a042fd49f4179e6018d08f6a4abe40ada01a496330e"
+    },
+    {
+      "resource": "Immunization",
+      "table": "Immunization",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Immunization.json",
+      "view": "views/r4/fabric-silver-hds/Immunization.json",
+      "schemaSha256": "281a6bd51deb427c41de116d6dc1168531f8e2bc71f5e9d86871cc8cce91ef7e",
+      "creationLogSha256": "4a716b84a08a85bab198ee90e4c65388b4c76c1dee5f7ff07d16b1982f64c104"
+    },
+    {
+      "resource": "ImmunizationEvaluation",
+      "table": "ImmunizationEvaluation",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/ImmunizationEvaluation.json",
+      "view": "views/r4/fabric-silver-hds/ImmunizationEvaluation.json",
+      "schemaSha256": "93811a802348bab1995836b3683bcc0ede56fc183d69b5a9536fc61d93c9b00d",
+      "creationLogSha256": "5877d54613fcc33feac179f88c748c422dc8e53db49defa9882356cb620bf34a"
+    },
+    {
+      "resource": "ImmunizationRecommendation",
+      "table": "ImmunizationRecommendation",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/ImmunizationRecommendation.json",
+      "view": "views/r4/fabric-silver-hds/ImmunizationRecommendation.json",
+      "schemaSha256": "cba1d429005692f6c2ed5484a1e104caa5c0c79bb82021f432de913dd15f0386",
+      "creationLogSha256": "15c20934fae318b669779412d25ac99f49c16a8358ff6ed3e79cd14b5e364162"
+    },
+    {
+      "resource": "ImplementationGuide",
+      "table": "ImplementationGuide",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/ImplementationGuide.json",
+      "view": "views/r4/fabric-silver-hds/ImplementationGuide.json",
+      "schemaSha256": "332c67e369b15d4f10da30a18639a9e2292594dafb6aa72d60388f59ad7fc6f4",
+      "creationLogSha256": "ca0437ad8271b6d4268b7ecdc1dbd4d24ac44fb6fa7fb1ac95f9969570a59fab"
+    },
+    {
+      "resource": "InsurancePlan",
+      "table": "InsurancePlan",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/InsurancePlan.json",
+      "view": "views/r4/fabric-silver-hds/InsurancePlan.json",
+      "schemaSha256": "fa0093ccdf128fa9a91c697c4e7310545be19c08fd6ecc4610c14f0264effff1",
+      "creationLogSha256": "3e206d76b80455b24d7beb9e549f096ac7c581cc7ca1869769ab1d84b8287ce0"
+    },
+    {
+      "resource": "Invoice",
+      "table": "Invoice",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Invoice.json",
+      "view": "views/r4/fabric-silver-hds/Invoice.json",
+      "schemaSha256": "bc437390a309b0fa18c09cb08bdea732868c9d13734083ecfb54ed8f1bf41906",
+      "creationLogSha256": "4e9e46992d1176b23c5ac766700d2e693f287ef93396ee9110ff7fe0b65d7668"
+    },
+    {
+      "resource": "Library",
+      "table": "Library",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Library.json",
+      "view": "views/r4/fabric-silver-hds/Library.json",
+      "schemaSha256": "93317346aa5c8620a5b9c0a19d261a32a65c5812e696a8c5643fcc10557c0708",
+      "creationLogSha256": "65dfd2ae78dbde338cd3c384e40258a4a421d14cffc2893760a9a30ec948c500"
+    },
+    {
+      "resource": "Linkage",
+      "table": "Linkage",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Linkage.json",
+      "view": "views/r4/fabric-silver-hds/Linkage.json",
+      "schemaSha256": "f9923fda07956a5c8bb3ea9385a13c17eec8918c3a6cdb13d5ee4540d7ff7f8e",
+      "creationLogSha256": "281b5fe913130addb8dcdf63f3f922f38e4ed750ba9e839ef84d0cfbd3da9c27"
+    },
+    {
+      "resource": "List",
+      "table": "List",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/List.json",
+      "view": "views/r4/fabric-silver-hds/List.json",
+      "schemaSha256": "850bfad67717464caa0b3025bea4bb4071f236d1a2625cd79bddea6d23290e5a",
+      "creationLogSha256": "09c89acc6675e95a7e2f3ea1d475339c23c3cc7b1b3e13d3584d2f6b0aff90b1"
+    },
+    {
+      "resource": "Location",
+      "table": "Location",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Location.json",
+      "view": "views/r4/fabric-silver-hds/Location.json",
+      "schemaSha256": "039ad947b39c84daf2c8500fe54d1335102775491b5bd11605264ccc7b2796b2",
+      "creationLogSha256": "d4fa55cd2d939c3087334d33a10a637afc50032789c8e8e358a413e102ac0992"
+    },
+    {
+      "resource": "Measure",
+      "table": "Measure",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Measure.json",
+      "view": "views/r4/fabric-silver-hds/Measure.json",
+      "schemaSha256": "56eed3d4d1aa1b231c537681db1cf6899ad22c7f7a13b667cfa76ee0f578b252",
+      "creationLogSha256": "eae33aa2a749407de385c5b5ee27655c60cc983642dc60937d1b289ab9046b59"
+    },
+    {
+      "resource": "MeasureReport",
+      "table": "MeasureReport",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/MeasureReport.json",
+      "view": "views/r4/fabric-silver-hds/MeasureReport.json",
+      "schemaSha256": "f3ce21264ea7d8301a3bf025db4b57d2be6a8923a4462262d33b11f6f4ca1a22",
+      "creationLogSha256": "9d92b1da831d7c75387441f7ef1619a5adeb11158fe6946dd3c6bcf54a8b543f"
+    },
+    {
+      "resource": "Media",
+      "table": "Media",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Media.json",
+      "view": "views/r4/fabric-silver-hds/Media.json",
+      "schemaSha256": "47513db12a79f81105559fdd7561f74033a6cbed9b00a3c081ae58542683908d",
+      "creationLogSha256": "eb107f876b176f4f6822ca43ee56d9b01a8926e9e1c2a0d6e8d7b3a946409e76"
+    },
+    {
+      "resource": "Medication",
+      "table": "Medication",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Medication.json",
+      "view": "views/r4/fabric-silver-hds/Medication.json",
+      "schemaSha256": "d1f59a32b6ae16ddf7616649b16a01998bba1050ca803d9f1367ce87f7ee0175",
+      "creationLogSha256": "4e693da5f7bd5127d92fa01be63975fa6d49481389781df32c80bfc3f677ab06"
+    },
+    {
+      "resource": "MedicationAdministration",
+      "table": "MedicationAdministration",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/MedicationAdministration.json",
+      "view": "views/r4/fabric-silver-hds/MedicationAdministration.json",
+      "schemaSha256": "bc5bc4ea5bd5cfc3c707990f82b1e5b449151cde73d88ddb91105df702f35956",
+      "creationLogSha256": "fd170d9cf03b0669deafe9f5cbf3641efd921c213a36d7284b3c9615c127dbd2"
+    },
+    {
+      "resource": "MedicationDispense",
+      "table": "MedicationDispense",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/MedicationDispense.json",
+      "view": "views/r4/fabric-silver-hds/MedicationDispense.json",
+      "schemaSha256": "c82b83b2ba890f2778ecef985e0bdad582e08f58435947ebf1dd8d7ac07714fe",
+      "creationLogSha256": "b250493e1a44ed94ea231585b89f0ef18898963b9e359689bc42689ce6e2cd8f"
+    },
+    {
+      "resource": "MedicationKnowledge",
+      "table": "MedicationKnowledge",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/MedicationKnowledge.json",
+      "view": "views/r4/fabric-silver-hds/MedicationKnowledge.json",
+      "schemaSha256": "308a1bfc348a40bc5d9e32a34e06d247751eb68c10fa4bb9be9794270e80f321",
+      "creationLogSha256": "ef9324d167ccccc78f75461345d8f5e9982a23ac6c283ac72217c71a16ff0e4a"
+    },
+    {
+      "resource": "MedicationRequest",
+      "table": "MedicationRequest",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/MedicationRequest.json",
+      "view": "views/r4/fabric-silver-hds/MedicationRequest.json",
+      "schemaSha256": "44b0adfe46b0c71dedca15466dae4795144ee53d7e0c69643dc17b34809ccef4",
+      "creationLogSha256": "d0ac0246c67faff48c82caf37e18d0410d070177096e6de1397e649c36d0dc8b"
+    },
+    {
+      "resource": "MedicationStatement",
+      "table": "MedicationStatement",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/MedicationStatement.json",
+      "view": "views/r4/fabric-silver-hds/MedicationStatement.json",
+      "schemaSha256": "88fb32642ca5d9d8f7745c593b9cdb9cf793a88e48532dfa052da963e450c14e",
+      "creationLogSha256": "f55f2d6554428ce3dec8e42419a25071e26f536ce47f1baeaa191c688d1bf33c"
+    },
+    {
+      "resource": "MedicinalProduct",
+      "table": "MedicinalProduct",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/MedicinalProduct.json",
+      "view": "views/r4/fabric-silver-hds/MedicinalProduct.json",
+      "schemaSha256": "e29ad5574ca9cb58df7d72e7a23ea8585729fe2cfd56d1f2c7e1900a7628ba81",
+      "creationLogSha256": "38e5b865efae030d6bd6b703cc8ba02fd569cf37c6979c1a47fe061a30da9e0f"
+    },
+    {
+      "resource": "MedicinalProductAuthorization",
+      "table": "MedicinalProductAuthorization",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/MedicinalProductAuthorization.json",
+      "view": "views/r4/fabric-silver-hds/MedicinalProductAuthorization.json",
+      "schemaSha256": "e40997d5de5a3b69b4c5a256036a6a07bb8f31b8c846312b457b68fe5982f8b9",
+      "creationLogSha256": "643209c807a3704099f1e5a76c2cfdeebc9a342bf28eddb5a279630bb9b7729d"
+    },
+    {
+      "resource": "MedicinalProductContraindication",
+      "table": "MedicinalProductContraindiction",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/MedicinalProductContraindication.json",
+      "view": "views/r4/fabric-silver-hds/MedicinalProductContraindication.json",
+      "schemaSha256": "dd3a17df48d50927c0712df248d5057bc3ab98d64941326daf994156c8a4a628",
+      "creationLogSha256": "c86eb29e2dd0e5a646e081c6de74fc5e1dd39c876f2ecd1cce6c6b6d8ee1722c"
+    },
+    {
+      "resource": "MedicinalProductIndication",
+      "table": "MedicinalProductIndictation",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/MedicinalProductIndication.json",
+      "view": "views/r4/fabric-silver-hds/MedicinalProductIndication.json",
+      "schemaSha256": "ad8699f2fb5f36102f6a7f7a8fbb413701e6c2f7eb4b2104a852f4f41ddf7071",
+      "creationLogSha256": "b030048c6abffa5cdc8a7101175621095b3899222a53061f34d6e017964bf54e"
+    },
+    {
+      "resource": "MedicinalProductIngredient",
+      "table": "MedicinalProductIngredient",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/MedicinalProductIngredient.json",
+      "view": "views/r4/fabric-silver-hds/MedicinalProductIngredient.json",
+      "schemaSha256": "cfd7ae95792c55aba26ab4f1cbfe2276db981e9f582c1d1346b1806ae5267ee6",
+      "creationLogSha256": "579760a19cc504e91be9d6aaf3c36c8143eee9ba6cc36a7d6fa60ee37c22de40"
+    },
+    {
+      "resource": "MedicinalProductInteraction",
+      "table": "MedicinalProductInteraction",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/MedicinalProductInteraction.json",
+      "view": "views/r4/fabric-silver-hds/MedicinalProductInteraction.json",
+      "schemaSha256": "884af4f04f09b2dd21b6f3604fc759aa91b9ac2323da3bae3009e7ee01d976a3",
+      "creationLogSha256": "70e18d4ce7e4f5781ae8378fe8642252be32e1c61e5bcfd027c33f7c4c5cff75"
+    },
+    {
+      "resource": "MedicinalProductManufactured",
+      "table": "MedicinalProductManufactured",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/MedicinalProductManufactured.json",
+      "view": "views/r4/fabric-silver-hds/MedicinalProductManufactured.json",
+      "schemaSha256": "68c387b4275cafc72f7b5d22b4d3cf51afcace9c1652a6bc204f359e6e94f316",
+      "creationLogSha256": "58bcf5610da66048c62bb04e913e77e6a6510eebac96219da045b32784fcdaa3"
+    },
+    {
+      "resource": "MedicinalProductPackaged",
+      "table": "MedicinalProductPackaged",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/MedicinalProductPackaged.json",
+      "view": "views/r4/fabric-silver-hds/MedicinalProductPackaged.json",
+      "schemaSha256": "10440832360240222bf227d0c28bf9031a6ab76977eb55ff3d3abf02658afbdb",
+      "creationLogSha256": "424d3dc739431fa7dd96304b2f9040774f1ec1592c0ed3db9a5dc75b802efda9"
+    },
+    {
+      "resource": "MedicinalProductPharmaceutical",
+      "table": "MedicinalProductPharmaceutical",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/MedicinalProductPharmaceutical.json",
+      "view": "views/r4/fabric-silver-hds/MedicinalProductPharmaceutical.json",
+      "schemaSha256": "3ea5d691c87763ca657cf37a20f7b05d1b09026d51ca5ea2c8a5556184becb43",
+      "creationLogSha256": "1e518377a3f538e715fd05459602e00311ab42c71c7a1aac4c1f54ddec10881a"
+    },
+    {
+      "resource": "MedicinalProductUndesirableEffect",
+      "table": "MedicinalProductUndesirableEffect",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/MedicinalProductUndesirableEffect.json",
+      "view": "views/r4/fabric-silver-hds/MedicinalProductUndesirableEffect.json",
+      "schemaSha256": "ef4ad2c23dfef7ce54f841241ef3c6a2ee4cf8bb61cda0fa5b11ed1c376c4db6",
+      "creationLogSha256": "7cacf06406e9af1376fff13ae2f8ca0e19c55bf1d1ba40e19ebec6c160ebb23e"
+    },
+    {
+      "resource": "MessageDefinition",
+      "table": "MessageDefinition",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/MessageDefinition.json",
+      "view": "views/r4/fabric-silver-hds/MessageDefinition.json",
+      "schemaSha256": "3101ddd5dddb198eb25d7c8de55e41b380def114fcff2512262eb0191bf8f8bc",
+      "creationLogSha256": "414c1d804678c7a3cdae49e80dfb6bc533aae2fd175a275f91807c5c0ca956c1"
+    },
+    {
+      "resource": "MessageHeader",
+      "table": "MessageHeader",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/MessageHeader.json",
+      "view": "views/r4/fabric-silver-hds/MessageHeader.json",
+      "schemaSha256": "b5d275c910317b9ae88d9a778235743ad3e75fde149829cb79435bcf69da55f6",
+      "creationLogSha256": "0a70ff54b4614ded5f78bcfae6b8243673ec38c85335968007e50e0e44e8d911"
+    },
+    {
+      "resource": "MolecularSequence",
+      "table": "MolecularSequence",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/MolecularSequence.json",
+      "view": "views/r4/fabric-silver-hds/MolecularSequence.json",
+      "schemaSha256": "22eb0705cb7e9c1511273d86fbfe2244b39b4cfbb9e5134ccda3c3fe79020083",
+      "creationLogSha256": "b86e266d60a51d227fc6f8e7f16aa3dc344680a8490a1e8c5910b3a5e4145c8e"
+    },
+    {
+      "resource": "NamingSystem",
+      "table": "NamingSystem",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/NamingSystem.json",
+      "view": "views/r4/fabric-silver-hds/NamingSystem.json",
+      "schemaSha256": "0878cbfa380d66465f65d062ec7198db2c7547dd6556fe157c41f8aad1333692",
+      "creationLogSha256": "09eb74b2dc022c62bd65a575c5bee2f2278e6312d1f29f7ee22dfd9a59d7ee4f"
+    },
+    {
+      "resource": "NutritionOrder",
+      "table": "NutritionOrder",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/NutritionOrder.json",
+      "view": "views/r4/fabric-silver-hds/NutritionOrder.json",
+      "schemaSha256": "cb42e6ad61e66fb1261ab22ad16b07ffec5c306c57de829f95dcc008df039d9b",
+      "creationLogSha256": "6f16e19ed26ae68ee01d39af1fab4b5581b236830db87560bc23d60d1d14fed6"
+    },
+    {
+      "resource": "Observation",
+      "table": "Observation",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Observation.json",
+      "view": "views/r4/fabric-silver-hds/Observation.json",
+      "schemaSha256": "cedf46756c6c3360cc93716222c8ff40fa218ab465011c7132943a5e8bd0e82f",
+      "creationLogSha256": "27ab57103211c4730de7f6cf5fc42a3fe80a80cc957d469592fb418c03889053"
+    },
+    {
+      "resource": "ObservationDefinition",
+      "table": "ObservationDefinition",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/ObservationDefinition.json",
+      "view": "views/r4/fabric-silver-hds/ObservationDefinition.json",
+      "schemaSha256": "50d91b6b10ea5b443303405933fc238a6ce5f431610e3cfd8c659d80152aa4de",
+      "creationLogSha256": "d53445d034d383bdb3a8f07f1cb2d07227e724c7d9059b6cc0a79af0edd69c51"
+    },
+    {
+      "resource": "OperationDefinition",
+      "table": "OperationDefinition",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/OperationDefinition.json",
+      "view": "views/r4/fabric-silver-hds/OperationDefinition.json",
+      "schemaSha256": "f8b89634c519e924e55503d8cb80d01af4b65c6608ec0f58a515feb8c942b5de",
+      "creationLogSha256": "8ef9c5863e19a44235434d917737a5eee4b2d6a065fa05aef19ef290f841e0d4"
+    },
+    {
+      "resource": "OperationOutcome",
+      "table": "OperationOutcome",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/OperationOutcome.json",
+      "view": "views/r4/fabric-silver-hds/OperationOutcome.json",
+      "schemaSha256": "28f1439f88f5d56d7970b89549c9573311e17c5f0644fb1a5c3c866ddc429420",
+      "creationLogSha256": "7b062255d35cc8108db0634469eedd155528c242bd23c37a190692bdd88d3e7b"
+    },
+    {
+      "resource": "Organization",
+      "table": "Organization",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Organization.json",
+      "view": "views/r4/fabric-silver-hds/Organization.json",
+      "schemaSha256": "d9f744cef0a47dce22e01cbf16c7aa4806754ecb7ba3d4ebe39571c2d3cf2239",
+      "creationLogSha256": "ab58b16e47f08f71346f61f629be6696ba3aa6a121c3748e8b25a3db53b7a58a"
+    },
+    {
+      "resource": "OrganizationAffiliation",
+      "table": "OrganizationAffiliation",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/OrganizationAffiliation.json",
+      "view": "views/r4/fabric-silver-hds/OrganizationAffiliation.json",
+      "schemaSha256": "ad5027f878d7c21ad552d31217a83d96bd1f34d524140360aa273b9167311f03",
+      "creationLogSha256": "86394a24cc35ce6b99f081ed13d50827ee097c37e03506359c99ed4eff2562f7"
+    },
+    {
+      "resource": "Parameters",
+      "table": "Parameters",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Parameters.json",
+      "view": "views/r4/fabric-silver-hds/Parameters.json",
+      "schemaSha256": "b5cab0b520d511e0a6faf3b8453aa3db128585e8930cfd454eca11e45a7b2ba7",
+      "creationLogSha256": "eeaae9cce74e99ae18e81f2ea703b4cea75bdf0ff1c47642c0fe8f07f13615de"
+    },
+    {
+      "resource": "Patient",
+      "table": "Patient",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Patient.json",
+      "view": "views/r4/fabric-silver-hds/Patient.json",
+      "schemaSha256": "b9c4bc459f85b485bf2570526969125e823801700ab1d42d022f69cb69c0c582",
+      "creationLogSha256": "e6ec935809b51789e55ea0754ce6b9ca00094220e1d99e5fb59d7fdd08ad89ed"
+    },
+    {
+      "resource": "PaymentNotice",
+      "table": "PaymentNotice",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/PaymentNotice.json",
+      "view": "views/r4/fabric-silver-hds/PaymentNotice.json",
+      "schemaSha256": "4c15d7edceac6620e4d6e72decb046aa670b4a1db96f36de821b2da8a7830b95",
+      "creationLogSha256": "803cb9299f068f034b0d7857b2742960abcc1f57e21f8db1609b0519049a60be"
+    },
+    {
+      "resource": "PaymentReconciliation",
+      "table": "PaymentReconciliation",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/PaymentReconciliation.json",
+      "view": "views/r4/fabric-silver-hds/PaymentReconciliation.json",
+      "schemaSha256": "80e697c2daa8204c8d043df920ee6c1b63e05e7ff1fcc11d4280ed9f283458c1",
+      "creationLogSha256": "e31e67f4f422561a82693628def06a16380dfd3594174df2aa42e01042f7129a"
+    },
+    {
+      "resource": "Person",
+      "table": "Person",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Person.json",
+      "view": "views/r4/fabric-silver-hds/Person.json",
+      "schemaSha256": "53b671b4bc1b253c71ac7de10a10abe714a73d38e7ad015b1600557e0cdd86ab",
+      "creationLogSha256": "ab8350f038f3f32f138259313747b7ed6eba2dead8d480f4986db1cac326584d"
+    },
+    {
+      "resource": "PlanDefinition",
+      "table": "PlanDefinition",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/PlanDefinition.json",
+      "view": "views/r4/fabric-silver-hds/PlanDefinition.json",
+      "schemaSha256": "4ee2b11db8ec0efa0aa16f3d1dd04834939b46afbd081400b4be8579dd4abb5f",
+      "creationLogSha256": "6cb5246d14f1a44c2eca7ac327fa6bf9d0fee201531c2e57bd8f909b59bff093"
+    },
+    {
+      "resource": "Practitioner",
+      "table": "Practitioner",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Practitioner.json",
+      "view": "views/r4/fabric-silver-hds/Practitioner.json",
+      "schemaSha256": "bb6fe547601b14286388eddc5400c0e33953b23ed7bf728f45a1e1aad49c8ac4",
+      "creationLogSha256": "513049350e53d49131d2374473b59720a80bcc96a25d4b20140192ca67e97bf4"
+    },
+    {
+      "resource": "PractitionerRole",
+      "table": "PractitionerRole",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/PractitionerRole.json",
+      "view": "views/r4/fabric-silver-hds/PractitionerRole.json",
+      "schemaSha256": "1704cc2560bdcc972fd7ea386ebe43dfd882e4812e7a0ded35ddff26e54ba89f",
+      "creationLogSha256": "3096d96c707654128f743038eca87e95482ade851d860e65da3b65935574103b"
+    },
+    {
+      "resource": "Procedure",
+      "table": "Procedure",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Procedure.json",
+      "view": "views/r4/fabric-silver-hds/Procedure.json",
+      "schemaSha256": "6558a09932b33d5391dfaf7885d8a1dfdb8eb6d9c71b643250b83e5f153e21b3",
+      "creationLogSha256": "0427264c944b6ce8653eecfc822b6bb8a38b10d8823e5df2114715f6afde7232"
+    },
+    {
+      "resource": "Provenance",
+      "table": "Provenance",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Provenance.json",
+      "view": "views/r4/fabric-silver-hds/Provenance.json",
+      "schemaSha256": "3b364fb4ed3eff5583f004892e4cbd759e6de9326901b7a0c8a5519f6872e533",
+      "creationLogSha256": "bda3f7f7d30cb91277115d75b51ed9f629bbd210afbf1825ba87fd04100f09af"
+    },
+    {
+      "resource": "Questionnaire",
+      "table": "Questionnaire",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Questionnaire.json",
+      "view": "views/r4/fabric-silver-hds/Questionnaire.json",
+      "schemaSha256": "9b0ac942de7f47bd229448cab115bb755e33b1d34cee258732a8642ba50daf5e",
+      "creationLogSha256": "e7ac3ac1499e1baec32f0f1cd62a8e4ab185812c76f18a878f25455d06b9df23"
+    },
+    {
+      "resource": "QuestionnaireResponse",
+      "table": "QuestionnaireResponse",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/QuestionnaireResponse.json",
+      "view": "views/r4/fabric-silver-hds/QuestionnaireResponse.json",
+      "schemaSha256": "d9565fb1d0e0584bcc19119a5b5811da706754b2c74b8873df92bbfc1b13af35",
+      "creationLogSha256": "0ad39ecb1fa51f69138cf526ebf43e9670e309fed356a3192dec446f987a8f02"
+    },
+    {
+      "resource": "RelatedPerson",
+      "table": "RelatedPerson",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/RelatedPerson.json",
+      "view": "views/r4/fabric-silver-hds/RelatedPerson.json",
+      "schemaSha256": "9fc43c8725e7a6c17c93c059a9ec44061aabd6f28df84fe96338578047626d59",
+      "creationLogSha256": "9e6b1848ec04462d3c236360f3c680ce09a4f88019669de5ab2bbeab941b8088"
+    },
+    {
+      "resource": "RequestGroup",
+      "table": "RequestGroup",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/RequestGroup.json",
+      "view": "views/r4/fabric-silver-hds/RequestGroup.json",
+      "schemaSha256": "d36489c946aa17e2eb7b986d941e267add1cfda7897aaef6bfb0ee69828cabc8",
+      "creationLogSha256": "d54c99f24e6600a73eded726072ced35906cdfce99fec5760bc796cfdb556ed5"
+    },
+    {
+      "resource": "ResearchDefinition",
+      "table": "ResearchDefinition",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/ResearchDefinition.json",
+      "view": "views/r4/fabric-silver-hds/ResearchDefinition.json",
+      "schemaSha256": "805c3260a1c5adc92d5adce68e8c726d21322004330ea9924540709fa6e94bfa",
+      "creationLogSha256": "e63350c422a13a03ac3d8f5eb4a120cdeff45d31f61cddeadeab3c387844db40"
+    },
+    {
+      "resource": "ResearchElementDefinition",
+      "table": "ResearchElementDefinition",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/ResearchElementDefinition.json",
+      "view": "views/r4/fabric-silver-hds/ResearchElementDefinition.json",
+      "schemaSha256": "46eae95570bd59b0c499b96925d365a028b495987e6037cd3e1b2a5d37ffca65",
+      "creationLogSha256": "f2a5e17c894ac6840f0523646781a6bbdcd3b81f48ebe6287dc1234e5ff8f046"
+    },
+    {
+      "resource": "ResearchStudy",
+      "table": "ResearchStudy",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/ResearchStudy.json",
+      "view": "views/r4/fabric-silver-hds/ResearchStudy.json",
+      "schemaSha256": "19770111b99e71c798a07d5fda4eeb6758087a4f12f23f704b7e09111c4d8168",
+      "creationLogSha256": "cb83f6982a4407e54d1738268cc02b359e6454e2f2cc4b1d09f47937c4b7b9cf"
+    },
+    {
+      "resource": "ResearchSubject",
+      "table": "ResearchSubject",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/ResearchSubject.json",
+      "view": "views/r4/fabric-silver-hds/ResearchSubject.json",
+      "schemaSha256": "0597260bac3090ccdb10e51397d592d039deda147ce97df7b69c67f7180cfa07",
+      "creationLogSha256": "20efd8df63cb6c9840845539ab1c987c2d6bb7a41cb9565733e739ac9680d048"
+    },
+    {
+      "resource": "RiskAssessment",
+      "table": "RiskAssessment",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/RiskAssessment.json",
+      "view": "views/r4/fabric-silver-hds/RiskAssessment.json",
+      "schemaSha256": "27c45e5128cba7cea117d87e07bbcb3e2343b26d17a2e3dacc55dc85a7452022",
+      "creationLogSha256": "37132c504f5a53d6b953239a9fecf3a56795183cb399dfcf2305e46f364fe11b"
+    },
+    {
+      "resource": "RiskEvidenceSynthesis",
+      "table": "RiskEvidenceSynthesis",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/RiskEvidenceSynthesis.json",
+      "view": "views/r4/fabric-silver-hds/RiskEvidenceSynthesis.json",
+      "schemaSha256": "92333830560e957d9d21bf78cdd82d52fdb9301bd64ca0b6469b704e958f0589",
+      "creationLogSha256": "af74a840ab7a1a35f88518f9012f5cb60da69d816140f957fb095e43fda3ccf8"
+    },
+    {
+      "resource": "Schedule",
+      "table": "Schedule",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Schedule.json",
+      "view": "views/r4/fabric-silver-hds/Schedule.json",
+      "schemaSha256": "443901ee8827b79612406e5b360a3358e348b2b2f4d814e1b140d1f81d021a9d",
+      "creationLogSha256": "2c422bd33b74819636301468d706c50045272497c2b841a3598455970956894e"
+    },
+    {
+      "resource": "SearchParameter",
+      "table": "SearchParameter",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/SearchParameter.json",
+      "view": "views/r4/fabric-silver-hds/SearchParameter.json",
+      "schemaSha256": "afc5775516ca72a7d265ade7dda119df60a3fa31aa7787eb4db04e5a9522066e",
+      "creationLogSha256": "53083a6f901fe8069a4bb5d979b6e8ac50e89fa9ef53f1e2bb5e4137e0d432fa"
+    },
+    {
+      "resource": "ServiceRequest",
+      "table": "ServiceRequest",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/ServiceRequest.json",
+      "view": "views/r4/fabric-silver-hds/ServiceRequest.json",
+      "schemaSha256": "a62959bc99d3037a381e8da92c21cd8a73d5c35e78998b6696c77a25db2f6f8b",
+      "creationLogSha256": "b560a512c352022e04712e098d0add795f03ca6399201966b67b64558a563a8e"
+    },
+    {
+      "resource": "Slot",
+      "table": "Slot",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Slot.json",
+      "view": "views/r4/fabric-silver-hds/Slot.json",
+      "schemaSha256": "ca3603447f1b7afe1e69fe8baa60fb80d57d86ba773404a935b94fcb8f349e41",
+      "creationLogSha256": "59e3a60cc4a8568888d6b884f7b03bcd451f91c974dd7db936ad3614fb3af056"
+    },
+    {
+      "resource": "Specimen",
+      "table": "Specimen",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Specimen.json",
+      "view": "views/r4/fabric-silver-hds/Specimen.json",
+      "schemaSha256": "dc4d8e54ab59ca2f6d288ec69519a87b2fd5b93b16b76d9bb8f6961321898fee",
+      "creationLogSha256": "8123c360294264f3b38e3cba3e2249dd4a176bf60c373f935644783de0ac3173"
+    },
+    {
+      "resource": "SpecimenDefinition",
+      "table": "SpecimenDefinition",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/SpecimenDefinition.json",
+      "view": "views/r4/fabric-silver-hds/SpecimenDefinition.json",
+      "schemaSha256": "fc2cdd04060757bd5320fb28706fc842a20e2532128fe4112f7db4a70ae62fce",
+      "creationLogSha256": "31647338f1c6d194a73dbd938630bd77a0aa0dd6d50fbbdf4c212630575a078b"
+    },
+    {
+      "resource": "StructureDefinition",
+      "table": "StructureDefinition",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/StructureDefinition.json",
+      "view": "views/r4/fabric-silver-hds/StructureDefinition.json",
+      "schemaSha256": "f44df444900689fedc413abbefad6e95236a93f6fb6130b7d2afb398783dca16",
+      "creationLogSha256": "fc28830a9916bb5f736f3311cdeb3882b371e250e2a130a8511cb0691a9e624a"
+    },
+    {
+      "resource": "StructureMap",
+      "table": "StructureMap",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/StructureMap.json",
+      "view": "views/r4/fabric-silver-hds/StructureMap.json",
+      "schemaSha256": "bd8855460cf3020f662d23f6d3b49f3f12fa605c1f06cda22711a8feaf7cfa37",
+      "creationLogSha256": "112b7e53fa0af0968421c99db8c1f2fd961a62b6fa76a2ab60e1431b9728c0d8"
+    },
+    {
+      "resource": "Subscription",
+      "table": "Subscription",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Subscription.json",
+      "view": "views/r4/fabric-silver-hds/Subscription.json",
+      "schemaSha256": "fa443c53b2ad6da8084f6f48667e8c222ea1213aea99788889fff42499f08337",
+      "creationLogSha256": "002e1edcdc928e7906dc6fd7632855b2aa3f61fcfa39364c590a19be49da7143"
+    },
+    {
+      "resource": "Substance",
+      "table": "Substance",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Substance.json",
+      "view": "views/r4/fabric-silver-hds/Substance.json",
+      "schemaSha256": "c8ef0b198cdbf30d3fe7003e6d5bd777d22ac6c64f31959e36a3386b683ade97",
+      "creationLogSha256": "a012d18dc78b3ef3c5250e0d915888b2966bcbcf3ec1742825f4de219951e692"
+    },
+    {
+      "resource": "SubstanceNucleicAcid",
+      "table": "SubstanceNucleicAcid",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/SubstanceNucleicAcid.json",
+      "view": "views/r4/fabric-silver-hds/SubstanceNucleicAcid.json",
+      "schemaSha256": "4fed23b21689ab6644a2aa670a2461105f787a49689ce5f14ca6da0cfbcc4816",
+      "creationLogSha256": "c70a5beb970696315b8021bd38c54dfa810960c587ddf4969a39365f3b72cdb8"
+    },
+    {
+      "resource": "SubstancePolymer",
+      "table": "SubstancePolymer",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/SubstancePolymer.json",
+      "view": "views/r4/fabric-silver-hds/SubstancePolymer.json",
+      "schemaSha256": "8c4509beb44e3ea24c062be5dc547a39713ce40b2d97095a797969b022f7b7f1",
+      "creationLogSha256": "2a7f4330d251695fc8d8a8392b6b62ed667bc65a177b024ed7ee840139c852fa"
+    },
+    {
+      "resource": "SubstanceProtein",
+      "table": "SubstanceProtein",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/SubstanceProtein.json",
+      "view": "views/r4/fabric-silver-hds/SubstanceProtein.json",
+      "schemaSha256": "4ec0fbd26b463cb988a429e14d23a1efc821a7ad65ba51cbe23a4f0fd8d2d2dc",
+      "creationLogSha256": "8b6efef131ca7590577e0da24b58dc570bf0a7681a2b2f8b9460e6d0d3ce82df"
+    },
+    {
+      "resource": "SubstanceReferenceInformation",
+      "table": "SubstanceReferenceInformation",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/SubstanceReferenceInformation.json",
+      "view": "views/r4/fabric-silver-hds/SubstanceReferenceInformation.json",
+      "schemaSha256": "b5799d244b46e51781659151908edf4cddd9dfca9b803c8e07e50cd22f2a9004",
+      "creationLogSha256": "2e739204ed816c52112aab2631ef4425223bc27e741f154ae7d2e3bfc72ce12e"
+    },
+    {
+      "resource": "SubstanceSourceMaterial",
+      "table": "SubstanceSourceMaterial",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/SubstanceSourceMaterial.json",
+      "view": "views/r4/fabric-silver-hds/SubstanceSourceMaterial.json",
+      "schemaSha256": "49d7180eafe7d3b332ae46e0de5cf5c8cab0fdf03a1275fe78cd7d4dfac2dbc1",
+      "creationLogSha256": "4edc811219769e5396206c50e97396984bcbf32ddf91c48984343e7a62605b0a"
+    },
+    {
+      "resource": "SubstanceSpecification",
+      "table": "SubstanceSpecification",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/SubstanceSpecification.json",
+      "view": "views/r4/fabric-silver-hds/SubstanceSpecification.json",
+      "schemaSha256": "70860ceac1ac143aa9ae44eaf6ee5fcee139f0de4fdfbc25f7a0c873116e2fad",
+      "creationLogSha256": "9ae57d77d579d58861bd5f443b8fabbcfec13c83672e36b6fb26caa576df5f74"
+    },
+    {
+      "resource": "SupplyDelivery",
+      "table": "SupplyDelivery",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/SupplyDelivery.json",
+      "view": "views/r4/fabric-silver-hds/SupplyDelivery.json",
+      "schemaSha256": "f979124179194126219eb3ca7f5f97542ded217c5da0c24f8fd8bb03f5829343",
+      "creationLogSha256": "c98abe11d59d879dcbb9f0a564028f520607e07fbc4858f840a2151f5a9719db"
+    },
+    {
+      "resource": "SupplyRequest",
+      "table": "SupplyRequest",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/SupplyRequest.json",
+      "view": "views/r4/fabric-silver-hds/SupplyRequest.json",
+      "schemaSha256": "daf701c79e0f1660cb481728af3f042903ae27512a03f7852962beb5007d639a",
+      "creationLogSha256": "676edfec15c1a28028b818465a26c83445ac52db1015ff21191ad6a1ee6420f0"
+    },
+    {
+      "resource": "Task",
+      "table": "Task",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/Task.json",
+      "view": "views/r4/fabric-silver-hds/Task.json",
+      "schemaSha256": "671138b3472e76f2ef2cc835a4ac43c0005a899c9932b83a3bd79ff6d2426045",
+      "creationLogSha256": "3ae7cd73574f7734bdb6b12ae6b240a48e4f59a51e1a79536d2280fed148fe58"
+    },
+    {
+      "resource": "TerminologyCapabilities",
+      "table": "TerminologyCapabilities",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/TerminologyCapabilities.json",
+      "view": "views/r4/fabric-silver-hds/TerminologyCapabilities.json",
+      "schemaSha256": "ae2ecdcafd0c6a9d589929cfa24496267eaaeb26c039bba372dd3e254fb61b3f",
+      "creationLogSha256": "9399928a5bb193f4502377747ff85100dca66e66b5b3b0c0de0735454392dfad"
+    },
+    {
+      "resource": "TestReport",
+      "table": "TestReport",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/TestReport.json",
+      "view": "views/r4/fabric-silver-hds/TestReport.json",
+      "schemaSha256": "827b1ac2d48c858eb4bec43cd2e13f96249ea8fcda8ae3110d54d3bc2ed35c7e",
+      "creationLogSha256": "5e118df66d1e42619272ab0ce0f13eda0f4b67d62fd77fdfa3556a6518d25153"
+    },
+    {
+      "resource": "TestScript",
+      "table": "TestScript",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/TestScript.json",
+      "view": "views/r4/fabric-silver-hds/TestScript.json",
+      "schemaSha256": "a3e021bc6bcfc5cf214be538b21ceec9c3c5f8e0ac9a04f15828a9d7a7d9edf3",
+      "creationLogSha256": "c9c23098d7da92ae781213227ebb3be900404eb8f393cf1d0b5f47928bcfd61e"
+    },
+    {
+      "resource": "ValueSet",
+      "table": "ValueSet",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/ValueSet.json",
+      "view": "views/r4/fabric-silver-hds/ValueSet.json",
+      "schemaSha256": "2a6e1d6c8259e5a0d07db40dc031d95f7f52224468d39cfd84f346982ee10506",
+      "creationLogSha256": "ae56ec96a75d9d90aa6bee26a5a2964a15ae85beb6d235930261e0a45a65c2f0"
+    },
+    {
+      "resource": "VerificationResult",
+      "table": "VerificationResult",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/VerificationResult.json",
+      "view": "views/r4/fabric-silver-hds/VerificationResult.json",
+      "schemaSha256": "34898de914f9671666123b6020b15cafc884ff3fe8310d1d55c42add082fee5b",
+      "creationLogSha256": "68ca66607d0307cb90ec6f0aff3ccfa692a2caf1be82fffd027e8548328c6ad8"
+    },
+    {
+      "resource": "VisionPrescription",
+      "table": "VisionPrescription",
+      "contract": "contracts/fabric-hds/1.4.0/r4/resources/VisionPrescription.json",
+      "view": "views/r4/fabric-silver-hds/VisionPrescription.json",
+      "schemaSha256": "06d26591be60787f8ab720dd0d256ccff1dd6e4d90102963994bbe3c17cbec6e",
+      "creationLogSha256": "8cf834309a34764c9277aacba2cd9b0246849fa3da14bfebffe87d20aec53170"
+    }
+  ]
+}

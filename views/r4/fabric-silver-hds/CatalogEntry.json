@@ -1,0 +1,134 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "catalogentry_hds_projection",
+  "status": "draft",
+  "resource": "CatalogEntry",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "type",
+          "path": "type",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "orderable",
+          "path": "orderable",
+          "type": "boolean"
+        },
+        {
+          "name": "referencedItem",
+          "path": "referencedItem",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "additionalIdentifier",
+          "path": "additionalIdentifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "classification",
+          "path": "classification",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "validityPeriod",
+          "path": "validityPeriod",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "validTo",
+          "path": "validTo",
+          "type": "string"
+        },
+        {
+          "name": "lastUpdated",
+          "path": "lastUpdated",
+          "type": "string"
+        },
+        {
+          "name": "additionalCharacteristic",
+          "path": "additionalCharacteristic",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "additionalClassification",
+          "path": "additionalClassification",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "relatedEntry",
+          "path": "relatedEntry",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

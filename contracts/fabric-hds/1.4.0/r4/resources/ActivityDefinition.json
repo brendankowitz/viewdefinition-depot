@@ -1,0 +1,2255 @@
+{
+  "contractFormatVersion": "1",
+  "fhirVersion": "4.0.1",
+  "hdsVersion": "1.4.0",
+  "resource": "ActivityDefinition",
+  "table": "ActivityDefinition",
+  "deployment": {
+    "schemaSha256": "2406c1f232a05598b9b068cd65c4e4d3afcbb4787ab9e8452dc93ca9d0825f44",
+    "schemaStringSha256": "2f481e997f03679b1f2bc7ddc22bce657b5d6b5837aff89263697c1533968e62",
+    "fields": [
+      [
+        "msftModifiedDatetime",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "resourceType",
+        true,
+        "string"
+      ],
+      [
+        "id",
+        true,
+        "string"
+      ],
+      [
+        "extension",
+        true,
+        "string"
+      ],
+      [
+        "meta",
+        true,
+        "@143e6da9ca880a1d1ce8fadd32e9f99ffdb31552988fe9357c07ca6cca9e8598"
+      ],
+      [
+        "implicitRules",
+        true,
+        "string"
+      ],
+      [
+        "language",
+        true,
+        "string"
+      ],
+      [
+        "text",
+        true,
+        "@50e85895ae8ef1cbf352c1af7615c7a73a79317a4cdd6fae2a1a7d7867378f37"
+      ],
+      [
+        "contained",
+        true,
+        "@bf858f0d5548b8d080ea47117c2694bb5e8a2f3fd293eb15c7a5506b70accf6b"
+      ],
+      [
+        "url",
+        true,
+        "string"
+      ],
+      [
+        "identifier",
+        true,
+        "@43addfa6565aaf3a5cc43af77a4247279f369e563ac80601408301ff8da009f5"
+      ],
+      [
+        "version",
+        true,
+        "string"
+      ],
+      [
+        "name",
+        true,
+        "string"
+      ],
+      [
+        "title",
+        true,
+        "string"
+      ],
+      [
+        "subtitle",
+        true,
+        "string"
+      ],
+      [
+        "status",
+        true,
+        "string"
+      ],
+      [
+        "experimental",
+        true,
+        "bool"
+      ],
+      [
+        "subjectCodeableConcept",
+        true,
+        "@1db4e29d5405e2f93fd73ab2b661ad10c8a34274fbe993675a290d17782d7c64"
+      ],
+      [
+        "subjectReference",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "date",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "publisher",
+        true,
+        "string"
+      ],
+      [
+        "contact",
+        true,
+        "@0791d8e362439e89b752e8249b7fe80edbb93b96f7842e76d1112a3522a0a9b7"
+      ],
+      [
+        "description",
+        true,
+        "string"
+      ],
+      [
+        "useContext",
+        true,
+        "@9065f59412b6d8a9e749d7587e5c9e35d30642aa7dba0beb1c0965bf0e4f481a"
+      ],
+      [
+        "jurisdiction",
+        true,
+        "@6938d053d6409e74b2ba2f2edc7a84a3e9f5beb559aa056ddbf7cb45d94592d9"
+      ],
+      [
+        "purpose",
+        true,
+        "string"
+      ],
+      [
+        "usage",
+        true,
+        "string"
+      ],
+      [
+        "copyright",
+        true,
+        "string"
+      ],
+      [
+        "approvalDate",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "lastReviewDate",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "effectivePeriod",
+        true,
+        "@424489ee89a7ad617107999d9849854f367796dd0c362df3135246236ce1b196"
+      ],
+      [
+        "topic",
+        true,
+        "@6938d053d6409e74b2ba2f2edc7a84a3e9f5beb559aa056ddbf7cb45d94592d9"
+      ],
+      [
+        "author",
+        true,
+        "@0791d8e362439e89b752e8249b7fe80edbb93b96f7842e76d1112a3522a0a9b7"
+      ],
+      [
+        "editor",
+        true,
+        "@0791d8e362439e89b752e8249b7fe80edbb93b96f7842e76d1112a3522a0a9b7"
+      ],
+      [
+        "reviewer",
+        true,
+        "@0791d8e362439e89b752e8249b7fe80edbb93b96f7842e76d1112a3522a0a9b7"
+      ],
+      [
+        "endorser",
+        true,
+        "@0791d8e362439e89b752e8249b7fe80edbb93b96f7842e76d1112a3522a0a9b7"
+      ],
+      [
+        "relatedArtifact",
+        true,
+        "@9d20f4382e7f3d89f8b902f8fe0b3a110d66a4e08db9f649f9880a80b4b01d03"
+      ],
+      [
+        "library",
+        true,
+        "@bf858f0d5548b8d080ea47117c2694bb5e8a2f3fd293eb15c7a5506b70accf6b"
+      ],
+      [
+        "kind",
+        true,
+        "string"
+      ],
+      [
+        "profile",
+        true,
+        "string"
+      ],
+      [
+        "code",
+        true,
+        "@1db4e29d5405e2f93fd73ab2b661ad10c8a34274fbe993675a290d17782d7c64"
+      ],
+      [
+        "intent",
+        true,
+        "string"
+      ],
+      [
+        "priority",
+        true,
+        "string"
+      ],
+      [
+        "doNotPerform",
+        true,
+        "bool"
+      ],
+      [
+        "timingTiming",
+        true,
+        "@7d2b8102bd7ca8b526b93a60cfb3c8f68da88cf75618804a5adafcd9e6338f30"
+      ],
+      [
+        "timingDateTime",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "timingAge",
+        true,
+        "@1ca284dae6a2419fd68c2c015d423c631b82ac2d5ef821acaf0a18090cc0914b"
+      ],
+      [
+        "timingPeriod",
+        true,
+        "@424489ee89a7ad617107999d9849854f367796dd0c362df3135246236ce1b196"
+      ],
+      [
+        "timingRange",
+        true,
+        "@fe6f6cd5b21c107afd987903a14aef784f1bc9f4a877889ab514fb721801f316"
+      ],
+      [
+        "timingDuration",
+        true,
+        "@1ca284dae6a2419fd68c2c015d423c631b82ac2d5ef821acaf0a18090cc0914b"
+      ],
+      [
+        "location",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "participant",
+        true,
+        "@f4e3bfad43b35cc4ca6b6c29ebefe82d1e749556cbad07c5d3dbe3ee6c95e316"
+      ],
+      [
+        "productReference",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "productCodeableConcept",
+        true,
+        "@1db4e29d5405e2f93fd73ab2b661ad10c8a34274fbe993675a290d17782d7c64"
+      ],
+      [
+        "quantity",
+        true,
+        "@1ca284dae6a2419fd68c2c015d423c631b82ac2d5ef821acaf0a18090cc0914b"
+      ],
+      [
+        "dosage",
+        true,
+        "@97f282c839234598338d62da33bfd01e6a840acc789848cd4f9aac8fc4426dd3"
+      ],
+      [
+        "bodySite",
+        true,
+        "@6938d053d6409e74b2ba2f2edc7a84a3e9f5beb559aa056ddbf7cb45d94592d9"
+      ],
+      [
+        "specimenRequirement",
+        true,
+        "@ca02e152cc687985fe91998487afb5e8fbd2fe92d50fa19ab8179a79dbb79317"
+      ],
+      [
+        "observationRequirement",
+        true,
+        "@ca02e152cc687985fe91998487afb5e8fbd2fe92d50fa19ab8179a79dbb79317"
+      ],
+      [
+        "observationResultRequirement",
+        true,
+        "@ca02e152cc687985fe91998487afb5e8fbd2fe92d50fa19ab8179a79dbb79317"
+      ],
+      [
+        "transform",
+        true,
+        "string"
+      ],
+      [
+        "dynamicValue",
+        true,
+        "@154033ca507793dc277f028b77edd213891f77b7977aa5effb2b602d075b0d3e"
+      ],
+      [
+        "msftSourceSystem",
+        true,
+        "string"
+      ],
+      [
+        "meta_lastUpdated",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "meta_lastUpdatedOrig",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "identifierOrig",
+        true,
+        "@2a1242fc9d47b24256b3e26abc24e80d8a8af3608883e46c7ca54911a18b49cd"
+      ],
+      [
+        "idOrig",
+        true,
+        "string"
+      ],
+      [
+        "dateOrig",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "approvalDateOrig",
+        true,
+        "date32[day]"
+      ],
+      [
+        "lastReviewDateOrig",
+        true,
+        "date32[day]"
+      ],
+      [
+        "timingDateTimeOrig",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "meta_string",
+        true,
+        "string"
+      ],
+      [
+        "text_string",
+        true,
+        "string"
+      ],
+      [
+        "contained_string",
+        true,
+        "string"
+      ],
+      [
+        "identifier_string",
+        true,
+        "string"
+      ],
+      [
+        "subjectCodeableConcept_string",
+        true,
+        "string"
+      ],
+      [
+        "subjectReference_string",
+        true,
+        "string"
+      ],
+      [
+        "contact_string",
+        true,
+        "string"
+      ],
+      [
+        "useContext_string",
+        true,
+        "string"
+      ],
+      [
+        "jurisdiction_string",
+        true,
+        "string"
+      ],
+      [
+        "effectivePeriod_string",
+        true,
+        "string"
+      ],
+      [
+        "topic_string",
+        true,
+        "string"
+      ],
+      [
+        "author_string",
+        true,
+        "string"
+      ],
+      [
+        "editor_string",
+        true,
+        "string"
+      ],
+      [
+        "reviewer_string",
+        true,
+        "string"
+      ],
+      [
+        "endorser_string",
+        true,
+        "string"
+      ],
+      [
+        "relatedArtifact_string",
+        true,
+        "string"
+      ],
+      [
+        "library_string",
+        true,
+        "string"
+      ],
+      [
+        "code_string",
+        true,
+        "string"
+      ],
+      [
+        "timingTiming_string",
+        true,
+        "string"
+      ],
+      [
+        "timingAge_string",
+        true,
+        "string"
+      ],
+      [
+        "timingPeriod_string",
+        true,
+        "string"
+      ],
+      [
+        "timingRange_string",
+        true,
+        "string"
+      ],
+      [
+        "timingDuration_string",
+        true,
+        "string"
+      ],
+      [
+        "location_string",
+        true,
+        "string"
+      ],
+      [
+        "participant_string",
+        true,
+        "string"
+      ],
+      [
+        "productReference_string",
+        true,
+        "string"
+      ],
+      [
+        "productCodeableConcept_string",
+        true,
+        "string"
+      ],
+      [
+        "quantity_string",
+        true,
+        "string"
+      ],
+      [
+        "dosage_string",
+        true,
+        "string"
+      ],
+      [
+        "bodySite_string",
+        true,
+        "string"
+      ],
+      [
+        "specimenRequirement_string",
+        true,
+        "string"
+      ],
+      [
+        "observationRequirement_string",
+        true,
+        "string"
+      ],
+      [
+        "observationResultRequirement_string",
+        true,
+        "string"
+      ],
+      [
+        "dynamicValue_string",
+        true,
+        "string"
+      ],
+      [
+        "identifierOrig_string",
+        true,
+        "string"
+      ],
+      [
+        "msftCreatedDatetime",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "msftFilePath",
+        true,
+        "string"
+      ]
+    ]
+  },
+  "provenance": {
+    "release": "https://www.microsoft.com/en-us/download/details.aspx?id=108754",
+    "creationLogPath": "hds-build-artifacts/healthcare-tables/1.4.0/Silver/ActivityDefinition/_delta_log/00000000000000000000.json",
+    "creationLogSha256": "5255f530ad09d904d780fff69e1c48e1ec3f676b7c5eb47fd65ace8854f58298",
+    "sourceArtifactSha256": {
+      "hds-build-artifacts/healthcare-configuration/1.4.0/_internal/fhir4/schema/silver/activitydefinition.avsc": "01475a1d3ff21a9a0432176f9704fd5cd6e0bd638656804cb394ceb3b2155b92"
+    },
+    "fhirStructureDefinition": {
+      "canonical": "http://hl7.org/fhir/StructureDefinition/ActivityDefinition",
+      "packagePath": "package/StructureDefinition-ActivityDefinition.json",
+      "sha256": "72630b8807a4b0e132f3bb396a9c5fc563f543cb16b9b51ef2b8784ec0f30cbd"
+    }
+  },
+  "projection": {
+    "view": "views/r4/fabric-silver-hds/ActivityDefinition.json",
+    "columns": [
+      {
+        "name": "id",
+        "path": "id",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.id",
+        "fhirType": "string",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "id",
+          "idOrig"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "meta",
+        "path": "meta",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.meta",
+        "fhirType": "Meta",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "meta",
+          "meta_lastUpdated",
+          "meta_lastUpdatedOrig",
+          "meta_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "implicitRules",
+        "path": "implicitRules",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.implicitRules",
+        "fhirType": "uri",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "implicitRules"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "language",
+        "path": "language",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.language",
+        "fhirType": "code",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "language"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "text",
+        "path": "text",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.text",
+        "fhirType": "Narrative",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "text",
+          "text_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "contained",
+        "path": "contained",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.contained",
+        "fhirType": "Resource",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "contained",
+          "contained_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "extension",
+        "path": "extension",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.extension",
+        "fhirType": "Extension",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "extension"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "modifierExtension",
+        "path": "modifierExtension",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.modifierExtension",
+        "fhirType": "Extension",
+        "min": 0,
+        "max": "*",
+        "targetFields": [],
+        "mappingKind": "unsupported",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "url",
+        "path": "url",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.url",
+        "fhirType": "uri",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "url"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "identifier",
+        "path": "identifier",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.identifier",
+        "fhirType": "Identifier",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "identifier",
+          "identifierOrig",
+          "identifier_string",
+          "identifierOrig_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "version",
+        "path": "version",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.version",
+        "fhirType": "string",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "version"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "name",
+        "path": "name",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.name",
+        "fhirType": "string",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "name"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "title",
+        "path": "title",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.title",
+        "fhirType": "string",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "title"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "subtitle",
+        "path": "subtitle",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.subtitle",
+        "fhirType": "string",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "subtitle"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "status",
+        "path": "status",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.status",
+        "fhirType": "code",
+        "min": 1,
+        "max": "1",
+        "targetFields": [
+          "status"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "experimental",
+        "path": "experimental",
+        "type": "boolean",
+        "fhirElement": "ActivityDefinition.experimental",
+        "fhirType": "boolean",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "experimental"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "subjectCodeableConcept",
+        "path": "subject.ofType(CodeableConcept)",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.subject[x]",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "subjectCodeableConcept",
+          "subjectCodeableConcept_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "subjectReference",
+        "path": "subject.ofType(Reference)",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.subject[x]",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "subjectReference",
+          "subjectReference_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "date",
+        "path": "date",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.date",
+        "fhirType": "dateTime",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "date",
+          "dateOrig"
+        ],
+        "mappingKind": "derived",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "publisher",
+        "path": "publisher",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.publisher",
+        "fhirType": "string",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "publisher"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "contact",
+        "path": "contact",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.contact",
+        "fhirType": "ContactDetail",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "contact",
+          "contact_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "description",
+        "path": "description",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.description",
+        "fhirType": "markdown",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "description"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "useContext",
+        "path": "useContext",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.useContext",
+        "fhirType": "UsageContext",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "useContext",
+          "useContext_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "jurisdiction",
+        "path": "jurisdiction",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.jurisdiction",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "jurisdiction",
+          "jurisdiction_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "purpose",
+        "path": "purpose",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.purpose",
+        "fhirType": "markdown",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "purpose"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "usage",
+        "path": "usage",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.usage",
+        "fhirType": "string",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "usage"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "copyright",
+        "path": "copyright",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.copyright",
+        "fhirType": "markdown",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "copyright"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "approvalDate",
+        "path": "approvalDate",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.approvalDate",
+        "fhirType": "date",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "approvalDate",
+          "approvalDateOrig"
+        ],
+        "mappingKind": "derived",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "lastReviewDate",
+        "path": "lastReviewDate",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.lastReviewDate",
+        "fhirType": "date",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "lastReviewDate",
+          "lastReviewDateOrig"
+        ],
+        "mappingKind": "derived",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "effectivePeriod",
+        "path": "effectivePeriod",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.effectivePeriod",
+        "fhirType": "Period",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "effectivePeriod",
+          "effectivePeriod_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "topic",
+        "path": "topic",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.topic",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "topic",
+          "topic_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "author",
+        "path": "author",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.author",
+        "fhirType": "ContactDetail",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "author",
+          "author_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "editor",
+        "path": "editor",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.editor",
+        "fhirType": "ContactDetail",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "editor",
+          "editor_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "reviewer",
+        "path": "reviewer",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.reviewer",
+        "fhirType": "ContactDetail",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "reviewer",
+          "reviewer_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "endorser",
+        "path": "endorser",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.endorser",
+        "fhirType": "ContactDetail",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "endorser",
+          "endorser_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "relatedArtifact",
+        "path": "relatedArtifact",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.relatedArtifact",
+        "fhirType": "RelatedArtifact",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "relatedArtifact",
+          "relatedArtifact_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "library",
+        "path": "library",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.library",
+        "fhirType": "canonical",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "library",
+          "library_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "kind",
+        "path": "kind",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.kind",
+        "fhirType": "code",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "kind"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "profile",
+        "path": "profile",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.profile",
+        "fhirType": "canonical",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "profile"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "code",
+        "path": "code",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.code",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "code",
+          "code_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "intent",
+        "path": "intent",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.intent",
+        "fhirType": "code",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "intent"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "priority",
+        "path": "priority",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.priority",
+        "fhirType": "code",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "priority"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "doNotPerform",
+        "path": "doNotPerform",
+        "type": "boolean",
+        "fhirElement": "ActivityDefinition.doNotPerform",
+        "fhirType": "boolean",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "doNotPerform"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "timingTiming",
+        "path": "timing.ofType(Timing)",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.timing[x]",
+        "fhirType": "Timing",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "timingTiming",
+          "timingTiming_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "timingDateTime",
+        "path": "timing.ofType(dateTime)",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.timing[x]",
+        "fhirType": "dateTime",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "timingDateTime",
+          "timingDateTimeOrig"
+        ],
+        "mappingKind": "derived",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "timingAge",
+        "path": "timing.ofType(Age)",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.timing[x]",
+        "fhirType": "Age",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "timingAge",
+          "timingAge_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "timingPeriod",
+        "path": "timing.ofType(Period)",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.timing[x]",
+        "fhirType": "Period",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "timingPeriod",
+          "timingPeriod_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "timingRange",
+        "path": "timing.ofType(Range)",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.timing[x]",
+        "fhirType": "Range",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "timingRange",
+          "timingRange_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "timingDuration",
+        "path": "timing.ofType(Duration)",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.timing[x]",
+        "fhirType": "Duration",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "timingDuration",
+          "timingDuration_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "location",
+        "path": "location",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.location",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "location",
+          "location_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "participant",
+        "path": "participant",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.participant",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "participant",
+          "participant_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "productReference",
+        "path": "product.ofType(Reference)",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.product[x]",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "productReference",
+          "productReference_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "productCodeableConcept",
+        "path": "product.ofType(CodeableConcept)",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.product[x]",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "productCodeableConcept",
+          "productCodeableConcept_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "quantity",
+        "path": "quantity",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.quantity",
+        "fhirType": "Quantity",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "quantity",
+          "quantity_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "dosage",
+        "path": "dosage",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.dosage",
+        "fhirType": "Dosage",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "dosage",
+          "dosage_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "bodySite",
+        "path": "bodySite",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.bodySite",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "bodySite",
+          "bodySite_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "specimenRequirement",
+        "path": "specimenRequirement",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.specimenRequirement",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "specimenRequirement",
+          "specimenRequirement_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "observationRequirement",
+        "path": "observationRequirement",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.observationRequirement",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "observationRequirement",
+          "observationRequirement_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "observationResultRequirement",
+        "path": "observationResultRequirement",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.observationResultRequirement",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "observationResultRequirement",
+          "observationResultRequirement_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "transform",
+        "path": "transform",
+        "type": "string",
+        "fhirElement": "ActivityDefinition.transform",
+        "fhirType": "canonical",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "transform"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "dynamicValue",
+        "path": "dynamicValue",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ActivityDefinition.dynamicValue",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "dynamicValue",
+          "dynamicValue_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      }
+    ],
+    "targetMappings": [
+      {
+        "field": "msftModifiedDatetime",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "resourceType",
+        "mappingKind": "derived",
+        "reason": "resource-discriminator",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "id",
+        "mappingKind": "derived",
+        "reason": "normalized-identity",
+        "evidence": "source-derived",
+        "sourceColumn": "id"
+      },
+      {
+        "field": "extension",
+        "mappingKind": "serialized",
+        "reason": "complex-to-text",
+        "evidence": "source-derived",
+        "sourceColumn": "extension"
+      },
+      {
+        "field": "meta",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "implicitRules",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "implicitRules"
+      },
+      {
+        "field": "language",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "language"
+      },
+      {
+        "field": "text",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "text"
+      },
+      {
+        "field": "contained",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "contained"
+      },
+      {
+        "field": "url",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "url"
+      },
+      {
+        "field": "identifier",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "identifier"
+      },
+      {
+        "field": "version",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "version"
+      },
+      {
+        "field": "name",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "name"
+      },
+      {
+        "field": "title",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "title"
+      },
+      {
+        "field": "subtitle",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "subtitle"
+      },
+      {
+        "field": "status",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "status"
+      },
+      {
+        "field": "experimental",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "experimental"
+      },
+      {
+        "field": "subjectCodeableConcept",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "subjectCodeableConcept"
+      },
+      {
+        "field": "subjectReference",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "subjectReference"
+      },
+      {
+        "field": "date",
+        "mappingKind": "derived",
+        "reason": "temporal-conversion",
+        "evidence": "source-derived",
+        "sourceColumn": "date"
+      },
+      {
+        "field": "publisher",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "publisher"
+      },
+      {
+        "field": "contact",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "contact"
+      },
+      {
+        "field": "description",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "description"
+      },
+      {
+        "field": "useContext",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "useContext"
+      },
+      {
+        "field": "jurisdiction",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "jurisdiction"
+      },
+      {
+        "field": "purpose",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "purpose"
+      },
+      {
+        "field": "usage",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "usage"
+      },
+      {
+        "field": "copyright",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "copyright"
+      },
+      {
+        "field": "approvalDate",
+        "mappingKind": "derived",
+        "reason": "temporal-conversion",
+        "evidence": "source-derived",
+        "sourceColumn": "approvalDate"
+      },
+      {
+        "field": "lastReviewDate",
+        "mappingKind": "derived",
+        "reason": "temporal-conversion",
+        "evidence": "source-derived",
+        "sourceColumn": "lastReviewDate"
+      },
+      {
+        "field": "effectivePeriod",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "effectivePeriod"
+      },
+      {
+        "field": "topic",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "topic"
+      },
+      {
+        "field": "author",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "author"
+      },
+      {
+        "field": "editor",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "editor"
+      },
+      {
+        "field": "reviewer",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "reviewer"
+      },
+      {
+        "field": "endorser",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "endorser"
+      },
+      {
+        "field": "relatedArtifact",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "relatedArtifact"
+      },
+      {
+        "field": "library",
+        "mappingKind": "derived",
+        "reason": "collection-to-array",
+        "evidence": "source-derived",
+        "sourceColumn": "library"
+      },
+      {
+        "field": "kind",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "kind"
+      },
+      {
+        "field": "profile",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "profile"
+      },
+      {
+        "field": "code",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "code"
+      },
+      {
+        "field": "intent",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "intent"
+      },
+      {
+        "field": "priority",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "priority"
+      },
+      {
+        "field": "doNotPerform",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "doNotPerform"
+      },
+      {
+        "field": "timingTiming",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "timingTiming"
+      },
+      {
+        "field": "timingDateTime",
+        "mappingKind": "derived",
+        "reason": "temporal-conversion",
+        "evidence": "source-derived",
+        "sourceColumn": "timingDateTime"
+      },
+      {
+        "field": "timingAge",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "timingAge"
+      },
+      {
+        "field": "timingPeriod",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "timingPeriod"
+      },
+      {
+        "field": "timingRange",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "timingRange"
+      },
+      {
+        "field": "timingDuration",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "timingDuration"
+      },
+      {
+        "field": "location",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "location"
+      },
+      {
+        "field": "participant",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "participant"
+      },
+      {
+        "field": "productReference",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "productReference"
+      },
+      {
+        "field": "productCodeableConcept",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "productCodeableConcept"
+      },
+      {
+        "field": "quantity",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "quantity"
+      },
+      {
+        "field": "dosage",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "dosage"
+      },
+      {
+        "field": "bodySite",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "bodySite"
+      },
+      {
+        "field": "specimenRequirement",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "specimenRequirement"
+      },
+      {
+        "field": "observationRequirement",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "observationRequirement"
+      },
+      {
+        "field": "observationResultRequirement",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "observationResultRequirement"
+      },
+      {
+        "field": "transform",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "transform"
+      },
+      {
+        "field": "dynamicValue",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "dynamicValue"
+      },
+      {
+        "field": "msftSourceSystem",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "meta_lastUpdated",
+        "mappingKind": "derived",
+        "reason": "nested-temporal-value",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "meta_lastUpdatedOrig",
+        "mappingKind": "derived",
+        "reason": "nested-temporal-value",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "identifierOrig",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "identifier"
+      },
+      {
+        "field": "idOrig",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "id"
+      },
+      {
+        "field": "dateOrig",
+        "mappingKind": "derived",
+        "reason": "temporal-conversion",
+        "evidence": "source-derived",
+        "sourceColumn": "date"
+      },
+      {
+        "field": "approvalDateOrig",
+        "mappingKind": "derived",
+        "reason": "temporal-conversion",
+        "evidence": "source-derived",
+        "sourceColumn": "approvalDate"
+      },
+      {
+        "field": "lastReviewDateOrig",
+        "mappingKind": "derived",
+        "reason": "temporal-conversion",
+        "evidence": "source-derived",
+        "sourceColumn": "lastReviewDate"
+      },
+      {
+        "field": "timingDateTimeOrig",
+        "mappingKind": "derived",
+        "reason": "temporal-conversion",
+        "evidence": "source-derived",
+        "sourceColumn": "timingDateTime"
+      },
+      {
+        "field": "meta_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "text_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "text"
+      },
+      {
+        "field": "contained_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "contained"
+      },
+      {
+        "field": "identifier_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "identifier"
+      },
+      {
+        "field": "subjectCodeableConcept_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "subjectCodeableConcept"
+      },
+      {
+        "field": "subjectReference_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "subjectReference"
+      },
+      {
+        "field": "contact_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "contact"
+      },
+      {
+        "field": "useContext_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "useContext"
+      },
+      {
+        "field": "jurisdiction_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "jurisdiction"
+      },
+      {
+        "field": "effectivePeriod_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "effectivePeriod"
+      },
+      {
+        "field": "topic_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "topic"
+      },
+      {
+        "field": "author_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "author"
+      },
+      {
+        "field": "editor_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "editor"
+      },
+      {
+        "field": "reviewer_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "reviewer"
+      },
+      {
+        "field": "endorser_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "endorser"
+      },
+      {
+        "field": "relatedArtifact_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "relatedArtifact"
+      },
+      {
+        "field": "library_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "library"
+      },
+      {
+        "field": "code_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "code"
+      },
+      {
+        "field": "timingTiming_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "timingTiming"
+      },
+      {
+        "field": "timingAge_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "timingAge"
+      },
+      {
+        "field": "timingPeriod_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "timingPeriod"
+      },
+      {
+        "field": "timingRange_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "timingRange"
+      },
+      {
+        "field": "timingDuration_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "timingDuration"
+      },
+      {
+        "field": "location_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "location"
+      },
+      {
+        "field": "participant_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "participant"
+      },
+      {
+        "field": "productReference_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "productReference"
+      },
+      {
+        "field": "productCodeableConcept_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "productCodeableConcept"
+      },
+      {
+        "field": "quantity_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "quantity"
+      },
+      {
+        "field": "dosage_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "dosage"
+      },
+      {
+        "field": "bodySite_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "bodySite"
+      },
+      {
+        "field": "specimenRequirement_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "specimenRequirement"
+      },
+      {
+        "field": "observationRequirement_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "observationRequirement"
+      },
+      {
+        "field": "observationResultRequirement_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "observationResultRequirement"
+      },
+      {
+        "field": "dynamicValue_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "dynamicValue"
+      },
+      {
+        "field": "identifierOrig_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "identifier"
+      },
+      {
+        "field": "msftCreatedDatetime",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "msftFilePath",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      }
+    ]
+  }
+}

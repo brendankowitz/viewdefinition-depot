@@ -1,0 +1,205 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "structuredefinition_hds_projection",
+  "status": "draft",
+  "resource": "StructureDefinition",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "url",
+          "path": "url",
+          "type": "string"
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "version",
+          "path": "version",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "path": "name",
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "path": "title",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "experimental",
+          "path": "experimental",
+          "type": "boolean"
+        },
+        {
+          "name": "date",
+          "path": "date",
+          "type": "string"
+        },
+        {
+          "name": "publisher",
+          "path": "publisher",
+          "type": "string"
+        },
+        {
+          "name": "contact",
+          "path": "contact",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "description",
+          "path": "description",
+          "type": "string"
+        },
+        {
+          "name": "useContext",
+          "path": "useContext",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "jurisdiction",
+          "path": "jurisdiction",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "purpose",
+          "path": "purpose",
+          "type": "string"
+        },
+        {
+          "name": "copyright",
+          "path": "copyright",
+          "type": "string"
+        },
+        {
+          "name": "keyword",
+          "path": "keyword",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "fhirVersion",
+          "path": "fhirVersion",
+          "type": "string"
+        },
+        {
+          "name": "mapping",
+          "path": "mapping",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "kind",
+          "path": "kind",
+          "type": "string"
+        },
+        {
+          "name": "abstract",
+          "path": "abstract",
+          "type": "boolean"
+        },
+        {
+          "name": "context",
+          "path": "context",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contextInvariant",
+          "path": "contextInvariant",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "type",
+          "path": "type",
+          "type": "string"
+        },
+        {
+          "name": "baseDefinition",
+          "path": "baseDefinition",
+          "type": "string"
+        },
+        {
+          "name": "derivation",
+          "path": "derivation",
+          "type": "string"
+        },
+        {
+          "name": "snapshot",
+          "path": "snapshot",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "differential",
+          "path": "differential",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1797 @@
+{
+  "contractFormatVersion": "1",
+  "fhirVersion": "4.0.1",
+  "hdsVersion": "1.4.0",
+  "resource": "Observation",
+  "table": "Observation",
+  "deployment": {
+    "schemaSha256": "cedf46756c6c3360cc93716222c8ff40fa218ab465011c7132943a5e8bd0e82f",
+    "schemaStringSha256": "0c472478715c0fdca0f1b3666d8bf3dedaa4db9e24198de81f9ac03592fe875c",
+    "fields": [
+      [
+        "msftModifiedDatetime",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "id",
+        true,
+        "string"
+      ],
+      [
+        "resourceType",
+        true,
+        "string"
+      ],
+      [
+        "msftSourceSystem",
+        true,
+        "string"
+      ],
+      [
+        "msftFilePath",
+        true,
+        "string"
+      ],
+      [
+        "extension",
+        true,
+        "string"
+      ],
+      [
+        "meta",
+        true,
+        "@143e6da9ca880a1d1ce8fadd32e9f99ffdb31552988fe9357c07ca6cca9e8598"
+      ],
+      [
+        "implicitRules",
+        true,
+        "string"
+      ],
+      [
+        "language",
+        true,
+        "string"
+      ],
+      [
+        "text",
+        true,
+        "@50e85895ae8ef1cbf352c1af7615c7a73a79317a4cdd6fae2a1a7d7867378f37"
+      ],
+      [
+        "contained",
+        true,
+        "@bf858f0d5548b8d080ea47117c2694bb5e8a2f3fd293eb15c7a5506b70accf6b"
+      ],
+      [
+        "identifier",
+        true,
+        "@43addfa6565aaf3a5cc43af77a4247279f369e563ac80601408301ff8da009f5"
+      ],
+      [
+        "basedOn",
+        true,
+        "@ca02e152cc687985fe91998487afb5e8fbd2fe92d50fa19ab8179a79dbb79317"
+      ],
+      [
+        "partOf",
+        true,
+        "@ca02e152cc687985fe91998487afb5e8fbd2fe92d50fa19ab8179a79dbb79317"
+      ],
+      [
+        "status",
+        true,
+        "string"
+      ],
+      [
+        "category",
+        true,
+        "@6938d053d6409e74b2ba2f2edc7a84a3e9f5beb559aa056ddbf7cb45d94592d9"
+      ],
+      [
+        "code",
+        true,
+        "@1db4e29d5405e2f93fd73ab2b661ad10c8a34274fbe993675a290d17782d7c64"
+      ],
+      [
+        "subject",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "focus",
+        true,
+        "@ca02e152cc687985fe91998487afb5e8fbd2fe92d50fa19ab8179a79dbb79317"
+      ],
+      [
+        "encounter",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "effectiveDateTime",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "effectivePeriod",
+        true,
+        "@424489ee89a7ad617107999d9849854f367796dd0c362df3135246236ce1b196"
+      ],
+      [
+        "effectiveTiming",
+        true,
+        "@7d2b8102bd7ca8b526b93a60cfb3c8f68da88cf75618804a5adafcd9e6338f30"
+      ],
+      [
+        "effectiveInstant",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "issued",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "performer",
+        true,
+        "@ca02e152cc687985fe91998487afb5e8fbd2fe92d50fa19ab8179a79dbb79317"
+      ],
+      [
+        "valueQuantity",
+        true,
+        "@1ca284dae6a2419fd68c2c015d423c631b82ac2d5ef821acaf0a18090cc0914b"
+      ],
+      [
+        "valueCodeableConcept",
+        true,
+        "@1db4e29d5405e2f93fd73ab2b661ad10c8a34274fbe993675a290d17782d7c64"
+      ],
+      [
+        "valueString",
+        true,
+        "string"
+      ],
+      [
+        "valueBoolean",
+        true,
+        "bool"
+      ],
+      [
+        "valueInteger",
+        true,
+        "int32"
+      ],
+      [
+        "valueRange",
+        true,
+        "@fe6f6cd5b21c107afd987903a14aef784f1bc9f4a877889ab514fb721801f316"
+      ],
+      [
+        "valueRatio",
+        true,
+        "@315e5679d5de6c50cb24b45de51d9c8bee2a5d3d5882933ec01972bfa9f8683a"
+      ],
+      [
+        "valueSampledData",
+        true,
+        "@016695981f598e55df39bd3f3155b76a3ce18790e37e4003f0b72d3966793ca4"
+      ],
+      [
+        "valueTime",
+        true,
+        "string"
+      ],
+      [
+        "valueDateTime",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "valuePeriod",
+        true,
+        "@424489ee89a7ad617107999d9849854f367796dd0c362df3135246236ce1b196"
+      ],
+      [
+        "dataAbsentReason",
+        true,
+        "@1db4e29d5405e2f93fd73ab2b661ad10c8a34274fbe993675a290d17782d7c64"
+      ],
+      [
+        "interpretation",
+        true,
+        "@6938d053d6409e74b2ba2f2edc7a84a3e9f5beb559aa056ddbf7cb45d94592d9"
+      ],
+      [
+        "note",
+        true,
+        "@ebc13c5d948f0c5c7431c8ef9dec879b043aacb1c25dd93030a8f8e83df7d08b"
+      ],
+      [
+        "bodySite",
+        true,
+        "@1db4e29d5405e2f93fd73ab2b661ad10c8a34274fbe993675a290d17782d7c64"
+      ],
+      [
+        "method",
+        true,
+        "@1db4e29d5405e2f93fd73ab2b661ad10c8a34274fbe993675a290d17782d7c64"
+      ],
+      [
+        "specimen",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "device",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "referenceRange",
+        true,
+        "@b38a459038e37f60990c13ab9064fce6ac3f859de7146c775a742a7a247b052a"
+      ],
+      [
+        "hasMember",
+        true,
+        "@ca02e152cc687985fe91998487afb5e8fbd2fe92d50fa19ab8179a79dbb79317"
+      ],
+      [
+        "derivedFrom",
+        true,
+        "@ca02e152cc687985fe91998487afb5e8fbd2fe92d50fa19ab8179a79dbb79317"
+      ],
+      [
+        "component",
+        true,
+        "@3096026e97fbcc94b3c86d3ebbc9ffb4f994ea779dc863032a6066b1a8842062"
+      ],
+      [
+        "meta_lastUpdated",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "meta_lastUpdatedOrig",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "identifierOrig",
+        true,
+        "@2a1242fc9d47b24256b3e26abc24e80d8a8af3608883e46c7ca54911a18b49cd"
+      ],
+      [
+        "idOrig",
+        true,
+        "string"
+      ],
+      [
+        "effectiveDateTimeOrig",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "effectiveInstantOrig",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "issuedOrig",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "valueDateTimeOrig",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "meta_string",
+        true,
+        "string"
+      ],
+      [
+        "text_string",
+        true,
+        "string"
+      ],
+      [
+        "contained_string",
+        true,
+        "string"
+      ],
+      [
+        "identifier_string",
+        true,
+        "string"
+      ],
+      [
+        "basedOn_string",
+        true,
+        "string"
+      ],
+      [
+        "partOf_string",
+        true,
+        "string"
+      ],
+      [
+        "category_string",
+        true,
+        "string"
+      ],
+      [
+        "code_string",
+        true,
+        "string"
+      ],
+      [
+        "subject_string",
+        true,
+        "string"
+      ],
+      [
+        "focus_string",
+        true,
+        "string"
+      ],
+      [
+        "encounter_string",
+        true,
+        "string"
+      ],
+      [
+        "effectivePeriod_string",
+        true,
+        "string"
+      ],
+      [
+        "effectiveTiming_string",
+        true,
+        "string"
+      ],
+      [
+        "performer_string",
+        true,
+        "string"
+      ],
+      [
+        "valueQuantity_string",
+        true,
+        "string"
+      ],
+      [
+        "valueCodeableConcept_string",
+        true,
+        "string"
+      ],
+      [
+        "valueRange_string",
+        true,
+        "string"
+      ],
+      [
+        "valueRatio_string",
+        true,
+        "string"
+      ],
+      [
+        "valueSampledData_string",
+        true,
+        "string"
+      ],
+      [
+        "valuePeriod_string",
+        true,
+        "string"
+      ],
+      [
+        "dataAbsentReason_string",
+        true,
+        "string"
+      ],
+      [
+        "interpretation_string",
+        true,
+        "string"
+      ],
+      [
+        "note_string",
+        true,
+        "string"
+      ],
+      [
+        "bodySite_string",
+        true,
+        "string"
+      ],
+      [
+        "method_string",
+        true,
+        "string"
+      ],
+      [
+        "specimen_string",
+        true,
+        "string"
+      ],
+      [
+        "device_string",
+        true,
+        "string"
+      ],
+      [
+        "referenceRange_string",
+        true,
+        "string"
+      ],
+      [
+        "hasMember_string",
+        true,
+        "string"
+      ],
+      [
+        "derivedFrom_string",
+        true,
+        "string"
+      ],
+      [
+        "component_string",
+        true,
+        "string"
+      ],
+      [
+        "identifierOrig_string",
+        true,
+        "string"
+      ],
+      [
+        "msftCreatedDatetime",
+        true,
+        "timestamp[us, tz=UTC]"
+      ]
+    ]
+  },
+  "provenance": {
+    "release": "https://www.microsoft.com/en-us/download/details.aspx?id=108754",
+    "creationLogPath": "hds-build-artifacts/healthcare-tables/1.4.0/Silver/Observation/_delta_log/00000000000000000000.json",
+    "creationLogSha256": "27ab57103211c4730de7f6cf5fc42a3fe80a80cc957d469592fb418c03889053",
+    "sourceArtifactSha256": {
+      "hds-build-artifacts/healthcare-configuration/1.4.0/_internal/fhir4/schema/silver/observation.avsc": "656d6440050c6ed133ab0ac664e77aa8c50f985e4f617109b934ccfcf2a05870"
+    },
+    "fhirStructureDefinition": {
+      "canonical": "http://hl7.org/fhir/StructureDefinition/Observation",
+      "packagePath": "package/StructureDefinition-Observation.json",
+      "sha256": "037032dfe299064946ecfc195e4b8b921f6fef6b31e9dc571131bf7fc138e633"
+    }
+  },
+  "projection": {
+    "view": "views/r4/fabric-silver-hds/Observation.json",
+    "columns": [
+      {
+        "name": "id",
+        "path": "id",
+        "type": "string",
+        "fhirElement": "Observation.id",
+        "fhirType": "string",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "id",
+          "idOrig"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "meta",
+        "path": "meta",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.meta",
+        "fhirType": "Meta",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "meta",
+          "meta_lastUpdated",
+          "meta_lastUpdatedOrig",
+          "meta_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "implicitRules",
+        "path": "implicitRules",
+        "type": "string",
+        "fhirElement": "Observation.implicitRules",
+        "fhirType": "uri",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "implicitRules"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "language",
+        "path": "language",
+        "type": "string",
+        "fhirElement": "Observation.language",
+        "fhirType": "code",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "language"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "text",
+        "path": "text",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.text",
+        "fhirType": "Narrative",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "text",
+          "text_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "contained",
+        "path": "contained",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.contained",
+        "fhirType": "Resource",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "contained",
+          "contained_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "extension",
+        "path": "extension",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.extension",
+        "fhirType": "Extension",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "extension"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "modifierExtension",
+        "path": "modifierExtension",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.modifierExtension",
+        "fhirType": "Extension",
+        "min": 0,
+        "max": "*",
+        "targetFields": [],
+        "mappingKind": "unsupported",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "identifier",
+        "path": "identifier",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.identifier",
+        "fhirType": "Identifier",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "identifier",
+          "identifierOrig",
+          "identifier_string",
+          "identifierOrig_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "basedOn",
+        "path": "basedOn",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.basedOn",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "basedOn",
+          "basedOn_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "partOf",
+        "path": "partOf",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.partOf",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "partOf",
+          "partOf_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "status",
+        "path": "status",
+        "type": "string",
+        "fhirElement": "Observation.status",
+        "fhirType": "code",
+        "min": 1,
+        "max": "1",
+        "targetFields": [
+          "status"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "category",
+        "path": "category",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.category",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "category",
+          "category_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "code",
+        "path": "code",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.code",
+        "fhirType": "CodeableConcept",
+        "min": 1,
+        "max": "1",
+        "targetFields": [
+          "code",
+          "code_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "subject",
+        "path": "subject",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.subject",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "subject",
+          "subject_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "focus",
+        "path": "focus",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.focus",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "focus",
+          "focus_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "encounter",
+        "path": "encounter",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.encounter",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "encounter",
+          "encounter_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "effectiveDateTime",
+        "path": "effective.ofType(dateTime)",
+        "type": "string",
+        "fhirElement": "Observation.effective[x]",
+        "fhirType": "dateTime",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "effectiveDateTime",
+          "effectiveDateTimeOrig"
+        ],
+        "mappingKind": "derived",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "effectivePeriod",
+        "path": "effective.ofType(Period)",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.effective[x]",
+        "fhirType": "Period",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "effectivePeriod",
+          "effectivePeriod_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "effectiveTiming",
+        "path": "effective.ofType(Timing)",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.effective[x]",
+        "fhirType": "Timing",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "effectiveTiming",
+          "effectiveTiming_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "effectiveInstant",
+        "path": "effective.ofType(instant)",
+        "type": "string",
+        "fhirElement": "Observation.effective[x]",
+        "fhirType": "instant",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "effectiveInstant",
+          "effectiveInstantOrig"
+        ],
+        "mappingKind": "derived",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "issued",
+        "path": "issued",
+        "type": "string",
+        "fhirElement": "Observation.issued",
+        "fhirType": "instant",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "issued",
+          "issuedOrig"
+        ],
+        "mappingKind": "derived",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "performer",
+        "path": "performer",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.performer",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "performer",
+          "performer_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "valueQuantity",
+        "path": "value.ofType(Quantity)",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.value[x]",
+        "fhirType": "Quantity",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "valueQuantity",
+          "valueQuantity_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "valueCodeableConcept",
+        "path": "value.ofType(CodeableConcept)",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.value[x]",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "valueCodeableConcept",
+          "valueCodeableConcept_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "valueString",
+        "path": "value.ofType(string)",
+        "type": "string",
+        "fhirElement": "Observation.value[x]",
+        "fhirType": "string",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "valueString"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "valueBoolean",
+        "path": "value.ofType(boolean)",
+        "type": "boolean",
+        "fhirElement": "Observation.value[x]",
+        "fhirType": "boolean",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "valueBoolean"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "valueInteger",
+        "path": "value.ofType(integer)",
+        "type": "integer",
+        "fhirElement": "Observation.value[x]",
+        "fhirType": "integer",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "valueInteger"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "valueRange",
+        "path": "value.ofType(Range)",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.value[x]",
+        "fhirType": "Range",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "valueRange",
+          "valueRange_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "valueRatio",
+        "path": "value.ofType(Ratio)",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.value[x]",
+        "fhirType": "Ratio",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "valueRatio",
+          "valueRatio_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "valueSampledData",
+        "path": "value.ofType(SampledData)",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.value[x]",
+        "fhirType": "SampledData",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "valueSampledData",
+          "valueSampledData_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "valueTime",
+        "path": "value.ofType(time)",
+        "type": "string",
+        "fhirElement": "Observation.value[x]",
+        "fhirType": "time",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "valueTime"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "valueDateTime",
+        "path": "value.ofType(dateTime)",
+        "type": "string",
+        "fhirElement": "Observation.value[x]",
+        "fhirType": "dateTime",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "valueDateTime",
+          "valueDateTimeOrig"
+        ],
+        "mappingKind": "derived",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "valuePeriod",
+        "path": "value.ofType(Period)",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.value[x]",
+        "fhirType": "Period",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "valuePeriod",
+          "valuePeriod_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "dataAbsentReason",
+        "path": "dataAbsentReason",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.dataAbsentReason",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "dataAbsentReason",
+          "dataAbsentReason_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "interpretation",
+        "path": "interpretation",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.interpretation",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "interpretation",
+          "interpretation_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "note",
+        "path": "note",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.note",
+        "fhirType": "Annotation",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "note",
+          "note_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "bodySite",
+        "path": "bodySite",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.bodySite",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "bodySite",
+          "bodySite_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "method",
+        "path": "method",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.method",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "method",
+          "method_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "specimen",
+        "path": "specimen",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.specimen",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "specimen",
+          "specimen_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "device",
+        "path": "device",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.device",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "device",
+          "device_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "referenceRange",
+        "path": "referenceRange",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.referenceRange",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "referenceRange",
+          "referenceRange_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "hasMember",
+        "path": "hasMember",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.hasMember",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "hasMember",
+          "hasMember_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "derivedFrom",
+        "path": "derivedFrom",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.derivedFrom",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "derivedFrom",
+          "derivedFrom_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "component",
+        "path": "component",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "Observation.component",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "component",
+          "component_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      }
+    ],
+    "targetMappings": [
+      {
+        "field": "msftModifiedDatetime",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "id",
+        "mappingKind": "derived",
+        "reason": "normalized-identity",
+        "evidence": "source-derived",
+        "sourceColumn": "id"
+      },
+      {
+        "field": "resourceType",
+        "mappingKind": "derived",
+        "reason": "resource-discriminator",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "msftSourceSystem",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "msftFilePath",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "extension",
+        "mappingKind": "serialized",
+        "reason": "complex-to-text",
+        "evidence": "source-derived",
+        "sourceColumn": "extension"
+      },
+      {
+        "field": "meta",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "implicitRules",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "implicitRules"
+      },
+      {
+        "field": "language",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "language"
+      },
+      {
+        "field": "text",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "text"
+      },
+      {
+        "field": "contained",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "contained"
+      },
+      {
+        "field": "identifier",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "identifier"
+      },
+      {
+        "field": "basedOn",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "basedOn"
+      },
+      {
+        "field": "partOf",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "partOf"
+      },
+      {
+        "field": "status",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "status"
+      },
+      {
+        "field": "category",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "category"
+      },
+      {
+        "field": "code",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "code"
+      },
+      {
+        "field": "subject",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "subject"
+      },
+      {
+        "field": "focus",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "focus"
+      },
+      {
+        "field": "encounter",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "encounter"
+      },
+      {
+        "field": "effectiveDateTime",
+        "mappingKind": "derived",
+        "reason": "temporal-conversion",
+        "evidence": "source-derived",
+        "sourceColumn": "effectiveDateTime"
+      },
+      {
+        "field": "effectivePeriod",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "effectivePeriod"
+      },
+      {
+        "field": "effectiveTiming",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "effectiveTiming"
+      },
+      {
+        "field": "effectiveInstant",
+        "mappingKind": "derived",
+        "reason": "temporal-conversion",
+        "evidence": "source-derived",
+        "sourceColumn": "effectiveInstant"
+      },
+      {
+        "field": "issued",
+        "mappingKind": "derived",
+        "reason": "temporal-conversion",
+        "evidence": "source-derived",
+        "sourceColumn": "issued"
+      },
+      {
+        "field": "performer",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "performer"
+      },
+      {
+        "field": "valueQuantity",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "valueQuantity"
+      },
+      {
+        "field": "valueCodeableConcept",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "valueCodeableConcept"
+      },
+      {
+        "field": "valueString",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "valueString"
+      },
+      {
+        "field": "valueBoolean",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "valueBoolean"
+      },
+      {
+        "field": "valueInteger",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "valueInteger"
+      },
+      {
+        "field": "valueRange",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "valueRange"
+      },
+      {
+        "field": "valueRatio",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "valueRatio"
+      },
+      {
+        "field": "valueSampledData",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "valueSampledData"
+      },
+      {
+        "field": "valueTime",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "valueTime"
+      },
+      {
+        "field": "valueDateTime",
+        "mappingKind": "derived",
+        "reason": "temporal-conversion",
+        "evidence": "source-derived",
+        "sourceColumn": "valueDateTime"
+      },
+      {
+        "field": "valuePeriod",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "valuePeriod"
+      },
+      {
+        "field": "dataAbsentReason",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "dataAbsentReason"
+      },
+      {
+        "field": "interpretation",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "interpretation"
+      },
+      {
+        "field": "note",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "note"
+      },
+      {
+        "field": "bodySite",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "bodySite"
+      },
+      {
+        "field": "method",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "method"
+      },
+      {
+        "field": "specimen",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "specimen"
+      },
+      {
+        "field": "device",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "device"
+      },
+      {
+        "field": "referenceRange",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "referenceRange"
+      },
+      {
+        "field": "hasMember",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "hasMember"
+      },
+      {
+        "field": "derivedFrom",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "derivedFrom"
+      },
+      {
+        "field": "component",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "component"
+      },
+      {
+        "field": "meta_lastUpdated",
+        "mappingKind": "derived",
+        "reason": "nested-temporal-value",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "meta_lastUpdatedOrig",
+        "mappingKind": "derived",
+        "reason": "nested-temporal-value",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "identifierOrig",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "identifier"
+      },
+      {
+        "field": "idOrig",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "id"
+      },
+      {
+        "field": "effectiveDateTimeOrig",
+        "mappingKind": "derived",
+        "reason": "temporal-conversion",
+        "evidence": "source-derived",
+        "sourceColumn": "effectiveDateTime"
+      },
+      {
+        "field": "effectiveInstantOrig",
+        "mappingKind": "derived",
+        "reason": "temporal-conversion",
+        "evidence": "source-derived",
+        "sourceColumn": "effectiveInstant"
+      },
+      {
+        "field": "issuedOrig",
+        "mappingKind": "derived",
+        "reason": "temporal-conversion",
+        "evidence": "source-derived",
+        "sourceColumn": "issued"
+      },
+      {
+        "field": "valueDateTimeOrig",
+        "mappingKind": "derived",
+        "reason": "temporal-conversion",
+        "evidence": "source-derived",
+        "sourceColumn": "valueDateTime"
+      },
+      {
+        "field": "meta_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "text_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "text"
+      },
+      {
+        "field": "contained_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "contained"
+      },
+      {
+        "field": "identifier_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "identifier"
+      },
+      {
+        "field": "basedOn_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "basedOn"
+      },
+      {
+        "field": "partOf_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "partOf"
+      },
+      {
+        "field": "category_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "category"
+      },
+      {
+        "field": "code_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "code"
+      },
+      {
+        "field": "subject_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "subject"
+      },
+      {
+        "field": "focus_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "focus"
+      },
+      {
+        "field": "encounter_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "encounter"
+      },
+      {
+        "field": "effectivePeriod_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "effectivePeriod"
+      },
+      {
+        "field": "effectiveTiming_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "effectiveTiming"
+      },
+      {
+        "field": "performer_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "performer"
+      },
+      {
+        "field": "valueQuantity_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "valueQuantity"
+      },
+      {
+        "field": "valueCodeableConcept_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "valueCodeableConcept"
+      },
+      {
+        "field": "valueRange_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "valueRange"
+      },
+      {
+        "field": "valueRatio_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "valueRatio"
+      },
+      {
+        "field": "valueSampledData_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "valueSampledData"
+      },
+      {
+        "field": "valuePeriod_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "valuePeriod"
+      },
+      {
+        "field": "dataAbsentReason_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "dataAbsentReason"
+      },
+      {
+        "field": "interpretation_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "interpretation"
+      },
+      {
+        "field": "note_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "note"
+      },
+      {
+        "field": "bodySite_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "bodySite"
+      },
+      {
+        "field": "method_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "method"
+      },
+      {
+        "field": "specimen_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "specimen"
+      },
+      {
+        "field": "device_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "device"
+      },
+      {
+        "field": "referenceRange_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "referenceRange"
+      },
+      {
+        "field": "hasMember_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "hasMember"
+      },
+      {
+        "field": "derivedFrom_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "derivedFrom"
+      },
+      {
+        "field": "component_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "component"
+      },
+      {
+        "field": "identifierOrig_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "identifier"
+      },
+      {
+        "field": "msftCreatedDatetime",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      }
+    ]
+  }
+}

@@ -243,7 +243,7 @@ class SnapshotTests(unittest.TestCase):
 
 class IngressTests(unittest.TestCase):
     def test_both_runners_can_replay_the_same_bytes_and_namespace_then_update_east(self):
-        pack = Path(__file__).resolve().parents[1] / "examples/r4/fabric-silver-parity"
+        pack = Path(__file__).resolve().parents[1] / "examples/r4/fabric-silver-hds"
         manifest = json.loads((pack / "batches.json").read_text(encoding="utf-8"))
         inputs = manifest["inputs"]
         self.assertEqual([e["name"] for e in manifest["events"]], ["initial", "replay", "update"])

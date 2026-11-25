@@ -1,0 +1,115 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "group_hds_projection",
+  "status": "draft",
+  "resource": "Group",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "active",
+          "path": "active",
+          "type": "boolean"
+        },
+        {
+          "name": "type",
+          "path": "type",
+          "type": "string"
+        },
+        {
+          "name": "actual",
+          "path": "actual",
+          "type": "boolean"
+        },
+        {
+          "name": "code",
+          "path": "code",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "name",
+          "path": "name",
+          "type": "string"
+        },
+        {
+          "name": "quantity",
+          "path": "quantity",
+          "type": "integer"
+        },
+        {
+          "name": "managingEntity",
+          "path": "managingEntity",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "characteristic",
+          "path": "characteristic",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "member",
+          "path": "member",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

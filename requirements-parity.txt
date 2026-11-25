@@ -1,3 +1,4 @@
 pyarrow==21.0.0
+jsonschema==4.25.1
 # Arrow uses zoneinfo when reading Spark UTC timestamp columns.
 tzdata==2025.2; sys_platform == "win32"

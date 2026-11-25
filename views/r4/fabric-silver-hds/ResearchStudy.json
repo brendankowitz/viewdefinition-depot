@@ -1,0 +1,201 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "researchstudy_hds_projection",
+  "status": "draft",
+  "resource": "ResearchStudy",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "title",
+          "path": "title",
+          "type": "string"
+        },
+        {
+          "name": "protocol",
+          "path": "protocol",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "partOf",
+          "path": "partOf",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "primaryPurposeType",
+          "path": "primaryPurposeType",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "phase",
+          "path": "phase",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "category",
+          "path": "category",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "focus",
+          "path": "focus",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "condition",
+          "path": "condition",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contact",
+          "path": "contact",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "relatedArtifact",
+          "path": "relatedArtifact",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "keyword",
+          "path": "keyword",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "location",
+          "path": "location",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "description",
+          "path": "description",
+          "type": "string"
+        },
+        {
+          "name": "enrollment",
+          "path": "enrollment",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "period",
+          "path": "period",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "sponsor",
+          "path": "sponsor",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "principalInvestigator",
+          "path": "principalInvestigator",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "site",
+          "path": "site",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reasonStopped",
+          "path": "reasonStopped",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "note",
+          "path": "note",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "arm",
+          "path": "arm",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "objective",
+          "path": "objective",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

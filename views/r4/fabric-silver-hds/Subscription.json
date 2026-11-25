@@ -1,0 +1,97 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "subscription_hds_projection",
+  "status": "draft",
+  "resource": "Subscription",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "contact",
+          "path": "contact",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "end",
+          "path": "end",
+          "type": "string"
+        },
+        {
+          "name": "reason",
+          "path": "reason",
+          "type": "string"
+        },
+        {
+          "name": "criteria",
+          "path": "criteria",
+          "type": "string"
+        },
+        {
+          "name": "error",
+          "path": "error",
+          "type": "string"
+        },
+        {
+          "name": "channel",
+          "path": "channel",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

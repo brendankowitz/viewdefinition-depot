@@ -1,0 +1,136 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "observationdefinition_hds_projection",
+  "status": "draft",
+  "resource": "ObservationDefinition",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "category",
+          "path": "category",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "code",
+          "path": "code",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "permittedDataType",
+          "path": "permittedDataType",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "multipleResultsAllowed",
+          "path": "multipleResultsAllowed",
+          "type": "boolean"
+        },
+        {
+          "name": "method",
+          "path": "method",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "preferredReportName",
+          "path": "preferredReportName",
+          "type": "string"
+        },
+        {
+          "name": "quantitativeDetails",
+          "path": "quantitativeDetails",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "qualifiedInterval",
+          "path": "qualifiedInterval",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "validCodedValueSet",
+          "path": "validCodedValueSet",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "normalCodedValueSet",
+          "path": "normalCodedValueSet",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "abnormalCodedValueSet",
+          "path": "abnormalCodedValueSet",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "criticalCodedValueSet",
+          "path": "criticalCodedValueSet",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

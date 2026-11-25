@@ -1,0 +1,1261 @@
+{
+  "contractFormatVersion": "1",
+  "fhirVersion": "4.0.1",
+  "hdsVersion": "1.4.0",
+  "resource": "MedicationKnowledge",
+  "table": "MedicationKnowledge",
+  "deployment": {
+    "schemaSha256": "308a1bfc348a40bc5d9e32a34e06d247751eb68c10fa4bb9be9794270e80f321",
+    "schemaStringSha256": "c096d3ac5aa7135553f364b6d419d0656906463b087159434bbe1a649ff9194f",
+    "fields": [
+      [
+        "msftModifiedDatetime",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "resourceType",
+        true,
+        "string"
+      ],
+      [
+        "id",
+        true,
+        "string"
+      ],
+      [
+        "extension",
+        true,
+        "string"
+      ],
+      [
+        "meta",
+        true,
+        "@143e6da9ca880a1d1ce8fadd32e9f99ffdb31552988fe9357c07ca6cca9e8598"
+      ],
+      [
+        "implicitRules",
+        true,
+        "string"
+      ],
+      [
+        "language",
+        true,
+        "string"
+      ],
+      [
+        "text",
+        true,
+        "@50e85895ae8ef1cbf352c1af7615c7a73a79317a4cdd6fae2a1a7d7867378f37"
+      ],
+      [
+        "contained",
+        true,
+        "@bf858f0d5548b8d080ea47117c2694bb5e8a2f3fd293eb15c7a5506b70accf6b"
+      ],
+      [
+        "code",
+        true,
+        "@1db4e29d5405e2f93fd73ab2b661ad10c8a34274fbe993675a290d17782d7c64"
+      ],
+      [
+        "status",
+        true,
+        "string"
+      ],
+      [
+        "manufacturer",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "doseForm",
+        true,
+        "@1db4e29d5405e2f93fd73ab2b661ad10c8a34274fbe993675a290d17782d7c64"
+      ],
+      [
+        "amount",
+        true,
+        "@1ca284dae6a2419fd68c2c015d423c631b82ac2d5ef821acaf0a18090cc0914b"
+      ],
+      [
+        "synonym",
+        true,
+        "@bf858f0d5548b8d080ea47117c2694bb5e8a2f3fd293eb15c7a5506b70accf6b"
+      ],
+      [
+        "relatedMedicationKnowledge",
+        true,
+        "@a0cfa4481bcccefd9e857085ffc1011bc22924f131cc31f4fec83906895e59b3"
+      ],
+      [
+        "associatedMedication",
+        true,
+        "@ca02e152cc687985fe91998487afb5e8fbd2fe92d50fa19ab8179a79dbb79317"
+      ],
+      [
+        "productType",
+        true,
+        "@6938d053d6409e74b2ba2f2edc7a84a3e9f5beb559aa056ddbf7cb45d94592d9"
+      ],
+      [
+        "monograph",
+        true,
+        "@273c618a3e2f15796fdc763cd68c8300c23862b844ba068305084a72f4ff1104"
+      ],
+      [
+        "ingredient",
+        true,
+        "@2b6ee816930496b088dc487caa640ee34f980e445ec3bd890605d91a2bc48cee"
+      ],
+      [
+        "preparationInstruction",
+        true,
+        "string"
+      ],
+      [
+        "intendedRoute",
+        true,
+        "@6938d053d6409e74b2ba2f2edc7a84a3e9f5beb559aa056ddbf7cb45d94592d9"
+      ],
+      [
+        "cost",
+        true,
+        "@de52a993f7670b1810ffd5446ec203a71f58c2a24a0627afb9f9625363897332"
+      ],
+      [
+        "monitoringProgram",
+        true,
+        "@693762d11030cd3eaca33dc59a2667f1fbec01de953e97eaa2843a62ca60e30c"
+      ],
+      [
+        "administrationGuidelines",
+        true,
+        "@374e17c1c2a43c9bd02e36026342e5be0d62ba00f373b851b8d52bf7271e4491"
+      ],
+      [
+        "medicineClassification",
+        true,
+        "@2642457e54831aea3b8c301d81fb5c12b1ab50a3ff6605b5f168e79a8952ebeb"
+      ],
+      [
+        "packaging",
+        true,
+        "@94dddb0db7562ae0aa274e528c1ab7d7e3f89328a73982a9e215f5d678ff9f18"
+      ],
+      [
+        "drugCharacteristic",
+        true,
+        "@1a64debd0fe5bca5aac10ae9433933d5783073931d288afa7bfccb2484d3e557"
+      ],
+      [
+        "contraindication",
+        true,
+        "@ca02e152cc687985fe91998487afb5e8fbd2fe92d50fa19ab8179a79dbb79317"
+      ],
+      [
+        "regulatory",
+        true,
+        "@776b3687b93e302972ca1ef3b0d32023d09b919cad1fb66c64578db31170d91b"
+      ],
+      [
+        "kinetics",
+        true,
+        "@d92a7553334013f2d4b6a4f92d3fc4595bf54830bd257a8b9233eaf3eae61afd"
+      ],
+      [
+        "msftSourceSystem",
+        true,
+        "string"
+      ],
+      [
+        "meta_lastUpdated",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "meta_lastUpdatedOrig",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "identifier",
+        true,
+        "@2a1242fc9d47b24256b3e26abc24e80d8a8af3608883e46c7ca54911a18b49cd"
+      ],
+      [
+        "identifierOrig",
+        true,
+        "@2a1242fc9d47b24256b3e26abc24e80d8a8af3608883e46c7ca54911a18b49cd"
+      ],
+      [
+        "idOrig",
+        true,
+        "string"
+      ],
+      [
+        "meta_string",
+        true,
+        "string"
+      ],
+      [
+        "text_string",
+        true,
+        "string"
+      ],
+      [
+        "contained_string",
+        true,
+        "string"
+      ],
+      [
+        "code_string",
+        true,
+        "string"
+      ],
+      [
+        "manufacturer_string",
+        true,
+        "string"
+      ],
+      [
+        "doseForm_string",
+        true,
+        "string"
+      ],
+      [
+        "amount_string",
+        true,
+        "string"
+      ],
+      [
+        "synonym_string",
+        true,
+        "string"
+      ],
+      [
+        "relatedMedicationKnowledge_string",
+        true,
+        "string"
+      ],
+      [
+        "associatedMedication_string",
+        true,
+        "string"
+      ],
+      [
+        "productType_string",
+        true,
+        "string"
+      ],
+      [
+        "monograph_string",
+        true,
+        "string"
+      ],
+      [
+        "ingredient_string",
+        true,
+        "string"
+      ],
+      [
+        "intendedRoute_string",
+        true,
+        "string"
+      ],
+      [
+        "cost_string",
+        true,
+        "string"
+      ],
+      [
+        "monitoringProgram_string",
+        true,
+        "string"
+      ],
+      [
+        "administrationGuidelines_string",
+        true,
+        "string"
+      ],
+      [
+        "medicineClassification_string",
+        true,
+        "string"
+      ],
+      [
+        "packaging_string",
+        true,
+        "string"
+      ],
+      [
+        "drugCharacteristic_string",
+        true,
+        "string"
+      ],
+      [
+        "contraindication_string",
+        true,
+        "string"
+      ],
+      [
+        "regulatory_string",
+        true,
+        "string"
+      ],
+      [
+        "kinetics_string",
+        true,
+        "string"
+      ],
+      [
+        "identifier_string",
+        true,
+        "string"
+      ],
+      [
+        "identifierOrig_string",
+        true,
+        "string"
+      ],
+      [
+        "msftCreatedDatetime",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "msftFilePath",
+        true,
+        "string"
+      ]
+    ]
+  },
+  "provenance": {
+    "release": "https://www.microsoft.com/en-us/download/details.aspx?id=108754",
+    "creationLogPath": "hds-build-artifacts/healthcare-tables/1.4.0/Silver/MedicationKnowledge/_delta_log/00000000000000000000.json",
+    "creationLogSha256": "ef9324d167ccccc78f75461345d8f5e9982a23ac6c283ac72217c71a16ff0e4a",
+    "sourceArtifactSha256": {
+      "hds-build-artifacts/healthcare-configuration/1.4.0/_internal/fhir4/schema/silver/medicationknowledge.avsc": "334cd902a18b56b610469e2da6dbbad02261c3a15c69a2f5ec0cc406b3635026"
+    },
+    "fhirStructureDefinition": {
+      "canonical": "http://hl7.org/fhir/StructureDefinition/MedicationKnowledge",
+      "packagePath": "package/StructureDefinition-MedicationKnowledge.json",
+      "sha256": "a2442109bfeaa08ed3e4da77ddd58c02bb36acca4a3c77deda248cb0bc7fe6bd"
+    }
+  },
+  "projection": {
+    "view": "views/r4/fabric-silver-hds/MedicationKnowledge.json",
+    "columns": [
+      {
+        "name": "id",
+        "path": "id",
+        "type": "string",
+        "fhirElement": "MedicationKnowledge.id",
+        "fhirType": "string",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "id",
+          "idOrig"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "meta",
+        "path": "meta",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.meta",
+        "fhirType": "Meta",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "meta",
+          "meta_lastUpdated",
+          "meta_lastUpdatedOrig",
+          "meta_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "implicitRules",
+        "path": "implicitRules",
+        "type": "string",
+        "fhirElement": "MedicationKnowledge.implicitRules",
+        "fhirType": "uri",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "implicitRules"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "language",
+        "path": "language",
+        "type": "string",
+        "fhirElement": "MedicationKnowledge.language",
+        "fhirType": "code",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "language"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "text",
+        "path": "text",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.text",
+        "fhirType": "Narrative",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "text",
+          "text_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "contained",
+        "path": "contained",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.contained",
+        "fhirType": "Resource",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "contained",
+          "contained_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "extension",
+        "path": "extension",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.extension",
+        "fhirType": "Extension",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "extension"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "modifierExtension",
+        "path": "modifierExtension",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.modifierExtension",
+        "fhirType": "Extension",
+        "min": 0,
+        "max": "*",
+        "targetFields": [],
+        "mappingKind": "unsupported",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "code",
+        "path": "code",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.code",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "code",
+          "code_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "status",
+        "path": "status",
+        "type": "string",
+        "fhirElement": "MedicationKnowledge.status",
+        "fhirType": "code",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "status"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "manufacturer",
+        "path": "manufacturer",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.manufacturer",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "manufacturer",
+          "manufacturer_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "doseForm",
+        "path": "doseForm",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.doseForm",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "doseForm",
+          "doseForm_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "amount",
+        "path": "amount",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.amount",
+        "fhirType": "Quantity",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "amount",
+          "amount_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "synonym",
+        "path": "synonym",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.synonym",
+        "fhirType": "string",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "synonym",
+          "synonym_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "relatedMedicationKnowledge",
+        "path": "relatedMedicationKnowledge",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.relatedMedicationKnowledge",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "relatedMedicationKnowledge",
+          "relatedMedicationKnowledge_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "associatedMedication",
+        "path": "associatedMedication",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.associatedMedication",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "associatedMedication",
+          "associatedMedication_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "productType",
+        "path": "productType",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.productType",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "productType",
+          "productType_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "monograph",
+        "path": "monograph",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.monograph",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "monograph",
+          "monograph_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "ingredient",
+        "path": "ingredient",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.ingredient",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "ingredient",
+          "ingredient_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "preparationInstruction",
+        "path": "preparationInstruction",
+        "type": "string",
+        "fhirElement": "MedicationKnowledge.preparationInstruction",
+        "fhirType": "markdown",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "preparationInstruction"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "intendedRoute",
+        "path": "intendedRoute",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.intendedRoute",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "intendedRoute",
+          "intendedRoute_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "cost",
+        "path": "cost",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.cost",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "cost",
+          "cost_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "monitoringProgram",
+        "path": "monitoringProgram",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.monitoringProgram",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "monitoringProgram",
+          "monitoringProgram_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "administrationGuidelines",
+        "path": "administrationGuidelines",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.administrationGuidelines",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "administrationGuidelines",
+          "administrationGuidelines_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "medicineClassification",
+        "path": "medicineClassification",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.medicineClassification",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "medicineClassification",
+          "medicineClassification_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "packaging",
+        "path": "packaging",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.packaging",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "packaging",
+          "packaging_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "drugCharacteristic",
+        "path": "drugCharacteristic",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.drugCharacteristic",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "drugCharacteristic",
+          "drugCharacteristic_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "contraindication",
+        "path": "contraindication",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.contraindication",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "contraindication",
+          "contraindication_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "regulatory",
+        "path": "regulatory",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.regulatory",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "regulatory",
+          "regulatory_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "kinetics",
+        "path": "kinetics",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "MedicationKnowledge.kinetics",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "kinetics",
+          "kinetics_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      }
+    ],
+    "targetMappings": [
+      {
+        "field": "msftModifiedDatetime",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "resourceType",
+        "mappingKind": "derived",
+        "reason": "resource-discriminator",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "id",
+        "mappingKind": "derived",
+        "reason": "normalized-identity",
+        "evidence": "source-derived",
+        "sourceColumn": "id"
+      },
+      {
+        "field": "extension",
+        "mappingKind": "serialized",
+        "reason": "complex-to-text",
+        "evidence": "source-derived",
+        "sourceColumn": "extension"
+      },
+      {
+        "field": "meta",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "implicitRules",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "implicitRules"
+      },
+      {
+        "field": "language",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "language"
+      },
+      {
+        "field": "text",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "text"
+      },
+      {
+        "field": "contained",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "contained"
+      },
+      {
+        "field": "code",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "code"
+      },
+      {
+        "field": "status",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "status"
+      },
+      {
+        "field": "manufacturer",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "manufacturer"
+      },
+      {
+        "field": "doseForm",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "doseForm"
+      },
+      {
+        "field": "amount",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "amount"
+      },
+      {
+        "field": "synonym",
+        "mappingKind": "derived",
+        "reason": "collection-to-array",
+        "evidence": "source-derived",
+        "sourceColumn": "synonym"
+      },
+      {
+        "field": "relatedMedicationKnowledge",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "relatedMedicationKnowledge"
+      },
+      {
+        "field": "associatedMedication",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "associatedMedication"
+      },
+      {
+        "field": "productType",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "productType"
+      },
+      {
+        "field": "monograph",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "monograph"
+      },
+      {
+        "field": "ingredient",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "ingredient"
+      },
+      {
+        "field": "preparationInstruction",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "preparationInstruction"
+      },
+      {
+        "field": "intendedRoute",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "intendedRoute"
+      },
+      {
+        "field": "cost",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "cost"
+      },
+      {
+        "field": "monitoringProgram",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "monitoringProgram"
+      },
+      {
+        "field": "administrationGuidelines",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "administrationGuidelines"
+      },
+      {
+        "field": "medicineClassification",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "medicineClassification"
+      },
+      {
+        "field": "packaging",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "packaging"
+      },
+      {
+        "field": "drugCharacteristic",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "drugCharacteristic"
+      },
+      {
+        "field": "contraindication",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "contraindication"
+      },
+      {
+        "field": "regulatory",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "regulatory"
+      },
+      {
+        "field": "kinetics",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "kinetics"
+      },
+      {
+        "field": "msftSourceSystem",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "meta_lastUpdated",
+        "mappingKind": "derived",
+        "reason": "nested-temporal-value",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "meta_lastUpdatedOrig",
+        "mappingKind": "derived",
+        "reason": "nested-temporal-value",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "identifier",
+        "mappingKind": "unsupported",
+        "reason": "no-r4-source-element",
+        "evidence": "contract-sourced"
+      },
+      {
+        "field": "identifierOrig",
+        "mappingKind": "unsupported",
+        "reason": "no-r4-source-element",
+        "evidence": "contract-sourced"
+      },
+      {
+        "field": "idOrig",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "id"
+      },
+      {
+        "field": "meta_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "text_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "text"
+      },
+      {
+        "field": "contained_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "contained"
+      },
+      {
+        "field": "code_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "code"
+      },
+      {
+        "field": "manufacturer_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "manufacturer"
+      },
+      {
+        "field": "doseForm_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "doseForm"
+      },
+      {
+        "field": "amount_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "amount"
+      },
+      {
+        "field": "synonym_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "synonym"
+      },
+      {
+        "field": "relatedMedicationKnowledge_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "relatedMedicationKnowledge"
+      },
+      {
+        "field": "associatedMedication_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "associatedMedication"
+      },
+      {
+        "field": "productType_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "productType"
+      },
+      {
+        "field": "monograph_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "monograph"
+      },
+      {
+        "field": "ingredient_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "ingredient"
+      },
+      {
+        "field": "intendedRoute_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "intendedRoute"
+      },
+      {
+        "field": "cost_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "cost"
+      },
+      {
+        "field": "monitoringProgram_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "monitoringProgram"
+      },
+      {
+        "field": "administrationGuidelines_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "administrationGuidelines"
+      },
+      {
+        "field": "medicineClassification_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "medicineClassification"
+      },
+      {
+        "field": "packaging_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "packaging"
+      },
+      {
+        "field": "drugCharacteristic_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "drugCharacteristic"
+      },
+      {
+        "field": "contraindication_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "contraindication"
+      },
+      {
+        "field": "regulatory_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "regulatory"
+      },
+      {
+        "field": "kinetics_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "kinetics"
+      },
+      {
+        "field": "identifier_string",
+        "mappingKind": "unsupported",
+        "reason": "no-r4-source-element",
+        "evidence": "contract-sourced"
+      },
+      {
+        "field": "identifierOrig_string",
+        "mappingKind": "unsupported",
+        "reason": "no-r4-source-element",
+        "evidence": "contract-sourced"
+      },
+      {
+        "field": "msftCreatedDatetime",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "msftFilePath",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      }
+    ]
+  }
+}

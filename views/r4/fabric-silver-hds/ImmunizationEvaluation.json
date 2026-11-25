@@ -1,0 +1,142 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "immunizationevaluation_hds_projection",
+  "status": "draft",
+  "resource": "ImmunizationEvaluation",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "patient",
+          "path": "patient",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "date",
+          "path": "date",
+          "type": "string"
+        },
+        {
+          "name": "authority",
+          "path": "authority",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "targetDisease",
+          "path": "targetDisease",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "immunizationEvent",
+          "path": "immunizationEvent",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "doseStatus",
+          "path": "doseStatus",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "doseStatusReason",
+          "path": "doseStatusReason",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "description",
+          "path": "description",
+          "type": "string"
+        },
+        {
+          "name": "series",
+          "path": "series",
+          "type": "string"
+        },
+        {
+          "name": "doseNumberPositiveInt",
+          "path": "doseNumber.ofType(positiveInt)",
+          "type": "integer"
+        },
+        {
+          "name": "doseNumberString",
+          "path": "doseNumber.ofType(string)",
+          "type": "string"
+        },
+        {
+          "name": "seriesDosesPositiveInt",
+          "path": "seriesDoses.ofType(positiveInt)",
+          "type": "integer"
+        },
+        {
+          "name": "seriesDosesString",
+          "path": "seriesDoses.ofType(string)",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

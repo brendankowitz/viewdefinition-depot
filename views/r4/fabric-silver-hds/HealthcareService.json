@@ -1,0 +1,198 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "healthcareservice_hds_projection",
+  "status": "draft",
+  "resource": "HealthcareService",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "active",
+          "path": "active",
+          "type": "boolean"
+        },
+        {
+          "name": "providedBy",
+          "path": "providedBy",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "category",
+          "path": "category",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "type",
+          "path": "type",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "specialty",
+          "path": "specialty",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "location",
+          "path": "location",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "name",
+          "path": "name",
+          "type": "string"
+        },
+        {
+          "name": "comment",
+          "path": "comment",
+          "type": "string"
+        },
+        {
+          "name": "extraDetails",
+          "path": "extraDetails",
+          "type": "string"
+        },
+        {
+          "name": "photo",
+          "path": "photo",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "telecom",
+          "path": "telecom",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "coverageArea",
+          "path": "coverageArea",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "serviceProvisionCode",
+          "path": "serviceProvisionCode",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "eligibility",
+          "path": "eligibility",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "program",
+          "path": "program",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "characteristic",
+          "path": "characteristic",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "communication",
+          "path": "communication",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "referralMethod",
+          "path": "referralMethod",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "appointmentRequired",
+          "path": "appointmentRequired",
+          "type": "boolean"
+        },
+        {
+          "name": "availableTime",
+          "path": "availableTime",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "notAvailable",
+          "path": "notAvailable",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "availabilityExceptions",
+          "path": "availabilityExceptions",
+          "type": "string"
+        },
+        {
+          "name": "endpoint",
+          "path": "endpoint",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,175 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "imagingstudy_hds_projection",
+  "status": "draft",
+  "resource": "ImagingStudy",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "modality",
+          "path": "modality",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "subject",
+          "path": "subject",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "encounter",
+          "path": "encounter",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "started",
+          "path": "started",
+          "type": "string"
+        },
+        {
+          "name": "basedOn",
+          "path": "basedOn",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "referrer",
+          "path": "referrer",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "interpreter",
+          "path": "interpreter",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "endpoint",
+          "path": "endpoint",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "numberOfSeries",
+          "path": "numberOfSeries",
+          "type": "integer"
+        },
+        {
+          "name": "numberOfInstances",
+          "path": "numberOfInstances",
+          "type": "integer"
+        },
+        {
+          "name": "procedureReference",
+          "path": "procedureReference",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "procedureCode",
+          "path": "procedureCode",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "location",
+          "path": "location",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reasonCode",
+          "path": "reasonCode",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reasonReference",
+          "path": "reasonReference",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "note",
+          "path": "note",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "description",
+          "path": "description",
+          "type": "string"
+        },
+        {
+          "name": "series",
+          "path": "series",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

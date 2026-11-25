@@ -1,0 +1,131 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "organizationaffiliation_hds_projection",
+  "status": "draft",
+  "resource": "OrganizationAffiliation",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "active",
+          "path": "active",
+          "type": "boolean"
+        },
+        {
+          "name": "period",
+          "path": "period",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "organization",
+          "path": "organization",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "participatingOrganization",
+          "path": "participatingOrganization",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "network",
+          "path": "network",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "code",
+          "path": "code",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "specialty",
+          "path": "specialty",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "location",
+          "path": "location",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "healthcareService",
+          "path": "healthcareService",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "telecom",
+          "path": "telecom",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "endpoint",
+          "path": "endpoint",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

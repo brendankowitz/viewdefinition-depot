@@ -1,0 +1,130 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "messageheader_hds_projection",
+  "status": "draft",
+  "resource": "MessageHeader",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "eventCoding",
+          "path": "event.ofType(Coding)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "eventUri",
+          "path": "event.ofType(uri)",
+          "type": "string"
+        },
+        {
+          "name": "destination",
+          "path": "destination",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "sender",
+          "path": "sender",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "enterer",
+          "path": "enterer",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "author",
+          "path": "author",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "source",
+          "path": "source",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "responsible",
+          "path": "responsible",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reason",
+          "path": "reason",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "response",
+          "path": "response",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "focus",
+          "path": "focus",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "definition",
+          "path": "definition",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

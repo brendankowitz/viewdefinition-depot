@@ -7,10 +7,11 @@ SQL on FHIR ViewDefinition samples for exporting selected FHIR data to target-sp
 | FHIR release | Target | Views | Guide |
 | --- | --- | --- | --- |
 | R4 (4.0.1) | Fabric healthcare data solutions Silver v1.4.0 | [Patient and Observation](views/r4/fabric-silver/) | [Fabric Silver pack](docs/packs/fabric-silver.md) |
+| R4 (4.0.1) | All 146 HDS v1.4.0 resource tables | [146 custom projections](views/r4/fabric-silver-hds/) · [schema contracts](contracts/fabric-hds/1.4.0/r4/catalog.json) | [Full R4 catalog: export and destinations](docs/packs/fabric-silver-hds.md) |
 
-The pack uses synthetic [fixtures](examples/r4/fabric-silver/input/) and selected-field [contracts](contracts/fabric-hds/1.4.0/).
+The two-view starter pack uses synthetic [fixtures](examples/r4/fabric-silver/input/) and selected-field [contracts](contracts/fabric-hds/1.4.0/).
 
-Separate [Fabric Silver parity pilot](docs/packs/fabric-silver-parity.md): **0/146 verified**.
+The full catalog covers **146/146 resource types**; this is not a claim of Silver row parity (**0/146 independently verified**). A view selects the data, not the sink: export Parquet with Ignixa and load it into a custom Fabric Lakehouse table. Writing Microsoft's predefined Silver tables is a separate native-writer project.
 
 ## Quick start
 

@@ -1,0 +1,158 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "guidanceresponse_hds_projection",
+  "status": "draft",
+  "resource": "GuidanceResponse",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "requestIdentifier",
+          "path": "requestIdentifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "moduleUri",
+          "path": "module.ofType(uri)",
+          "type": "string"
+        },
+        {
+          "name": "moduleCanonical",
+          "path": "module.ofType(canonical)",
+          "type": "string"
+        },
+        {
+          "name": "moduleCodeableConcept",
+          "path": "module.ofType(CodeableConcept)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "subject",
+          "path": "subject",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "encounter",
+          "path": "encounter",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "occurrenceDateTime",
+          "path": "occurrenceDateTime",
+          "type": "string"
+        },
+        {
+          "name": "performer",
+          "path": "performer",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reasonCode",
+          "path": "reasonCode",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reasonReference",
+          "path": "reasonReference",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "note",
+          "path": "note",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "evaluationMessage",
+          "path": "evaluationMessage",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "outputParameters",
+          "path": "outputParameters",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "result",
+          "path": "result",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "dataRequirement",
+          "path": "dataRequirement",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

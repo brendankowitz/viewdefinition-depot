@@ -1,0 +1,140 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "verificationresult_hds_projection",
+  "status": "draft",
+  "resource": "VerificationResult",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "target",
+          "path": "target",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "targetLocation",
+          "path": "targetLocation",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "need",
+          "path": "need",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "statusDate",
+          "path": "statusDate",
+          "type": "string"
+        },
+        {
+          "name": "validationType",
+          "path": "validationType",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "validationProcess",
+          "path": "validationProcess",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "frequency",
+          "path": "frequency",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "lastPerformed",
+          "path": "lastPerformed",
+          "type": "string"
+        },
+        {
+          "name": "nextScheduled",
+          "path": "nextScheduled",
+          "type": "string"
+        },
+        {
+          "name": "failureAction",
+          "path": "failureAction",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "primarySource",
+          "path": "primarySource",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "attestation",
+          "path": "attestation",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "validator",
+          "path": "validator",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

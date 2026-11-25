@@ -1,0 +1,147 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "deviceusestatement_hds_projection",
+  "status": "draft",
+  "resource": "DeviceUseStatement",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "basedOn",
+          "path": "basedOn",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "subject",
+          "path": "subject",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "derivedFrom",
+          "path": "derivedFrom",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "timingTiming",
+          "path": "timing.ofType(Timing)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "timingPeriod",
+          "path": "timing.ofType(Period)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "timingDateTime",
+          "path": "timing.ofType(dateTime)",
+          "type": "string"
+        },
+        {
+          "name": "recordedOn",
+          "path": "recordedOn",
+          "type": "string"
+        },
+        {
+          "name": "source",
+          "path": "source",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "device",
+          "path": "device",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reasonCode",
+          "path": "reasonCode",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reasonReference",
+          "path": "reasonReference",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "bodySite",
+          "path": "bodySite",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "note",
+          "path": "note",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

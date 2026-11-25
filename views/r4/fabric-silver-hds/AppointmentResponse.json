@@ -1,0 +1,104 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "appointmentresponse_hds_projection",
+  "status": "draft",
+  "resource": "AppointmentResponse",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "appointment",
+          "path": "appointment",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "start",
+          "path": "start",
+          "type": "string"
+        },
+        {
+          "name": "end",
+          "path": "end",
+          "type": "string"
+        },
+        {
+          "name": "participantType",
+          "path": "participantType",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "actor",
+          "path": "actor",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "participantStatus",
+          "path": "participantStatus",
+          "type": "string"
+        },
+        {
+          "name": "comment",
+          "path": "comment",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

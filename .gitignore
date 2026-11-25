@@ -176,6 +176,8 @@ _TeamCity*
 coverage*.json
 coverage*.xml
 coverage*.info
+!/contracts/fabric-hds/1.4.0/r4/resources/Coverage*.json
+!/views/r4/fabric-silver-hds/Coverage*.json
 
 # Visual Studio code coverage results
 *.coverage
@@ -424,3 +426,8 @@ FodyWeavers.xsd
 
 # Official VS Code C# Dev Kit Extension exclusion
 #*.lscache
+
+# Local tooling and opt-in licensed HDS deployment metadata (never publish).
+/.venv/
+/.superpowers/
+/.hds-local/

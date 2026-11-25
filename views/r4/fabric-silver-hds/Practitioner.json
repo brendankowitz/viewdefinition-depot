@@ -1,0 +1,117 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "practitioner_hds_projection",
+  "status": "draft",
+  "resource": "Practitioner",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "active",
+          "path": "active",
+          "type": "boolean"
+        },
+        {
+          "name": "name",
+          "path": "name",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "telecom",
+          "path": "telecom",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "address",
+          "path": "address",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "gender",
+          "path": "gender",
+          "type": "string"
+        },
+        {
+          "name": "birthDate",
+          "path": "birthDate",
+          "type": "string"
+        },
+        {
+          "name": "photo",
+          "path": "photo",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "qualification",
+          "path": "qualification",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "communication",
+          "path": "communication",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

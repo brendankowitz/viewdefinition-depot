@@ -1,0 +1,42 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "parameters_hds_projection",
+  "status": "draft",
+  "resource": "Parameters",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "parameter",
+          "path": "parameter",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

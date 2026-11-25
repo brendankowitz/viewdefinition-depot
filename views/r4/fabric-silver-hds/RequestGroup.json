@@ -1,0 +1,164 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "requestgroup_hds_projection",
+  "status": "draft",
+  "resource": "RequestGroup",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "instantiatesCanonical",
+          "path": "instantiatesCanonical",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "instantiatesUri",
+          "path": "instantiatesUri",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "basedOn",
+          "path": "basedOn",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "replaces",
+          "path": "replaces",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "groupIdentifier",
+          "path": "groupIdentifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "intent",
+          "path": "intent",
+          "type": "string"
+        },
+        {
+          "name": "priority",
+          "path": "priority",
+          "type": "string"
+        },
+        {
+          "name": "code",
+          "path": "code",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "subject",
+          "path": "subject",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "encounter",
+          "path": "encounter",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "authoredOn",
+          "path": "authoredOn",
+          "type": "string"
+        },
+        {
+          "name": "author",
+          "path": "author",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reasonCode",
+          "path": "reasonCode",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reasonReference",
+          "path": "reasonReference",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "note",
+          "path": "note",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "action",
+          "path": "action",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "episodeofcare_hds_projection",
+  "status": "draft",
+  "resource": "EpisodeOfCare",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "statusHistory",
+          "path": "statusHistory",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "type",
+          "path": "type",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "diagnosis",
+          "path": "diagnosis",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "patient",
+          "path": "patient",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "managingOrganization",
+          "path": "managingOrganization",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "period",
+          "path": "period",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "referralRequest",
+          "path": "referralRequest",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "careManager",
+          "path": "careManager",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "team",
+          "path": "team",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "account",
+          "path": "account",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

@@ -3,7 +3,9 @@
 import hashlib
 import json
 import re
-from collections import defaultdict
+from collections import Counter, defaultdict
+from collections.abc import Iterable
+from dataclasses import dataclass
 from datetime import date, datetime, timezone
 from decimal import Decimal
 from pathlib import Path
@@ -50,7 +52,7 @@ def _delta_type(spec):
 
 
 def deployed_schema(log: Path) -> pa.Schema:
-    """Read the pilot logical types from the v1.4.0 deployment's creation log."""
+    """Read the logical schema from an HDS v1.4.0 table creation log."""
     try:
         with log.open(encoding="utf-8") as lines:
             (metadata,) = [a["metaData"] for a in map(json.loads, lines) if "metaData" in a]
@@ -78,7 +80,7 @@ def _encoded(value):
     return value
 
 
-def _instant(text, field):
+def utc_instant(text, field):
     # datetime.fromisoformat alone silently truncates excess fractional digits.
     if isinstance(text, str) and re.fullmatch(r"\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d{1,6})?(?:Z|\+00:00)", text):
         try:
@@ -116,36 +118,50 @@ def _unique_fields(pairs):
     return fields
 
 
-def _read_expected(path, schema, table):
-    records = []
+def _invalid_constant(_):
+    raise ValueError("non-finite JSON number")
+
+
+def parse_json(text):
+    """Read external JSON without silently accepting duplicate keys or NaN/Infinity."""
+    return json.loads(text, object_pairs_hook=_unique_fields, parse_constant=_invalid_constant)
+
+
+def read_records(path):
+    """Stream NDJSON records; do not expose their contents in diagnostics."""
     try:
         with path.open(encoding="utf-8") as lines:
-            for line in lines:
-                record = json.loads(line, object_pairs_hook=_unique_fields)
-                if not isinstance(record, dict) or record.keys() - {"values", "timeBounds"}:
-                    raise ValueError
-                values, bounds = record["values"], record.get("timeBounds", {})
-                if not isinstance(values, dict) or not isinstance(bounds, dict):
-                    raise ValueError
-                records.append((values, bounds))
-    except (OSError, ValueError, KeyError):
-        raise ValueError(f"{table}: invalid or missing expectation records") from None
+            for number, line in enumerate(lines, 1):
+                try:
+                    yield parse_json(line)
+                except (ValueError, RecursionError):
+                    raise ValueError(f"invalid expectation record on line {number}") from None
+    except (OSError, UnicodeError):
+        raise ValueError("cannot read expectation records") from None
 
-    for values, bounds in records:
+
+def _expected_rows(records, schema):
+    for record in records:
+        if not isinstance(record, dict) or record.keys() - {"values", "timeBounds"}:
+            raise ValueError("invalid expectation record")
+        values, bounds = record.get("values"), record.get("timeBounds", {})
+        if not isinstance(values, dict) or not isinstance(bounds, dict):
+            raise ValueError("invalid expectation record")
         if values.keys() != set(schema.names):
-            raise ValueError(f"{table}: values fields differ from schema")
+            raise ValueError("values fields differ from schema")
+        windows = {}
         for name, window in bounds.items():
             # Never print an untrusted extra key from an expectation.
-            field = f"{table}.{name}" if name in schema.names else f"{table}.timeBounds"
+            field = name if name in schema.names else "timeBounds"
             if name not in CLOCKS or name not in schema.names or not pa.types.is_timestamp(schema.field(name).type):
                 raise ValueError(f"{field}: not an ingestion timestamp")
             if not isinstance(window, dict) or window.keys() != {"min", "max"}:
                 raise ValueError(f"{field}: invalid time bounds")
-            lo, hi = (_instant(window[k], field) for k in ("min", "max"))
-            if not lo <= _instant(values[name], field) <= hi:
+            lo, hi = (utc_instant(window[k], field) for k in ("min", "max"))
+            if not lo <= utc_instant(values[name], field) <= hi:
                 raise ValueError(f"{field}: captured instant outside bounds")
-            bounds[name] = (lo, hi)
-    return records
+            windows[name] = (lo, hi)
+        yield values, windows
 
 
 def _difference(actual, expected, path):
@@ -174,12 +190,12 @@ def _row_difference(table, row, values, bounds, ranks):
         path = f"{table}.{name}"
         if name in bounds:
             lo, hi = bounds[name]
-            if actual is None or not lo <= _instant(actual, path) <= hi:
+            if actual is None or not lo <= utc_instant(actual, path) <= hi:
                 return path
         elif diff := _difference(actual, values[name], path):
             return diff
         if ranks and name in CLOCKS and actual is not None:
-            if ranks[0][_instant(actual, path)] != ranks[1][_instant(values[name], path)]:
+            if ranks[0][utc_instant(actual, path)] != ranks[1][utc_instant(values[name], path)]:
                 return path
     return None
 
@@ -222,11 +238,24 @@ def _match_group(table, actual, expected, ranks=None):
         raise ValueError(f"{mismatch}: row multiplicity differs")
 
 
-def _checked_snapshot(actual, expected, schema_sha256):
-    schema, rows = _read_snapshot(actual, schema_sha256)
-    label = actual.stem
-    records = _read_expected(expected, schema, label)
-    if not records:
+@dataclass(frozen=True)
+class Snapshot:
+    parquet: Path
+    records: Iterable[dict]
+    row_count: int | None = None
+    delta_version: int | None = None
+
+
+def _checked_snapshot(snapshot, schema_sha256):
+    schema, rows = _read_snapshot(snapshot.parquet, schema_sha256)
+    label = snapshot.parquet.stem
+    try:
+        records = list(_expected_rows(snapshot.records, schema))
+    except ValueError as exc:
+        raise ValueError(f"{label}: {exc}") from None
+    if snapshot.row_count is not None and len(records) != snapshot.row_count:
+        raise ValueError(f"{label}: reference row count differs from manifest")
+    if not records and snapshot.row_count is None:
         raise ValueError(f"{label}: reference row count is zero")
     if len(rows) != len(records):
         raise ValueError(f"{label}: row count differs")
@@ -244,20 +273,18 @@ def _checked_snapshot(actual, expected, schema_sha256):
 
 def compare_snapshot(actual: Path, expected: Path, schema_sha256: str) -> None:
     """Check one table's schema and keyed row multiset, not Parquet bytes/order."""
-    _checked_snapshot(actual, expected, schema_sha256)
+    _checked_snapshot(Snapshot(actual, read_records(expected)), schema_sha256)
 
 
 def _clock_ranks(keyed_rows, table):
-    # Rank within one source/id across all three events. Absolute run times
+    # Rank within one source/id across events. Absolute run times
     # can vary; ties, increases and decreases must reproduce the observation.
     times = defaultdict(set)
     for key, row in keyed_rows:
         instants = times[key]
         for field in CLOCKS:
-            if field not in row:
-                raise ValueError(f"{table}.{field}: missing ingestion clock")
-            if row[field] is not None:
-                instants.add(_instant(row[field], f"{table}.{field}"))
+            if row.get(field) is not None:
+                instants.add(utc_instant(row[field], f"{table}.{field}"))
     return {key: {t: i for i, t in enumerate(sorted(group))} for key, group in times.items()}
 
 
@@ -267,12 +294,29 @@ def compare_events(pairs: list[tuple[Path, Path]], schema_sha256: str) -> None:
         raise ValueError("table sequence: need initial, replay and update for the same table")
     if any(len({path.resolve() for path in paths}) != 3 for paths in zip(*pairs)):
         raise ValueError("table sequence: need three distinct exports and three distinct expectations")
-    actual_events, expected_events = zip(*(_checked_snapshot(a, e, schema_sha256) for a, e in pairs))
-    table = pairs[0][0].stem
+    compare_table([Snapshot(a, read_records(e)) for a, e in pairs], schema_sha256)
+
+
+def compare_table(snapshots: list[Snapshot], schema_sha256: str) -> None:
+    """Compare a table's declared snapshots, retaining clock order and ties across events."""
+    actual_events, expected_events = zip(*(_checked_snapshot(s, schema_sha256) for s in snapshots))
+    table = snapshots[0].parquet.stem
     actual_ranks = _clock_ranks(((k, row) for event in actual_events for k, rows in event.items()
                                  for row in rows), table)
     expected_ranks = _clock_ranks(((k, v) for event in expected_events for k, records in event.items()
                                    for v, _ in records), table)
-    for name, actual, expected in zip(("initial", "replay", "update"), actual_events, expected_events):
+    for index, (snapshot, actual, expected) in enumerate(zip(snapshots, actual_events, expected_events)):
         for key, rows in actual.items():
-            _match_group(f"{table} ({name})", rows, expected[key], (actual_ranks[key], expected_ranks[key]))
+            _match_group(f"{table} ({snapshot.parquet.parent.name})", rows, expected[key],
+                         (actual_ranks[key], expected_ranks[key]))
+        if index and snapshot.delta_version is not None:
+            previous = snapshots[index - 1].delta_version
+            if previous is not None and snapshot.delta_version < previous:
+                raise ValueError(f"{table}: Delta version decreased")
+            if snapshot.delta_version == previous and _row_multiset(actual) != _row_multiset(actual_events[index - 1]):
+                raise ValueError(f"{table}: rows changed at the same Delta version")
+
+
+def _row_multiset(groups):
+    return Counter(json.dumps(row, sort_keys=True, separators=(",", ":"))
+                   for rows in groups.values() for row in rows)

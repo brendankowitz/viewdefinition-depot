@@ -1,0 +1,164 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "supplyrequest_hds_projection",
+  "status": "draft",
+  "resource": "SupplyRequest",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "category",
+          "path": "category",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "priority",
+          "path": "priority",
+          "type": "string"
+        },
+        {
+          "name": "itemCodeableConcept",
+          "path": "item.ofType(CodeableConcept)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "itemReference",
+          "path": "item.ofType(Reference)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "quantity",
+          "path": "quantity",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "parameter",
+          "path": "parameter",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "occurrenceDateTime",
+          "path": "occurrence.ofType(dateTime)",
+          "type": "string"
+        },
+        {
+          "name": "occurrencePeriod",
+          "path": "occurrence.ofType(Period)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "occurrenceTiming",
+          "path": "occurrence.ofType(Timing)",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "authoredOn",
+          "path": "authoredOn",
+          "type": "string"
+        },
+        {
+          "name": "requester",
+          "path": "requester",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "supplier",
+          "path": "supplier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reasonCode",
+          "path": "reasonCode",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "reasonReference",
+          "path": "reasonReference",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "deliverFrom",
+          "path": "deliverFrom",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "deliverTo",
+          "path": "deliverTo",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

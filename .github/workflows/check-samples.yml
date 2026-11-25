@@ -27,9 +27,7 @@ jobs:
         run: python scripts/test_check_samples.py
       - name: Validate and inspect sample exports
         run: python scripts/check-samples.py
-      - name: Check generated parity views
+      - name: Check generated catalog views
         run: python -m fabric_silver.views --check
-      - name: Run Fabric Silver parity pilot checks
-        # Optional dev CLI and HDS schema checks skip only when their respective
-        # variables, IGNIXA_PARITY_CLI and HDS_SOURCE_DIR, are unset.
-        run: python -m unittest discover -s tests -p "test_fabric_*.py" -v
+      - name: Check catalog, all-resource exports and independent capture tooling
+        run: python -m unittest discover -s tests -v

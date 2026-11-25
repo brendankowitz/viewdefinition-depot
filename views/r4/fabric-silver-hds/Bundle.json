@@ -1,0 +1,75 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "bundle_hds_projection",
+  "status": "draft",
+  "resource": "Bundle",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "type",
+          "path": "type",
+          "type": "string"
+        },
+        {
+          "name": "timestamp",
+          "path": "timestamp",
+          "type": "string"
+        },
+        {
+          "name": "total",
+          "path": "total",
+          "type": "integer"
+        },
+        {
+          "name": "link",
+          "path": "link",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "entry",
+          "path": "entry",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "signature",
+          "path": "signature",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "medicinalproduct_hds_projection",
+  "status": "draft",
+  "resource": "MedicinalProduct",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "type",
+          "path": "type",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "domain",
+          "path": "domain",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "combinedPharmaceuticalDoseForm",
+          "path": "combinedPharmaceuticalDoseForm",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "legalStatusOfSupply",
+          "path": "legalStatusOfSupply",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "additionalMonitoringIndicator",
+          "path": "additionalMonitoringIndicator",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "specialMeasures",
+          "path": "specialMeasures",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "paediatricUseIndicator",
+          "path": "paediatricUseIndicator",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "productClassification",
+          "path": "productClassification",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "marketingStatus",
+          "path": "marketingStatus",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "pharmaceuticalProduct",
+          "path": "pharmaceuticalProduct",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "packagedMedicinalProduct",
+          "path": "packagedMedicinalProduct",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "attachedDocument",
+          "path": "attachedDocument",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "masterFile",
+          "path": "masterFile",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contact",
+          "path": "contact",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "clinicalTrial",
+          "path": "clinicalTrial",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "name",
+          "path": "name",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "crossReference",
+          "path": "crossReference",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "manufacturingBusinessOperation",
+          "path": "manufacturingBusinessOperation",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "specialDesignation",
+          "path": "specialDesignation",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

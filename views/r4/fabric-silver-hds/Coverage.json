@@ -1,0 +1,156 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "coverage_hds_projection",
+  "status": "draft",
+  "resource": "Coverage",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "path": "type",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "policyHolder",
+          "path": "policyHolder",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "subscriber",
+          "path": "subscriber",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "subscriberId",
+          "path": "subscriberId",
+          "type": "string"
+        },
+        {
+          "name": "beneficiary",
+          "path": "beneficiary",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "dependent",
+          "path": "dependent",
+          "type": "string"
+        },
+        {
+          "name": "relationship",
+          "path": "relationship",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "period",
+          "path": "period",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "payor",
+          "path": "payor",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "class",
+          "path": "class",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "order",
+          "path": "order",
+          "type": "integer"
+        },
+        {
+          "name": "network",
+          "path": "network",
+          "type": "string"
+        },
+        {
+          "name": "costToBeneficiary",
+          "path": "costToBeneficiary",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "subrogation",
+          "path": "subrogation",
+          "type": "boolean"
+        },
+        {
+          "name": "contract",
+          "path": "contract",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}

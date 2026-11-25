@@ -6,6 +6,7 @@ repo-pinned CLI, or to the path of a built ``ignixa-sqlonfhir.dll``.
 The development extraction tests skip only when IGNIXA_PARITY_CLI is unset.
 """
 
+import hashlib
 import json
 import os
 import re
@@ -18,32 +19,25 @@ from pathlib import Path
 from unittest import mock
 
 import pyarrow.parquet as pq
+from jsonschema import Draft202012Validator
 
 from fabric_silver import views
 
 ROOT = Path(__file__).resolve().parents[1]
-PARITY = ROOT / "examples" / "r4" / "fabric-silver-parity"
+PARITY = ROOT / "examples" / "r4" / "fabric-silver-hds"
 PINNED = ["dotnet", "tool", "run", "ignixa-sqlonfhir", "--"]
 
 
 def selected_cli():
-    if os.environ.get("IGNIXA_PARITY_CLI") == "pinned":
+    value = os.environ.get("IGNIXA_PARITY_CLI")
+    if value == "pinned":
         return PINNED
-    # The writer suite imports the extraction helpers in this module.
-    from test_fabric_writer import development_cli
-
-    return development_cli()
-
-
-def hds_deployment_log(resource):
-    source = os.environ.get("HDS_SOURCE_DIR")
-    if source is None:
-        raise unittest.SkipTest("HDS_SOURCE_DIR is unset; set it to the HDS.SourceCode directory")
-    log = (Path(source) / "hds-build-artifacts/healthcare-tables/1.4.0/Silver"
-           / resource / "_delta_log" / "00000000000000000000.json")
-    if not source.strip() or not log.is_file():
-        raise AssertionError(f"HDS_SOURCE_DIR must select HDS.SourceCode with the {resource} Silver deployment log")
-    return log
+    if value is None:
+        raise unittest.SkipTest("IGNIXA_PARITY_CLI is unset; select a CLI supporting complex collections")
+    dll = Path(value)
+    if dll.suffix.lower() != ".dll" or not dll.is_file():
+        raise AssertionError("IGNIXA_PARITY_CLI must be 'pinned' or an existing development CLI DLL")
+    return ["dotnet", str(dll.resolve())]
 
 
 def run_cli(cli, *args):
@@ -72,6 +66,7 @@ def read_ndjson(path):
 # --- the independent oracle: what the source says, read without Ignixa ------
 
 def source_key(path):
+    path = path.replace("`", "")
     choice = re.fullmatch(r"(\w+)\.ofType\((\w+)\)", path)
     return choice[1] + choice[2][0].upper() + choice[2][1:] if choice else path
 
@@ -93,11 +88,11 @@ def column_mismatches(contract, table, resources):
     assert table.num_rows == len(resources), f"{table.num_rows} rows for {len(resources)} resources"
     assert table["id"].to_pylist() == [r["id"] for r in resources]
     bad = []
-    for column in contract["extraction"]:
-        cells = table[column["column"]].to_pylist()
+    for column in contract["projection"]["columns"]:
+        cells = table[column["name"]].to_pylist()
         for resource, cell in zip(resources, cells):
             if actual_cell(column, cell) != expected_cell(column, resource):
-                bad.append((column["column"], column["path"], resource["id"]))
+                bad.append((column["name"], column["path"], resource["id"]))
     return bad
 
 
@@ -221,51 +216,38 @@ class ContractTests(unittest.TestCase):
     def test_checked_in_views_are_current(self):
         self.assertEqual(views.problems(), [])
 
+    def test_all_resource_contracts_use_the_published_schema(self):
+        schema = json.loads((views.PACK / "format.schema.json").read_text(encoding="utf-8"))
+        Draft202012Validator.check_schema(schema)
+        validator = Draft202012Validator(schema)
+        for path in views.CONTRACT_DIR.glob("*.json"):
+            with self.subTest(resource=path.stem):
+                validator.validate(views.load_contract(path.stem))
+
     def test_check_rejects_stale_missing_and_extra_definitions(self):
         with tempfile.TemporaryDirectory() as tmp:
             directory = Path(tmp)
             shutil.copy(views.VIEW_DIR / "Patient.json", directory)
             (directory / "Patient.json").write_text("{}\n", encoding="utf-8")
             (directory / "notes.txt").write_text("x", encoding="utf-8")
-            self.assertEqual(sorted(views.problems(directory)), [
-                "extra definition: notes.txt", "missing definition: Observation.json",
-                "stale definition: Patient.json"])
+            problems = views.problems(directory)
+            self.assertIn("extra definition: notes.txt", problems)
+            self.assertIn("missing definition: Observation.json", problems)
+            self.assertIn("stale definition: Patient.json", problems)
 
-    def test_views_directory_holds_only_definitions(self):
-        self.assertEqual(sorted(p.name for p in views.VIEW_DIR.iterdir()), ["Observation.json", "Patient.json"])
+    def test_pilot_schema_digests_match_original_deployment_measurements(self):
+        observed = json.loads((PARITY / "reference" / "deployment.json").read_text(encoding="utf-8"))
+        for resource, measurement in observed["tables"].items():
+            metadata = views.load_contract(resource)
+            self.assertEqual(metadata["deployment"]["schemaSha256"], measurement["schemaSha256"])
+            self.assertEqual(metadata["provenance"]["creationLogSha256"], measurement["creationLogSha256"])
 
-    def test_every_silver_column_has_exactly_one_known_sourcing(self):
-        deployment = json.loads((PARITY / "reference" / "deployment.json").read_text(encoding="utf-8"))
-        for resource in views.RESOURCES:
-            contract = views.load_contract(resource)
-            columns = contract["silverColumns"]
-            self.assertEqual(len(columns), deployment["tables"][resource]["fields"])
-            self.assertEqual(contract["schemaSha256"], deployment["tables"][resource]["schemaSha256"])
-            self.assertEqual(len({c["name"] for c in columns}), len(columns))
-            extracted = {c["column"] for c in contract["extraction"]}
-            self.assertEqual(len(extracted), len(contract["extraction"]))
-            for column in columns:
-                self.assertIn(column["sourcing"], {"extracted", "derived", "fabric-assigned", "constant"})
-                self.assertLessEqual(set(column.get("from", [])), extracted, column["name"])
-            self.assertEqual({f for c in columns for f in c.get("from", [])}, extracted)
-            for gap in contract["unsupported"]:
-                self.assertTrue(gap["silverColumn"] and gap["path"] and gap["input"] and gap["reason"])
-
-    def test_contract_names_match_the_deployed_schema(self):
-        from fabric_silver.reference import deployed_schema
-        for resource in views.RESOURCES:
-            schema = deployed_schema(hds_deployment_log(resource))
-            self.assertEqual([c["name"] for c in views.load_contract(resource)["silverColumns"]], schema.names)
-
-    def test_pinned_tool_manifest_is_unchanged(self):
-        manifest = json.loads((ROOT / ".config" / "dotnet-tools.json").read_text(encoding="utf-8"))
-        self.assertEqual(manifest["tools"]["ignixa.sqlonfhir.cli"]["version"], "0.6.82")
-
-    def test_coverage_resources_populate_every_extracted_column(self):
-        for resource in views.RESOURCES:
-            for column in views.load_contract(resource)["extraction"]:
-                populated = [r for r in COVERAGE[resource] if source_key(column["path"]) in r]
-                self.assertTrue(populated, f"{resource}.{column['column']} is never populated")
+    def test_reference_scenario_uses_the_expected_source_bytes(self):
+        manifest = json.loads((PARITY / "batches.json").read_text(encoding="utf-8"))
+        for item in manifest["inputs"].values():
+            with self.subTest(input=item["path"]):
+                self.assertEqual(hashlib.sha256((PARITY / item["path"]).read_bytes()).hexdigest(),
+                                 item["sha256"])
 
 
 class CliSelectionTests(unittest.TestCase):
@@ -296,6 +278,16 @@ class CliSelectionTests(unittest.TestCase):
 class PinnedCliBlockerTests(unittest.TestCase):
     """Characterizes the upstream blocker; fails loudly if the pinned CLI is missing."""
 
+    def test_pinned_cli_rounds_wide_scalar_decimals_before_writing_parquet(self):
+        wide = "123456789012345678.123456789012345678"
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            source = tmp / "ChargeItem.ndjson"
+            source.write_text('{"resourceType":"ChargeItem","id":"wide","factorOverride":' + wide + '}\n',
+                              encoding="utf-8")
+            table = extract(PINNED, views.VIEW_DIR / "ChargeItem.json", source, tmp / "out.parquet")
+        self.assertEqual(table["factorOverride"][0].as_py(), Decimal("123456789012345678.123456789010000000"))
+
     def test_pinned_cli_loses_complex_collection_content(self):
         source = read_ndjson(PARITY / "input" / "east" / "initial" / "Observation.ndjson")[0]
         view = views.make_view("Observation", [
@@ -309,6 +301,29 @@ class PinnedCliBlockerTests(unittest.TestCase):
         self.assertEqual(len(actual), 2, "the pinned CLI still reports both codings")
         self.assertNotEqual(actual, source["code"]["coding"], "pinned CLI now round-trips; adopt it")
         self.assertEqual(actual, [None, None], "pinned CLI emits null for each complex element")
+
+    def test_all_resource_views_run_and_write_the_declared_parquet_columns(self):
+        # This is an engine smoke test, not evidence of populated-field or Silver parity.
+        run_cli(PINNED, "r4", "validate", "--views", str(views.VIEW_DIR))
+        entries = json.loads((views.PACK / "catalog.json").read_text(encoding="utf-8"))["resources"]
+        with tempfile.TemporaryDirectory() as tmp:
+            inputs, output = Path(tmp) / "in", Path(tmp) / "out"
+            inputs.mkdir()
+            output.mkdir()
+            for entry in entries:
+                r = entry["resource"]
+                write_ndjson(inputs / f"{r}.ndjson", [{"resourceType": r, "id": "example", "language": "en"}])
+            run_cli(PINNED, "r4", "run", "--views", str(views.VIEW_DIR), "--input", str(inputs),
+                    "--input-pattern", "{resource}.ndjson", "--out", str(output), "--format", "parquet")
+            self.assertEqual({p.stem for p in output.glob("*.parquet")}, {e["resource"] for e in entries})
+            for entry in entries:
+                r = entry["resource"]
+                with self.subTest(resource=r):
+                    table = pq.read_table(output / f"{r}.parquet")
+                    columns = views.load_contract(r)["projection"]["columns"]
+                    self.assertEqual(table.column_names, [c["name"] for c in columns])
+                    self.assertEqual(table["id"].to_pylist(), ["example"])
+                    self.assertEqual(table["language"].to_pylist(), ["en"])
 
 
 class ExtractionTests(unittest.TestCase):
@@ -338,6 +353,28 @@ class ExtractionTests(unittest.TestCase):
 
     def test_generated_views_validate(self):
         run_cli(self.cli, "r4", "validate", "--views", str(views.VIEW_DIR))
+
+    def test_non_pilot_projections_preserve_populated_source_fields(self):
+        examples = {
+            "Condition": {"clinicalStatus": {"coding": [coding("active"), coding("other")]},
+                          "onsetDateTime": "2025-03"},
+            "Encounter": {"status": "finished", "class": coding("AMB"),
+                          "participant": [{"individual": {"reference": "Practitioner/p1"}}]},
+            "MedicationRequest": {"status": "active", "intent": "order",
+                                  "medicationReference": {"reference": "Medication/m1"}},
+        }
+        for resource, fields in examples.items():
+            with self.subTest(resource=resource):
+                source = {"resourceType": resource, "id": "example", **fields}
+                path = self.tmp / f"{resource}.ndjson"
+                write_ndjson(path, [source])
+                table = self.run_view(resource, path)
+                columns = views.load_contract(resource)["projection"]["columns"]
+                by_key = {source_key(c["path"]): c for c in columns}
+                for key in fields:
+                    column = by_key[key]
+                    self.assertEqual(actual_cell(column, table[column["name"]][0].as_py()),
+                                     expected_cell(column, source), f"{resource}.{key}")
 
     def test_each_manifest_file_extracts_separately_without_loss(self):
         manifest = json.loads((PARITY / "batches.json").read_text(encoding="utf-8"))

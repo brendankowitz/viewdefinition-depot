@@ -1,0 +1,2040 @@
+{
+  "contractFormatVersion": "1",
+  "fhirVersion": "4.0.1",
+  "hdsVersion": "1.4.0",
+  "resource": "ExplanationOfBenefit",
+  "table": "ExplanationOfBenefit",
+  "deployment": {
+    "schemaSha256": "7489076051cdce7d51252fcbc47bacc49a3fcd1824c9bf9fed1bd011446b3da9",
+    "schemaStringSha256": "6e644eed2c171f74dce46554c3433aeb56f1d3135165bd742e3db4802d01ac70",
+    "fields": [
+      [
+        "msftModifiedDatetime",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "id",
+        true,
+        "string"
+      ],
+      [
+        "resourceType",
+        true,
+        "string"
+      ],
+      [
+        "msftSourceSystem",
+        true,
+        "string"
+      ],
+      [
+        "msftFilePath",
+        true,
+        "string"
+      ],
+      [
+        "extension",
+        true,
+        "string"
+      ],
+      [
+        "meta",
+        true,
+        "@143e6da9ca880a1d1ce8fadd32e9f99ffdb31552988fe9357c07ca6cca9e8598"
+      ],
+      [
+        "implicitRules",
+        true,
+        "string"
+      ],
+      [
+        "language",
+        true,
+        "string"
+      ],
+      [
+        "text",
+        true,
+        "@50e85895ae8ef1cbf352c1af7615c7a73a79317a4cdd6fae2a1a7d7867378f37"
+      ],
+      [
+        "contained",
+        true,
+        "@bf858f0d5548b8d080ea47117c2694bb5e8a2f3fd293eb15c7a5506b70accf6b"
+      ],
+      [
+        "identifier",
+        true,
+        "@43addfa6565aaf3a5cc43af77a4247279f369e563ac80601408301ff8da009f5"
+      ],
+      [
+        "status",
+        true,
+        "string"
+      ],
+      [
+        "type",
+        true,
+        "@1db4e29d5405e2f93fd73ab2b661ad10c8a34274fbe993675a290d17782d7c64"
+      ],
+      [
+        "subType",
+        true,
+        "@1db4e29d5405e2f93fd73ab2b661ad10c8a34274fbe993675a290d17782d7c64"
+      ],
+      [
+        "use",
+        true,
+        "string"
+      ],
+      [
+        "patient",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "billablePeriod",
+        true,
+        "@424489ee89a7ad617107999d9849854f367796dd0c362df3135246236ce1b196"
+      ],
+      [
+        "created",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "enterer",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "insurer",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "provider",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "priority",
+        true,
+        "@1db4e29d5405e2f93fd73ab2b661ad10c8a34274fbe993675a290d17782d7c64"
+      ],
+      [
+        "fundsReserveRequested",
+        true,
+        "@1db4e29d5405e2f93fd73ab2b661ad10c8a34274fbe993675a290d17782d7c64"
+      ],
+      [
+        "fundsReserve",
+        true,
+        "@1db4e29d5405e2f93fd73ab2b661ad10c8a34274fbe993675a290d17782d7c64"
+      ],
+      [
+        "related",
+        true,
+        "@f968d819c929bbfeaf8f42fa6685daf89b5af03124c608f75cb88c765e21dea8"
+      ],
+      [
+        "prescription",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "originalPrescription",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "payee",
+        true,
+        "@cf6daf97a2bcdf7051ba8caad9374cbfa22aadb01a0373d8bafc74e6cc4bf8bf"
+      ],
+      [
+        "referral",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "facility",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "claim",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "claimResponse",
+        true,
+        "@93be9f938a1be922b316be5e6b342c5f523fa1bcefb39855df81fbea5191f339"
+      ],
+      [
+        "outcome",
+        true,
+        "string"
+      ],
+      [
+        "disposition",
+        true,
+        "string"
+      ],
+      [
+        "preAuthRef",
+        true,
+        "@bf858f0d5548b8d080ea47117c2694bb5e8a2f3fd293eb15c7a5506b70accf6b"
+      ],
+      [
+        "preAuthRefPeriod",
+        true,
+        "@edaea668ff3830964473194825d1d0d0d7a91129e243c7458feb9484337fecd1"
+      ],
+      [
+        "careTeam",
+        true,
+        "@9bdd18afd55b2c81be6358e5df8666cc4959d779ed49f6017e9b8c9f0e416c74"
+      ],
+      [
+        "supportingInfo",
+        true,
+        "@306a0a5976c656a3a52d3c5d28bfca65bbf8d54261baf57ab9a52d26140664da"
+      ],
+      [
+        "diagnosis",
+        true,
+        "@929cd28b196298b247a5e59879de2912b51f5b360c92adf7b643217b9d585e84"
+      ],
+      [
+        "procedure",
+        true,
+        "@07478fbf2f800a94536c55f91f8c1deb0a15e2b7289abae8d999b1a73fd5a3f3"
+      ],
+      [
+        "precedence",
+        true,
+        "int32"
+      ],
+      [
+        "insurance",
+        true,
+        "@5f77e8096b6de2d696a072b10817bd546e9e74d5c0d7322559738339ef4161ee"
+      ],
+      [
+        "accident",
+        true,
+        "@fb0fb4c9be4f10f09681e751db593948f8b797922c9e0b33231abe4665ab1c55"
+      ],
+      [
+        "item",
+        true,
+        "@e789a45010eb5e0bac2c069c96eb344d2194f0a0bb76c112666d0ff05d5851e7"
+      ],
+      [
+        "addItem",
+        true,
+        "@5da06f83fe0ab37f39418a9e8a14811a72edd70e4c46781929376797b36166f5"
+      ],
+      [
+        "adjudication",
+        true,
+        "@24b5d083b5aacfda25820128de8e6140eb1525924e6cf4e2682ae171573b90cf"
+      ],
+      [
+        "total",
+        true,
+        "@7ada04bd095a4a3208ab3ae0c20a6ae4bc1aca419d488300fa9cde681818c2eb"
+      ],
+      [
+        "payment",
+        true,
+        "@c28e4c95f881c447b004dcf29e8ebfe6b667a5133664bdefc9110a1cec07d8d3"
+      ],
+      [
+        "formCode",
+        true,
+        "@1db4e29d5405e2f93fd73ab2b661ad10c8a34274fbe993675a290d17782d7c64"
+      ],
+      [
+        "form",
+        true,
+        "@4398cdc8a233da569d7726ddcfd67f7325e31d4cac1ef744b2a932fadaad6f1a"
+      ],
+      [
+        "processNote",
+        true,
+        "@cf3dfd4f7c8062ac6f7886329e5057b7e50657f58b36846f03888fee1b7c6434"
+      ],
+      [
+        "benefitPeriod",
+        true,
+        "@424489ee89a7ad617107999d9849854f367796dd0c362df3135246236ce1b196"
+      ],
+      [
+        "benefitBalance",
+        true,
+        "@7c42a94e0b952ec9fad091dbb27aa686ebfa85f78d760902229aecbd277c5023"
+      ],
+      [
+        "meta_lastUpdated",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "meta_lastUpdatedOrig",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "identifierOrig",
+        true,
+        "@2a1242fc9d47b24256b3e26abc24e80d8a8af3608883e46c7ca54911a18b49cd"
+      ],
+      [
+        "idOrig",
+        true,
+        "string"
+      ],
+      [
+        "createdOrig",
+        true,
+        "timestamp[us, tz=UTC]"
+      ],
+      [
+        "meta_string",
+        true,
+        "string"
+      ],
+      [
+        "text_string",
+        true,
+        "string"
+      ],
+      [
+        "contained_string",
+        true,
+        "string"
+      ],
+      [
+        "identifier_string",
+        true,
+        "string"
+      ],
+      [
+        "type_string",
+        true,
+        "string"
+      ],
+      [
+        "subType_string",
+        true,
+        "string"
+      ],
+      [
+        "patient_string",
+        true,
+        "string"
+      ],
+      [
+        "billablePeriod_string",
+        true,
+        "string"
+      ],
+      [
+        "enterer_string",
+        true,
+        "string"
+      ],
+      [
+        "insurer_string",
+        true,
+        "string"
+      ],
+      [
+        "provider_string",
+        true,
+        "string"
+      ],
+      [
+        "priority_string",
+        true,
+        "string"
+      ],
+      [
+        "fundsReserveRequested_string",
+        true,
+        "string"
+      ],
+      [
+        "fundsReserve_string",
+        true,
+        "string"
+      ],
+      [
+        "related_string",
+        true,
+        "string"
+      ],
+      [
+        "prescription_string",
+        true,
+        "string"
+      ],
+      [
+        "originalPrescription_string",
+        true,
+        "string"
+      ],
+      [
+        "payee_string",
+        true,
+        "string"
+      ],
+      [
+        "referral_string",
+        true,
+        "string"
+      ],
+      [
+        "facility_string",
+        true,
+        "string"
+      ],
+      [
+        "claim_string",
+        true,
+        "string"
+      ],
+      [
+        "claimResponse_string",
+        true,
+        "string"
+      ],
+      [
+        "preAuthRef_string",
+        true,
+        "string"
+      ],
+      [
+        "preAuthRefPeriod_string",
+        true,
+        "string"
+      ],
+      [
+        "careTeam_string",
+        true,
+        "string"
+      ],
+      [
+        "supportingInfo_string",
+        true,
+        "string"
+      ],
+      [
+        "diagnosis_string",
+        true,
+        "string"
+      ],
+      [
+        "procedure_string",
+        true,
+        "string"
+      ],
+      [
+        "insurance_string",
+        true,
+        "string"
+      ],
+      [
+        "accident_string",
+        true,
+        "string"
+      ],
+      [
+        "item_string",
+        true,
+        "string"
+      ],
+      [
+        "addItem_string",
+        true,
+        "string"
+      ],
+      [
+        "adjudication_string",
+        true,
+        "string"
+      ],
+      [
+        "total_string",
+        true,
+        "string"
+      ],
+      [
+        "payment_string",
+        true,
+        "string"
+      ],
+      [
+        "formCode_string",
+        true,
+        "string"
+      ],
+      [
+        "form_string",
+        true,
+        "string"
+      ],
+      [
+        "processNote_string",
+        true,
+        "string"
+      ],
+      [
+        "benefitPeriod_string",
+        true,
+        "string"
+      ],
+      [
+        "benefitBalance_string",
+        true,
+        "string"
+      ],
+      [
+        "identifierOrig_string",
+        true,
+        "string"
+      ],
+      [
+        "msftCreatedDatetime",
+        true,
+        "timestamp[us, tz=UTC]"
+      ]
+    ]
+  },
+  "provenance": {
+    "release": "https://www.microsoft.com/en-us/download/details.aspx?id=108754",
+    "creationLogPath": "hds-build-artifacts/healthcare-tables/1.4.0/Silver/ExplanationOfBenefit/_delta_log/00000000000000000000.json",
+    "creationLogSha256": "aa45c292fd781f7c2f360284eb1de9abc891544ae00c01c47865d1712d18e0bd",
+    "sourceArtifactSha256": {
+      "hds-build-artifacts/healthcare-configuration/1.4.0/_internal/fhir4/schema/silver/explanationofbenefit.avsc": "4ab2fc7f60316034ec0395c533ed4885f6ecc2862fbbd81b3b4f6920d854bcfd"
+    },
+    "fhirStructureDefinition": {
+      "canonical": "http://hl7.org/fhir/StructureDefinition/ExplanationOfBenefit",
+      "packagePath": "package/StructureDefinition-ExplanationOfBenefit.json",
+      "sha256": "5381af4573490899ecee78da3e64f80272c77bf1c748835b95732f6ebda6d1e4"
+    }
+  },
+  "projection": {
+    "view": "views/r4/fabric-silver-hds/ExplanationOfBenefit.json",
+    "columns": [
+      {
+        "name": "id",
+        "path": "id",
+        "type": "string",
+        "fhirElement": "ExplanationOfBenefit.id",
+        "fhirType": "string",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "id",
+          "idOrig"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "meta",
+        "path": "meta",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.meta",
+        "fhirType": "Meta",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "meta",
+          "meta_lastUpdated",
+          "meta_lastUpdatedOrig",
+          "meta_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "implicitRules",
+        "path": "implicitRules",
+        "type": "string",
+        "fhirElement": "ExplanationOfBenefit.implicitRules",
+        "fhirType": "uri",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "implicitRules"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "language",
+        "path": "language",
+        "type": "string",
+        "fhirElement": "ExplanationOfBenefit.language",
+        "fhirType": "code",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "language"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "text",
+        "path": "text",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.text",
+        "fhirType": "Narrative",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "text",
+          "text_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "contained",
+        "path": "contained",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.contained",
+        "fhirType": "Resource",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "contained",
+          "contained_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "extension",
+        "path": "extension",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.extension",
+        "fhirType": "Extension",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "extension"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "modifierExtension",
+        "path": "modifierExtension",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.modifierExtension",
+        "fhirType": "Extension",
+        "min": 0,
+        "max": "*",
+        "targetFields": [],
+        "mappingKind": "unsupported",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "identifier",
+        "path": "identifier",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.identifier",
+        "fhirType": "Identifier",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "identifier",
+          "identifierOrig",
+          "identifier_string",
+          "identifierOrig_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "status",
+        "path": "status",
+        "type": "string",
+        "fhirElement": "ExplanationOfBenefit.status",
+        "fhirType": "code",
+        "min": 1,
+        "max": "1",
+        "targetFields": [
+          "status"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "type",
+        "path": "type",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.type",
+        "fhirType": "CodeableConcept",
+        "min": 1,
+        "max": "1",
+        "targetFields": [
+          "type",
+          "type_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "subType",
+        "path": "subType",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.subType",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "subType",
+          "subType_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "use",
+        "path": "use",
+        "type": "string",
+        "fhirElement": "ExplanationOfBenefit.use",
+        "fhirType": "code",
+        "min": 1,
+        "max": "1",
+        "targetFields": [
+          "use"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "patient",
+        "path": "patient",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.patient",
+        "fhirType": "Reference",
+        "min": 1,
+        "max": "1",
+        "targetFields": [
+          "patient",
+          "patient_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "billablePeriod",
+        "path": "billablePeriod",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.billablePeriod",
+        "fhirType": "Period",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "billablePeriod",
+          "billablePeriod_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "created",
+        "path": "created",
+        "type": "string",
+        "fhirElement": "ExplanationOfBenefit.created",
+        "fhirType": "dateTime",
+        "min": 1,
+        "max": "1",
+        "targetFields": [
+          "created",
+          "createdOrig"
+        ],
+        "mappingKind": "derived",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "enterer",
+        "path": "enterer",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.enterer",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "enterer",
+          "enterer_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "insurer",
+        "path": "insurer",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.insurer",
+        "fhirType": "Reference",
+        "min": 1,
+        "max": "1",
+        "targetFields": [
+          "insurer",
+          "insurer_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "provider",
+        "path": "provider",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.provider",
+        "fhirType": "Reference",
+        "min": 1,
+        "max": "1",
+        "targetFields": [
+          "provider",
+          "provider_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "priority",
+        "path": "priority",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.priority",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "priority",
+          "priority_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "fundsReserveRequested",
+        "path": "fundsReserveRequested",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.fundsReserveRequested",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "fundsReserveRequested",
+          "fundsReserveRequested_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "fundsReserve",
+        "path": "fundsReserve",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.fundsReserve",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "fundsReserve",
+          "fundsReserve_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "related",
+        "path": "related",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.related",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "related",
+          "related_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "prescription",
+        "path": "prescription",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.prescription",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "prescription",
+          "prescription_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "originalPrescription",
+        "path": "originalPrescription",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.originalPrescription",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "originalPrescription",
+          "originalPrescription_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "payee",
+        "path": "payee",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.payee",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "payee",
+          "payee_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "referral",
+        "path": "referral",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.referral",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "referral",
+          "referral_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "facility",
+        "path": "facility",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.facility",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "facility",
+          "facility_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "claim",
+        "path": "claim",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.claim",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "claim",
+          "claim_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "claimResponse",
+        "path": "claimResponse",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.claimResponse",
+        "fhirType": "Reference",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "claimResponse",
+          "claimResponse_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "outcome",
+        "path": "outcome",
+        "type": "string",
+        "fhirElement": "ExplanationOfBenefit.outcome",
+        "fhirType": "code",
+        "min": 1,
+        "max": "1",
+        "targetFields": [
+          "outcome"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "disposition",
+        "path": "disposition",
+        "type": "string",
+        "fhirElement": "ExplanationOfBenefit.disposition",
+        "fhirType": "string",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "disposition"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "preAuthRef",
+        "path": "preAuthRef",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.preAuthRef",
+        "fhirType": "string",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "preAuthRef",
+          "preAuthRef_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "preAuthRefPeriod",
+        "path": "preAuthRefPeriod",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.preAuthRefPeriod",
+        "fhirType": "Period",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "preAuthRefPeriod",
+          "preAuthRefPeriod_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "careTeam",
+        "path": "careTeam",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.careTeam",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "careTeam",
+          "careTeam_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "supportingInfo",
+        "path": "supportingInfo",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.supportingInfo",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "supportingInfo",
+          "supportingInfo_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "diagnosis",
+        "path": "diagnosis",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.diagnosis",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "diagnosis",
+          "diagnosis_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "procedure",
+        "path": "procedure",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.procedure",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "procedure",
+          "procedure_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "precedence",
+        "path": "precedence",
+        "type": "integer",
+        "fhirElement": "ExplanationOfBenefit.precedence",
+        "fhirType": "positiveInt",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "precedence"
+        ],
+        "mappingKind": "direct",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "insurance",
+        "path": "insurance",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.insurance",
+        "fhirType": "BackboneElement",
+        "min": 1,
+        "max": "*",
+        "targetFields": [
+          "insurance",
+          "insurance_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "accident",
+        "path": "accident",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.accident",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "accident",
+          "accident_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "item",
+        "path": "item",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.item",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "item",
+          "item_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "addItem",
+        "path": "addItem",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.addItem",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "addItem",
+          "addItem_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "adjudication",
+        "path": "adjudication",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.adjudication",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "adjudication",
+          "adjudication_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "total",
+        "path": "total",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.total",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "total",
+          "total_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "payment",
+        "path": "payment",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.payment",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "payment",
+          "payment_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "formCode",
+        "path": "formCode",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.formCode",
+        "fhirType": "CodeableConcept",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "formCode",
+          "formCode_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "form",
+        "path": "form",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.form",
+        "fhirType": "Attachment",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "form",
+          "form_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "processNote",
+        "path": "processNote",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.processNote",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "processNote",
+          "processNote_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "benefitPeriod",
+        "path": "benefitPeriod",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.benefitPeriod",
+        "fhirType": "Period",
+        "min": 0,
+        "max": "1",
+        "targetFields": [
+          "benefitPeriod",
+          "benefitPeriod_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      },
+      {
+        "name": "benefitBalance",
+        "path": "benefitBalance",
+        "type": "string",
+        "collection": true,
+        "fhirElement": "ExplanationOfBenefit.benefitBalance",
+        "fhirType": "BackboneElement",
+        "min": 0,
+        "max": "*",
+        "targetFields": [
+          "benefitBalance",
+          "benefitBalance_string"
+        ],
+        "mappingKind": "serialized",
+        "evidence": "source-derived"
+      }
+    ],
+    "targetMappings": [
+      {
+        "field": "msftModifiedDatetime",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "id",
+        "mappingKind": "derived",
+        "reason": "normalized-identity",
+        "evidence": "source-derived",
+        "sourceColumn": "id"
+      },
+      {
+        "field": "resourceType",
+        "mappingKind": "derived",
+        "reason": "resource-discriminator",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "msftSourceSystem",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "msftFilePath",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      },
+      {
+        "field": "extension",
+        "mappingKind": "serialized",
+        "reason": "complex-to-text",
+        "evidence": "source-derived",
+        "sourceColumn": "extension"
+      },
+      {
+        "field": "meta",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "implicitRules",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "implicitRules"
+      },
+      {
+        "field": "language",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "language"
+      },
+      {
+        "field": "text",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "text"
+      },
+      {
+        "field": "contained",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "contained"
+      },
+      {
+        "field": "identifier",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "identifier"
+      },
+      {
+        "field": "status",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "status"
+      },
+      {
+        "field": "type",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "type"
+      },
+      {
+        "field": "subType",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "subType"
+      },
+      {
+        "field": "use",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "use"
+      },
+      {
+        "field": "patient",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "patient"
+      },
+      {
+        "field": "billablePeriod",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "billablePeriod"
+      },
+      {
+        "field": "created",
+        "mappingKind": "derived",
+        "reason": "temporal-conversion",
+        "evidence": "source-derived",
+        "sourceColumn": "created"
+      },
+      {
+        "field": "enterer",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "enterer"
+      },
+      {
+        "field": "insurer",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "insurer"
+      },
+      {
+        "field": "provider",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "provider"
+      },
+      {
+        "field": "priority",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "priority"
+      },
+      {
+        "field": "fundsReserveRequested",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "fundsReserveRequested"
+      },
+      {
+        "field": "fundsReserve",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "fundsReserve"
+      },
+      {
+        "field": "related",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "related"
+      },
+      {
+        "field": "prescription",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "prescription"
+      },
+      {
+        "field": "originalPrescription",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "originalPrescription"
+      },
+      {
+        "field": "payee",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "payee"
+      },
+      {
+        "field": "referral",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "referral"
+      },
+      {
+        "field": "facility",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "facility"
+      },
+      {
+        "field": "claim",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "claim"
+      },
+      {
+        "field": "claimResponse",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "claimResponse"
+      },
+      {
+        "field": "outcome",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "outcome"
+      },
+      {
+        "field": "disposition",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "disposition"
+      },
+      {
+        "field": "preAuthRef",
+        "mappingKind": "derived",
+        "reason": "collection-to-array",
+        "evidence": "source-derived",
+        "sourceColumn": "preAuthRef"
+      },
+      {
+        "field": "preAuthRefPeriod",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "preAuthRefPeriod"
+      },
+      {
+        "field": "careTeam",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "careTeam"
+      },
+      {
+        "field": "supportingInfo",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "supportingInfo"
+      },
+      {
+        "field": "diagnosis",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "diagnosis"
+      },
+      {
+        "field": "procedure",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "procedure"
+      },
+      {
+        "field": "precedence",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "precedence"
+      },
+      {
+        "field": "insurance",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "insurance"
+      },
+      {
+        "field": "accident",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "accident"
+      },
+      {
+        "field": "item",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "item"
+      },
+      {
+        "field": "addItem",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "addItem"
+      },
+      {
+        "field": "adjudication",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "adjudication"
+      },
+      {
+        "field": "total",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "total"
+      },
+      {
+        "field": "payment",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "payment"
+      },
+      {
+        "field": "formCode",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "formCode"
+      },
+      {
+        "field": "form",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "form"
+      },
+      {
+        "field": "processNote",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "processNote"
+      },
+      {
+        "field": "benefitPeriod",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "benefitPeriod"
+      },
+      {
+        "field": "benefitBalance",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "benefitBalance"
+      },
+      {
+        "field": "meta_lastUpdated",
+        "mappingKind": "derived",
+        "reason": "nested-temporal-value",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "meta_lastUpdatedOrig",
+        "mappingKind": "derived",
+        "reason": "nested-temporal-value",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "identifierOrig",
+        "mappingKind": "derived",
+        "reason": "structured-target",
+        "evidence": "source-derived",
+        "sourceColumn": "identifier"
+      },
+      {
+        "field": "idOrig",
+        "mappingKind": "direct",
+        "reason": "source-value",
+        "evidence": "source-derived",
+        "sourceColumn": "id"
+      },
+      {
+        "field": "createdOrig",
+        "mappingKind": "derived",
+        "reason": "temporal-conversion",
+        "evidence": "source-derived",
+        "sourceColumn": "created"
+      },
+      {
+        "field": "meta_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "meta"
+      },
+      {
+        "field": "text_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "text"
+      },
+      {
+        "field": "contained_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "contained"
+      },
+      {
+        "field": "identifier_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "identifier"
+      },
+      {
+        "field": "type_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "type"
+      },
+      {
+        "field": "subType_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "subType"
+      },
+      {
+        "field": "patient_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "patient"
+      },
+      {
+        "field": "billablePeriod_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "billablePeriod"
+      },
+      {
+        "field": "enterer_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "enterer"
+      },
+      {
+        "field": "insurer_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "insurer"
+      },
+      {
+        "field": "provider_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "provider"
+      },
+      {
+        "field": "priority_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "priority"
+      },
+      {
+        "field": "fundsReserveRequested_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "fundsReserveRequested"
+      },
+      {
+        "field": "fundsReserve_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "fundsReserve"
+      },
+      {
+        "field": "related_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "related"
+      },
+      {
+        "field": "prescription_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "prescription"
+      },
+      {
+        "field": "originalPrescription_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "originalPrescription"
+      },
+      {
+        "field": "payee_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "payee"
+      },
+      {
+        "field": "referral_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "referral"
+      },
+      {
+        "field": "facility_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "facility"
+      },
+      {
+        "field": "claim_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "claim"
+      },
+      {
+        "field": "claimResponse_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "claimResponse"
+      },
+      {
+        "field": "preAuthRef_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "preAuthRef"
+      },
+      {
+        "field": "preAuthRefPeriod_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "preAuthRefPeriod"
+      },
+      {
+        "field": "careTeam_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "careTeam"
+      },
+      {
+        "field": "supportingInfo_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "supportingInfo"
+      },
+      {
+        "field": "diagnosis_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "diagnosis"
+      },
+      {
+        "field": "procedure_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "procedure"
+      },
+      {
+        "field": "insurance_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "insurance"
+      },
+      {
+        "field": "accident_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "accident"
+      },
+      {
+        "field": "item_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "item"
+      },
+      {
+        "field": "addItem_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "addItem"
+      },
+      {
+        "field": "adjudication_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "adjudication"
+      },
+      {
+        "field": "total_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "total"
+      },
+      {
+        "field": "payment_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "payment"
+      },
+      {
+        "field": "formCode_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "formCode"
+      },
+      {
+        "field": "form_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "form"
+      },
+      {
+        "field": "processNote_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "processNote"
+      },
+      {
+        "field": "benefitPeriod_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "benefitPeriod"
+      },
+      {
+        "field": "benefitBalance_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "benefitBalance"
+      },
+      {
+        "field": "identifierOrig_string",
+        "mappingKind": "derived",
+        "reason": "silver-json-serialization",
+        "evidence": "source-derived",
+        "sourceColumn": "identifier"
+      },
+      {
+        "field": "msftCreatedDatetime",
+        "mappingKind": "derived",
+        "reason": "ingestion-metadata",
+        "evidence": "source-derived"
+      }
+    ]
+  }
+}

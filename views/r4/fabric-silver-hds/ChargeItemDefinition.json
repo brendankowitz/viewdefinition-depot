@@ -1,0 +1,187 @@
+{
+  "resourceType": "ViewDefinition",
+  "name": "chargeitemdefinition_hds_projection",
+  "status": "draft",
+  "resource": "ChargeItemDefinition",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "select": [
+    {
+      "column": [
+        {
+          "name": "id",
+          "path": "id",
+          "type": "string"
+        },
+        {
+          "name": "meta",
+          "path": "meta",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "implicitRules",
+          "path": "implicitRules",
+          "type": "string"
+        },
+        {
+          "name": "language",
+          "path": "language",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "path": "text",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "contained",
+          "path": "contained",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "extension",
+          "path": "extension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "modifierExtension",
+          "path": "modifierExtension",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "url",
+          "path": "url",
+          "type": "string"
+        },
+        {
+          "name": "identifier",
+          "path": "identifier",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "version",
+          "path": "version",
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "path": "title",
+          "type": "string"
+        },
+        {
+          "name": "derivedFromUri",
+          "path": "derivedFromUri",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "partOf",
+          "path": "partOf",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "replaces",
+          "path": "replaces",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "string"
+        },
+        {
+          "name": "experimental",
+          "path": "experimental",
+          "type": "boolean"
+        },
+        {
+          "name": "date",
+          "path": "date",
+          "type": "string"
+        },
+        {
+          "name": "publisher",
+          "path": "publisher",
+          "type": "string"
+        },
+        {
+          "name": "contact",
+          "path": "contact",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "description",
+          "path": "description",
+          "type": "string"
+        },
+        {
+          "name": "useContext",
+          "path": "useContext",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "jurisdiction",
+          "path": "jurisdiction",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "copyright",
+          "path": "copyright",
+          "type": "string"
+        },
+        {
+          "name": "approvalDate",
+          "path": "approvalDate",
+          "type": "string"
+        },
+        {
+          "name": "lastReviewDate",
+          "path": "lastReviewDate",
+          "type": "string"
+        },
+        {
+          "name": "effectivePeriod",
+          "path": "effectivePeriod",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "code",
+          "path": "code",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "instance",
+          "path": "instance",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "applicability",
+          "path": "applicability",
+          "type": "string",
+          "collection": true
+        },
+        {
+          "name": "propertyGroup",
+          "path": "propertyGroup",
+          "type": "string",
+          "collection": true
+        }
+      ]
+    }
+  ]
+}
