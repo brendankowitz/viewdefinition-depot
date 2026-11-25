@@ -1,8 +1,9 @@
 """Read real Ignixa Parquet output back and compare it with the synthetic source.
 
 Evidence here is extraction-only: nothing in this file claims HDS parity.
-Set IGNIXA_PARITY_CLI to ``pinned`` to run the extraction tests against the
-repo-pinned CLI, or to the path of a built ``ignixa-sqlonfhir.dll``.
+Set IGNIXA_PARITY_CLI to the path of a built, collection-capable
+``ignixa-sqlonfhir.dll``. ``pinned`` selects the repo-pinned 0.6.82 CLI, which
+writes null for complex columns, so the extraction tests are expected to fail there.
 The development extraction tests skip only when IGNIXA_PARITY_CLI is unset.
 """
 
@@ -42,8 +43,11 @@ def selected_cli():
 
 def run_cli(cli, *args):
     done = subprocess.run(cli + list(args), cwd=ROOT, capture_output=True, text=True, encoding="utf-8")
-    # The CLI can exit 0 after a per-view failure, so surface its own failure marker too.
-    if done.returncode != 0 or "\u2717" in done.stdout + done.stderr:
+    output = done.stdout + done.stderr
+    # The CLI can exit 0 after a per-view failure; `validate` prints a failure mark,
+    # `run` prints ERROR lines and a failed/skipped count.
+    counts = re.findall(r"(\d+) (?:failed|skipped)", output)
+    if done.returncode != 0 or "\u2717" in output or "ERROR:" in output or any(int(c) for c in counts):
         raise AssertionError(f"CLI failed ({done.returncode}):\n{done.stdout}\n{done.stderr}")
     return done
 
@@ -220,9 +224,25 @@ class ContractTests(unittest.TestCase):
         schema = json.loads((views.PACK / "format.schema.json").read_text(encoding="utf-8"))
         Draft202012Validator.check_schema(schema)
         validator = Draft202012Validator(schema)
-        for path in views.CONTRACT_DIR.glob("*.json"):
+        paths = sorted(views.CONTRACT_DIR.glob("*.json"))
+        self.assertEqual(len(paths), 146)
+        for path in paths:
             with self.subTest(resource=path.stem):
                 validator.validate(views.load_contract(path.stem))
+
+    def test_published_schema_rejects_unknown_keys_and_trailing_newlines(self):
+        schema = json.loads((views.PACK / "format.schema.json").read_text(encoding="utf-8"))
+        validator = Draft202012Validator(schema)
+        contract = views.load_contract("Patient")
+        for mutate in (
+            lambda c: c.update(extra=1),
+            lambda c: c["projection"]["columns"][0].update(extra=1),
+            lambda c: c["deployment"].update(schemaSha256=c["deployment"]["schemaSha256"] + "\n"),
+            lambda c: c["projection"]["columns"][0].update(name="id\n"),
+        ):
+            mutated = json.loads(json.dumps(contract))
+            mutate(mutated)
+            self.assertFalse(validator.is_valid(mutated))
 
     def test_check_rejects_stale_missing_and_extra_definitions(self):
         with tempfile.TemporaryDirectory() as tmp:

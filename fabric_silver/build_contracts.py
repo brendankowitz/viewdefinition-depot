@@ -299,7 +299,10 @@ def public_inputs(pack, *, need_schema, need_fhir):
     paths = sorted((pack / "resources").glob("*.json"))
     require(len(paths) == 146, f"expected 146 public resource files, found {len(paths)}")
     for p in paths:
-        doc = json.loads(p.read_bytes())
+        try:
+            doc = json.loads(p.read_bytes())
+        except ValueError as error:
+            raise ValueError(f"{p.name}: invalid JSON ({error})") from None
         r = p.stem
         require(re.fullmatch("[A-Z][A-Za-z0-9]+", r) and doc["resource"] == r,
                 f"{r}: resource identity mismatch")
@@ -325,6 +328,7 @@ def render(value):
 
 def generate(pack, hds, fhir, materialize=False):
     """Validate all release identities before allowing any publication."""
+    require(hds or not materialize, "local metadata requires the HDS release")
     deployments, sources = {}, {}
     if not (hds and fhir):
         deployments, sources = public_inputs(pack, need_schema=not hds, need_fhir=not fhir)

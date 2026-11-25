@@ -9,6 +9,7 @@ from dataclasses import dataclass
 from datetime import date, datetime, timezone
 from decimal import Decimal
 from pathlib import Path
+from zoneinfo import ZoneInfoNotFoundError
 
 import pyarrow as pa
 import pyarrow.parquet as pq
@@ -101,7 +102,9 @@ def _read_snapshot(path, digest):
         raise ValueError(f"{path.stem}: cannot read Parquet snapshot") from None
     try:
         return schema, [_encoded(row) for row in table.to_pylist()]
-    except (ValueError, OverflowError, KeyError, pa.ArrowException):
+    except (ValueError, OverflowError, KeyError, pa.ArrowException) as error:
+        if isinstance(error, ZoneInfoNotFoundError):
+            raise ValueError(f"{path.stem}: timezone database missing; pip install tzdata") from None
         raise ValueError(f"{path.stem}: cannot decode typed Parquet values") from None
 
 

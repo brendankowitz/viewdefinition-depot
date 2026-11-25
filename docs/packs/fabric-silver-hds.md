@@ -23,11 +23,14 @@ For example, from the repository root in PowerShell:
 ```powershell
 dotnet tool restore
 dotnet tool run ignixa-sqlonfhir -- r4 validate --views views/r4/fabric-silver-hds
-dotnet tool run ignixa-sqlonfhir -- r4 run --views views/r4/fabric-silver-hds/Patient.json --input examples/r4/fabric-silver-hds/input/east/initial/Patient.ndjson --out PatientProjection.parquet --format parquet
+dotnet tool run ignixa-sqlonfhir -- r4 run --views views/r4/fabric-silver-hds/Patient.json --input examples/r4/fabric-silver-hds/input/east/initial/Patient.ndjson --out $env:TEMP\PatientProjection.parquet --format parquet
 ```
 
-**Collection limitation:** the pinned CLI (`0.6.82`) writes null elements
-for complex collection items even when the export succeeds. Don't use those
+**Collection limitation:** the pinned CLI (`0.6.82`) writes `null` for every
+complex-typed column even when the export succeeds. The generated views
+export every complex element, including single-valued ones such as
+`Observation.code`, as a JSON array (`[{…}]`), so all of them are affected
+(the pinned CLI yields `[null]`). Don't use those
 files when populated complex values matter. Use an Ignixa build containing
 [the collection fix](https://github.com/brendankowitz/ignixa-fhir/pull/549);
 replace `dotnet tool run ignixa-sqlonfhir --` above with
@@ -37,8 +40,8 @@ The [starter pack](fabric-silver.md) remains an alternative for selected
 fields tested with the pinned release.
 
 These are analytical projections, not a lossless copy of each FHIR
-resource. For example, a top-level primitive's JSON companion such as
-`_birthDate` is not a separate output column. The pinned CLI can also round
+resource. For example, extensions and ids on primitive values (such as
+`_birthDate`) are not exported at all. The pinned CLI can also round
 wide scalar decimals in `ChargeItem.factorOverride`, `Media.duration`, and
 `TestReport.score` before writing Parquet. In a `ChargeItem` export,
 `123456789012345678.123456789012345678` became
@@ -63,6 +66,7 @@ not a substitute for a Delta transaction.
 ## What is checked
 
 ```powershell
+dotnet tool restore
 python -m pip install -r requirements-test.txt -r requirements-parity.txt
 python -m fabric_silver.build_contracts --check
 python -m fabric_silver.views --check
@@ -126,12 +130,14 @@ are schema measurements, **not captured rows**. An operator comparing
 Silver behavior must run those events on a disposable synthetic HDS
 deployment with the original configuration, keep the checkpoints between
 events, and freeze both committed Delta table versions after each event.
-For each input record the stock HDS path segment (`sourceToken`) separately
+For each input, record the source path segment you supplied to stock HDS
+(`sourceToken`) separately
 from the emitted `msftSourceSystem` (`sourceSystem`) and `msftFilePath`
 (`observedFilePath`). Preserve a credential-free synthetic OneLake URI
-verbatim if that's what HDS emits. The fixture's `logicalPath` and optional
-`callerNamespace` describe caller inputs; don't substitute them for emitted
-values. Include partial dates, source identifiers
+verbatim if that's what HDS emits. In `batches.json`, `logicalPath` and
+`callerNamespace` describe caller inputs and map to the capture fields of the
+same names; never copy them into the capture's `sourceSystem` or
+`observedFilePath`. Include partial dates, source identifiers
 and assigners, relative and external references, tied versions, and exact
 `_string` text in capture cases rather than inferring them from schemas.
 
@@ -141,7 +147,8 @@ NDJSON row. Put **every** deployed column in `values`, including nulls.
 Keep structs as objects and arrays in their observed order. Encode decimals
 as fixed-point strings with their scale (e.g. `"1.500000000000000000"`),
 dates as `YYYY-MM-DD`, and timestamps as UTC ISO text with `Z` and six
-fractional digits when microseconds are nonzero. Preserve `_string` values
+fractional digits when microseconds are nonzero (and no fractional part when
+they are zero, e.g. `2025-01-01T00:00:00Z`). Preserve `_string` values
 verbatim rather than parsing and reserializing their JSON. Only the two
 ingestion clocks may have inclusive `timeBounds`; their observed values
 still belong in `values`.

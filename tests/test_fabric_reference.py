@@ -249,7 +249,7 @@ class IngressTests(unittest.TestCase):
         self.assertEqual([e["name"] for e in manifest["events"]], ["initial", "replay", "update"])
         initial, replay, update = (e["inputs"] for e in manifest["events"])
         east, west = (f"https://{name}.example.test/fhir" for name in ("east", "west"))
-        self.assertEqual(replay, [k for k in initial if inputs[k]["sourceSystem"] == east])
+        self.assertEqual(replay, [k for k in initial if inputs[k]["callerNamespace"] == east])
         self.assertEqual(len(update), 1)
         self.assertNotIn(update[0], initial)
         self.assertEqual(set(initial + update), set(inputs))
@@ -264,9 +264,9 @@ class IngressTests(unittest.TestCase):
             self.assertTrue(resources[key])
             for row in resources[key]:
                 self.assertEqual(row["resourceType"], f["resource"])
-                self.assertEqual(row["meta"]["source"], f["sourceSystem"])
+                self.assertEqual(row["meta"]["source"], f["callerNamespace"])
 
-        patients = {inputs[k]["sourceSystem"]: resources[k][0] for k in initial if inputs[k]["resource"] == "Patient"}
+        patients = {inputs[k]["callerNamespace"]: resources[k][0] for k in initial if inputs[k]["resource"] == "Patient"}
         self.assertEqual(set(patients), {east, west})
         pid = patients[east]["id"]
         self.assertEqual(pid, patients[west]["id"])
@@ -274,7 +274,7 @@ class IngressTests(unittest.TestCase):
         self.assertGreaterEqual(len({(i["system"], i["value"]) for i in patients[east]["identifier"]}), 2)
         self.assertEqual(len(set(patients[east]["name"][0]["given"])), 2)
         new = resources[update[0]][0]
-        self.assertEqual((inputs[update[0]]["sourceSystem"], new["resourceType"], new["id"]), (east, "Patient", pid))
+        self.assertEqual((inputs[update[0]]["callerNamespace"], new["resourceType"], new["id"]), (east, "Patient", pid))
         self.assertGreater(int(new["meta"]["versionId"]), int(patients[east]["meta"]["versionId"]))
         self.assertGreater(datetime.fromisoformat(new["meta"]["lastUpdated"]),
                            datetime.fromisoformat(patients[east]["meta"]["lastUpdated"]))

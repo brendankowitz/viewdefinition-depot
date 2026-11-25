@@ -137,6 +137,7 @@ class PublicContracts(unittest.TestCase):
             shutil.copytree(ROOT / PACK, dest)
             f = dest / "resources/Observation.json"
             original = f.read_bytes()
+            self.assertEqual(build.main(["--check"], root=root), 0, "pristine copy must pass")
             for change in ("path", "cardinality", "nested fields", "log hash", "extra"):
                 with self.subTest(change=change), contextlib.redirect_stderr(io.StringIO()):
                     c = json.loads(original)
@@ -153,6 +154,13 @@ class PublicContracts(unittest.TestCase):
                     f.write_text(json.dumps(c, indent=2) + "\n", encoding="utf-8")
                     self.assertNotEqual(build.main(["--check"], root=root), 0)
                     self.assertTrue(f.is_file(), "check must not remove files")
+
+    def test_local_metadata_without_the_hds_release_is_rejected(self):
+        from fabric_silver import build_contracts as build
+
+        with contextlib.redirect_stderr(io.StringIO()):
+            with self.assertRaises(ValueError):
+                build.generate(ROOT / PACK, None, None, materialize=True)
 
     def test_wrong_hl7_package_is_rejected_before_publication(self):
         from fabric_silver import build_contracts as build

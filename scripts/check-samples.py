@@ -3,6 +3,7 @@ from datetime import date, datetime, timezone
 from decimal import Decimal
 from pathlib import Path
 import json
+import re
 import subprocess
 import sys
 import tempfile
@@ -35,6 +36,24 @@ def fail(message):
     raise SystemExit(1)
 
 
+def run_cli(args):
+    """Run the CLI and fail on its own failure markers: it exits 0 after per-view errors."""
+    try:
+        done = subprocess.run(
+            CLI + args, cwd=ROOT, capture_output=True, text=True, encoding="utf-8"
+        )
+    except FileNotFoundError:
+        fail("dotnet was not found on PATH")
+    output = done.stdout + done.stderr
+    sys.stdout.buffer.write(output.encode("utf-8"))
+    sys.stdout.flush()
+    counts = re.findall(r"(\d+) (?:failed|skipped)", output)
+    if done.returncode or "\u2717" in output or "ERROR:" in output or any(
+        int(count) for count in counts
+    ):
+        fail(f"ignixa-sqlonfhir {args[1]} reported failures (exit {done.returncode})")
+
+
 def matches(actual, expected):
     if isinstance(actual, datetime) and isinstance(expected, str):
         expected_time = datetime.fromisoformat(expected.replace("Z", "+00:00"))
@@ -52,7 +71,7 @@ def matches(actual, expected):
     if isinstance(actual, date) and not isinstance(actual, datetime):
         return isinstance(expected, str) and actual.isoformat() == expected
     if isinstance(actual, Decimal):
-        return actual == Decimal(str(expected))
+        return expected is not None and actual == Decimal(str(expected))
     if isinstance(actual, str) and isinstance(expected, (list, dict)):
         try:
             return json.loads(actual) == expected
@@ -213,15 +232,15 @@ def main():
             )
         contracts.append(contract)
 
-    subprocess.run(
-        CLI + ["r4", "validate", "--views", str(VIEW_DIR)],
-        cwd=ROOT,
-        check=True,
-    )
+    views = {path.name for path in VIEW_DIR.glob("*.json")}
+    contract_names = {path.name for path in contract_paths}
+    if views != contract_names:
+        fail(f"views and contracts differ: {sorted(views ^ contract_names)}")
+
+    run_cli(["r4", "validate", "--views", str(VIEW_DIR)])
     with tempfile.TemporaryDirectory(prefix="fabric-silver-r4-") as directory:
-        subprocess.run(
-            CLI
-            + [
+        run_cli(
+            [
                 "r4",
                 "run",
                 "--views",
@@ -234,9 +253,7 @@ def main():
                 "parquet",
                 "--var",
                 "sourceSystem=example-east",
-            ],
-            cwd=ROOT,
-            check=True,
+            ]
         )
         for contract in contracts:
             parquet_path = Path(directory) / f"{contract['resource']}.parquet"

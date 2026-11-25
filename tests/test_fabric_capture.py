@@ -111,10 +111,12 @@ class CaptureTests(unittest.TestCase):
             code = self.capture.main([str(self.path), str(self.candidates), *args])
         return code, stdout.getvalue(), stderr.getvalue()
 
-    def reject(self, doc):
+    def reject(self, doc, reason=None):
         code, out, err = self.cli(doc)
         self.assertNotEqual(code, 0, out)
         self.assertTrue(err)
+        if reason:
+            self.assertIn(reason, err)
         self.assertNotIn("Traceback", err)
         for private in ("private-unit-id", "sig=secret", "user:password"):
             self.assertNotIn(private, err)

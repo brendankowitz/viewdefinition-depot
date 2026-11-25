@@ -174,6 +174,10 @@ def main(argv=None):
     except ValueError as error:
         print(f"capture: {error}", file=sys.stderr)
         return 1
+    except FileExistsError:
+        print(f"capture: snapshots matched, but report {args.report} already exists; choose a new path",
+              file=sys.stderr)
+        return 1
     except OSError:
         print("capture: cannot read local files or create a new report", file=sys.stderr)
         return 1
